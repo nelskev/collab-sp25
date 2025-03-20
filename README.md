@@ -26,8 +26,23 @@ project-root/
 │
 │── frontend-web/             # React Web App
 │   ├── src/
+|   |   ├── assets            # Images/Fonts/Styles/Scripts
 │   │   ├── components/       # Reusable UI components
+|   |   |   ├── Appointments.jsx
+|   |   |   ├── MissionStatement.jsx
+|   |   |   ├── Navbar.jsx
+|   |   |   ├── Services.jsx
+|   |   |   ├── Footer.jsx
 │   │   ├── pages/            # Page components
+|   |   |   ├── HomePage.jsx
+|   |   |   ├── AppointmentsPage.jsx
+│   │   ├── admin/            # Admin Section
+|   │   │   ├── components/   # Admin Components
+|   |   |   │   ├── AdminNavbar.jsx 
+|   |   |   │   ├── EmployeeCard.jsx  # EXAMPLE PURPOSE ONLY
+|   |   |   │   ├── EmployeeForm.jsx  # EXAMPLE PURPOSE ONLY
+|   |   |   ├── pages/        # Admin Pages
+|   |   |   |   ├── AdminHomePage.jsx
 │   │   ├── context/          # Global state (React Context API)
 │   │   ├── App.js            # Main entry point
 │   ├── tests/                # Frontend tests
@@ -45,3 +60,25 @@ project-root/
 │
 │── README.md                 # Project documentation
 ```
+
+**For frontend React, from the root of collab-sp25:**
+
+```sh
+cd frontend
+npm install      # installs node modules as we don't upload those to Github
+npm run dev
+```
+**React is @: `http://localhost:5173/`**
+
+ 
+**For backend Express, from the root of collab-sp25:**
+
+```sh
+cd backend
+npm install
+npm start
+```
+
+**nodemon package listens to changes on server.js via: `http://localhost:8000/`**
+
+##### `http://localhost:8000/employees` will access MongoDB entity employees
