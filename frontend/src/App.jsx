@@ -21,7 +21,7 @@ function App() {
           </>
         }/>
         <Route path="/admin" element={<AdminHomePage />} />
-      </Routes>
+      </Routes>  
       </>
   )
 }

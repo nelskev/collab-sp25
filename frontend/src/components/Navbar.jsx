@@ -8,7 +8,7 @@ export default function Navbar() {
      {/* Top Bar  */}
     <div className="top-info-bar w-100 d-flex justify-content-between py-5 px-4 bg-white">
         <div className="carbon-background">
-
+  
              {/*/ ******* React Router Link HOME ******* /*/}
              {/* large Logo  */}
              <Link to="/"  className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0" href="index.html">
@@ -75,5 +75,6 @@ export default function Navbar() {
         </div>
       </nav>
 </div>
+
   )
 }
