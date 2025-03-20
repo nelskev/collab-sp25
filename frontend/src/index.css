@@ -1,68 +1,195 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+*,*::after, *::before{
+  box-sizing: border-box;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+}
+body {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+  width: 100%;
+  height: 100vh;
+  /* background-color: #c2c0c0; */
+  margin: 0 !important;
+}
+#root, .container, .navbar-wrapper{
+  max-width: 2200px;
+}
+#root {
+  margin: 0 auto;
+}
+.container{
+  background-color: white;
+}
+.custom-blue{
+  color: cornflowerblue;
+}
+image{
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+
+/****** TOP INFO BAR ******/
+.top-info-bar{
+  position: relative;
+  height: 120px;
+  display: none !important;
+  background-image: url('./assets/carbonfiber-background.png');
+  margin: 0 !important;
+}
+.carbon-background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.712);
+  margin: 0 !important;
+}
+.top-info-bar .left{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3em;
+  color: white;
+}
+.top-info-bar .right{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 3rem;
+  color: rgb(100, 148, 237);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+
+/****** NAVBAR ******/
+.navbar-wrapper{
+  margin: 0 auto;
 }
-button:hover {
-  border-color: #646cff;
+.navbar .navbar-nav{
+   display: flex;
+   justify-content: space-around;
+   width: 100%;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.navbar .navbar-nav li{
+  padding: 0 0 0 10px;
+}
+.navbar .navbar-nav li:hover{
+  background-color: rgba(100, 148, 237, 0.377);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+
+/****** SECTION 1 ******/
+.section-1{
+  position: relative;
+  width: 100%;
+  min-height: 345px;
+  height: 100%;
+  background-image: url('./assets/car-background-mobile.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: .3rem;
+}
+.section-1 h1{
+  font-size: 1.8rem !important;
+  text-align: center;
+}
+.section-1 p{
+  font-size: 1.3rem !important;
+}
+.section-1 .black-background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.712);
+}
+.section-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  padding: 1rem;
+  margin: 0 auto;
+  gap: 1.5rem;
+  max-width: 890px;
+}
+
+/****** SECTION 2 ******/
+.section-3{
+  max-width: 1500px;
+  margin: 0 auto
+}
+.section-3 button{
+  border-radius: 0;
+  font-size: 1.4rem;
+}
+
+
+
+
+
+
+
+/***********************************************/
+/**************** MEDIA QUERIES ****************/
+/***********************************************/
+@media only screen and (min-width: 768px) {
+  .section-1{
+      min-height: 400px;
+      background-image: url('./assets/car-background-medium.png');
   }
-  a:hover {
-    color: #747bff;
+  .navbar .navbar-nav li{
+      display: grid;
+      place-content: center;
+      text-align: center;
+      /* width: 16.5%; */
+      width: 19%;
+      background-color: rgba(100, 148, 237, 0.377);
+      padding: 0;
   }
-  button {
-    background-color: #f9f9f9;
+  .nav-item .dropdown-menu{
+      background-color: white;
+  }
+  .nav-item .dropdown-menu li{
+      width: 250px !important;
+      background-color: white;
+  }
+  .nav-item .dropdown-menu li a{
+      width: 225px !important;
+      text-align: start;
+  }
+  .navbar .navbar-nav li a{
+      font-weight: 600;
+  }
+  .top-info-bar{
+      display: flex !important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .section-1{
+      min-height: 500px;
+      background-image: url('./assets/car-background-large.png');
+  }
+  .services img{
+      max-width: 280px;
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .section-1{
+      min-height: 500px;
+      background-image: url('./assets/car-background-xlarge.png');
+  }
+  .section-1 h1{
+      font-size: 2.1rem !important;
+  }
+  .section-1 p{
+      font-size: 1.5rem !important;
   }
 }
