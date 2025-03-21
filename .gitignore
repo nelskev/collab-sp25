@@ -4,15 +4,20 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Environment variables
-.env
+
+# Ignore all .env files
+**/.env 
+
+# Node.js specific
+
+# Ignore all node_modules directories
+**/node_modules/
+
+package-lock.json
 
 # Docker files (if you don't want to track them)
 docker-compose.yml
 Dockerfile
-
-# Node.js specific
-node_modules/
-package-lock.json
 
 # If you have a build directory for your frontend
 build/
