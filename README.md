@@ -4,13 +4,18 @@
 ```sh
 project-root/
 │── backend/                         # Node.js w/ ES6 modules + Express API
-│   ├── src/
-│   │   ├── models/                  # Mongoose schemas
-│   │   ├── routes/                  # API routes (ratings/employees/estimates/etc)
-│   │   ├── controllers/             # Route logic
-│   │   ├── config/                  # MongoDB & env config
-│   │   ├── server.js                # Express server entry
-|
+│   │   ├── models/                  # Mongoose schemas (reviews/appointments/etc)
+│   │   ├── routes/                  # API routes (reviews/appointments/etc)
+│   │   ├── updates/                 # Database updates
+│   │   ├── database.js/             # Mongoose config for connection to MongoDB
+│   │   ├── server.js                # Express server - entry to /routes
+│   │   ├── .env                     # Environment variables
+│   │   ├── .gitignore                   
+│   │   ├── package-lock.json             
+│   │   ├── package.json               
+│   │   ├── node_modules           
+│
+│
 ├── tests/                           # Test folder
 │   ├── controllers/                 # Tests for controller functions
 │   │   └── userController.test.js
@@ -19,10 +24,9 @@ project-root/
 │   ├── models/                      # Tests for data models
 │   │   └── userModel.test.js
 │   ├── setup.js                     # Global setup for tests (aka- fixtures)
-|
-│   ├── .env                         # Environment variables
 │   ├── package.json                 # Dependencies
 │   ├── jest.config.js               # Jest config  
+│
 │
 │── frontend-web/                    # React Web App
 │   ├── src/
@@ -36,6 +40,7 @@ project-root/
 │   │   ├── pages/                   # Page components
 |   |   |   ├── HomePage.jsx
 |   |   |   ├── AppointmentsPage.jsx
+|   |   |   ├── ReviewsPage.jsx
 │   │   ├── admin/                   # Admin Section
 |   │   │   ├── components/          # Admin Components
 |   |   |   │   ├── AdminNavbar.jsx 
