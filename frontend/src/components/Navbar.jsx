@@ -62,7 +62,10 @@ export default function Navbar() {
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Reviews</a>
+                {/*/ ******* React Router Link REVIEWS ******* /*/}
+                <Link to="/reviews" className="m-0 text-end">
+                  Reviews
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Directions</a>

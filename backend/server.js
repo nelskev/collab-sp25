@@ -2,7 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectToDatabase from "./database.js"; // Import database connection
+
+// ROUTES
 import employeesRoutes from "./routes/employees.js";
+import reviewsRoutes from "./routes/reviews.js"
+
 
 dotenv.config(); // Load environment variables
 
@@ -13,11 +17,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
   
-// Routes
+
+// USE Routes
 app.use("/employees", employeesRoutes);
+app.use("/reviews", reviewsRoutes);
+
 
 // Connect to MongoDB
 connectToDatabase();
+
 
 // Start server
 app.listen(PORT, () => {
