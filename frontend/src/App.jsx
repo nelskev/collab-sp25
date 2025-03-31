@@ -5,6 +5,7 @@ import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
+import ReviewsPage from './pages/ReviewsPage.jsx';
 
 
 function App() {
@@ -20,6 +21,16 @@ function App() {
             <Services />
           </>
         }/>
+        <Route path="/reviews" element={
+          <>
+            <Navbar />
+            <ReviewsPage />
+          </>
+        }/>
+       
+       
+
+
         <Route path="/admin" element={<AdminHomePage />} />
       </Routes>  
       </>
