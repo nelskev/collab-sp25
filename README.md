@@ -62,6 +62,14 @@ project-root/
 ```
 ---  
 
+**This project requires NPM and Node version 18 LTS or above ( https://nodejs.org/en/download )**  
+```sh
+# To see if you already have Node.js and NPM installed and to check the installed version
+node -v
+npm -v
+```
+---
+
 **1. Clone repo**  
 ```sh
 git clone <repository_url>
