@@ -6,6 +6,7 @@ import connectToDatabase from "./database.js"; // Import database connection
 // ROUTES
 import employeesRoutes from "./routes/employees.js";
 import reviewsRoutes from "./routes/reviews.js"
+import appointmentRoutes from "./models/appointmentModel.js";
 
 
 dotenv.config(); // Load environment variables
@@ -21,9 +22,10 @@ app.use(express.json());
 // USE Routes
 app.use("/employees", employeesRoutes);
 app.use("/reviews", reviewsRoutes);
+app.use("/appointments", appointmentRoutes)
 
 
-// Connect to MongoDB
+// Connect to MongoDB (using the import above)
 connectToDatabase();
 
 
