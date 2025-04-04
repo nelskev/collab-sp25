@@ -4,9 +4,14 @@ import Navbar from './components/Navbar.jsx'
 import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
+import ReviewsPage from './pages/ReviewsPage.jsx'
+
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
+
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
+
+import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 
 
 function App() {
@@ -34,6 +39,7 @@ function App() {
 
         <Route path="/admin" element={<AdminHomePage />} />
 
+
         <Route path='/admin/reviews' element={
         <>
           <Navbar />
@@ -43,6 +49,9 @@ function App() {
         
         
         }/>
+
+        <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+
       </Routes>  
       </>
   )
