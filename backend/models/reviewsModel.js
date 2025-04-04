@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+
+// Define review Schema
+const reviewSchema = new mongoose.Schema({
+    // id: { type: Number, required: true },  // mongo doesn't use typical int id's, they are long strings
+    // 
+    name: { type: String, required: true },
+    rating: { type: Number, min: 1, max: 5, required: true },
+    title: {type: String, required: true},
+    description: {
+        type: String,
+        maxlength: 250,
+        minlength: 50,
+        required: true
+    }
+});
+
+// Create Mongoose Model
+const Review = mongoose.model('review', reviewSchema);
+
+
+export default Review;
+
+
+
+
