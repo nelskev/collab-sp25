@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 // Define User Schema
 const appointmentSchema = new mongoose.Schema({
     date: { type: Date, required: true },
-    time: { type: String, required: true },  
+    time: { type: String, required: true }, 
+    details: { type: String, required: true }, 
     // userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }    // for now we are not relating users-to-appointments as users do not sign-in
 });
 
@@ -19,5 +20,6 @@ export default Appointment;
 // {
 //   "date": "2025-3-27",
 //   "time": "10:00",
+//   "details": "Get estimate to paint car"
 //   "userId": "67e6a856669711f09ddeaeac"
 // } 

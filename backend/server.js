@@ -6,7 +6,7 @@ import connectToDatabase from "./database.js"; // Import database connection
 // ROUTES
 import employeesRoutes from "./routes/employees.js";
 import reviewsRoutes from "./routes/reviews.js"
-import appointmentRoutes from "./models/appointmentModel.js";
+import appointmentRoutes from "./routes/appointments.js";
 
 
 dotenv.config(); // Load environment variables
