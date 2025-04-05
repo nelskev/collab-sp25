@@ -8,7 +8,8 @@ import ReviewsPage from './pages/ReviewsPage.jsx'
 
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
-
+import FormDetails from './components/Forms.jsx';
+import './App.css';
 
 function App() {
   return (
@@ -29,6 +30,13 @@ function App() {
             <ReviewsPage />
           </>
         }/>
+          <Route path="/forms" element={
+          <>
+            <Navbar />
+            <FormDetails />
+          </>
+        }/>
+       
        
        
 

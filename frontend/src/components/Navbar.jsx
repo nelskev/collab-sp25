@@ -71,7 +71,9 @@ export default function Navbar() {
                 <a className="nav-link" href="#">Directions</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Download Forms</a>
+              <Link to="/forms" className="m-0 text-end">
+                  Download Forms
+                </Link>
               </li>
             </ul>
           </div>
