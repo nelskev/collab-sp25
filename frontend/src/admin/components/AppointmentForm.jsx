@@ -12,6 +12,7 @@ function AppointmentForm({
   }) {
     return (
       <form onSubmit={handleSubmit} className="p-2 my-3 col-12 col-md-9 col-lg-5 col-xl-4 mx-auto">
+        
         <div className="d-flex flex-column flex-lg-row gap-3 w-100 justify-content-lg-around align-items-center mb-3 mx-auto">
             <DatePickerUI
                 selectedDateTime={selectedDateTime}
