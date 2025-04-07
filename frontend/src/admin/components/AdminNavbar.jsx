@@ -18,7 +18,12 @@ export default function AdminNavbar() {
              </Link>
 
             <div className="right d-flex flex-column justify-content-center gap-3">
-                <h5 className="m-0 text-center fw-bold fs-4 text-warning">ADMIN PANEL</h5>
+            <Link to="/admin" className="text-decoration-none m-0" href="index.html">
+            <h5 className="m-0 text-center fw-bold fs-4 text-warning">
+                  ADMIN PANEL
+                  </h5>
+             </Link>
+
 
                 {/*/ ******* React Router Link ADMIN ******* /*/}
                 <Link to="/" className="m-0 text-center text-decoration-none">
