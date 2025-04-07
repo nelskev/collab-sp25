@@ -12,17 +12,17 @@ export default function AdminNavbar() {
   
              {/*/ ******* React Router Link HOME ******* /*/}
              {/* large Logo  */}
-             <Link to="/"  className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0" href="index.html">
+             <Link to="/"  className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0">
                 <h2 className="custom-blue m-0 fs-1">Scott's</h2>
                 <h5 className="m-0">Collision Repair</h5>
              </Link>
 
             <div className="right d-flex flex-column justify-content-center gap-3">
             <Link to="/admin" className="text-decoration-none m-0" href="index.html">
-            <h5 className="m-0 text-center fw-bold fs-4 text-warning">
-                  ADMIN PANEL
-                  </h5>
-             </Link>
+              <h5 className="m-0 text-center fw-bold fs-4 text-warning">
+                ADMIN HOME
+              </h5>
+            </Link>
 
 
                 {/*/ ******* React Router Link ADMIN ******* /*/}
@@ -39,13 +39,20 @@ export default function AdminNavbar() {
         <div className="container-fluid">
 
           {/* Small Logo  */}
-          {/*/ ******* Internal Link (scroll down) can be Anchor ******* /*/}
-          <a className="navbar-brand d-md-none" href="index.html">
+          {/*/ ******* Back to index.html ******* /*/}
+          <Link to="/" className="navbar-brand d-md-none">
             <div className="left d-xs-none d-lg-flex flex-column logo-small">
                 <h2 className="custom-blue m-0 fs-1">Scott's</h2>
                 <h5 className="m-0">Collision Repair</h5>
             </div>
-          </a>
+          </Link>
+
+          <Link to="/admin" className="text-decoration-none m-0 d-md-none" href="index.html">
+              <button className="btn btn-primary m-0 p-1 px-2 fs-6">
+                ADMIN HOME
+              </button>
+            </Link>
+
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
