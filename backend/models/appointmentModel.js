@@ -8,6 +8,7 @@ const appointmentSchema = new mongoose.Schema({
     // email: { type: String, required: true, unique: true },
     // phone: { type: String, required: true },
     details: { type: String, required: true }, 
+
     // userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }    // for now we are not relating users-to-appointments as users do not sign-in
 });
 
