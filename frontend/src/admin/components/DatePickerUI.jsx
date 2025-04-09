@@ -1,8 +1,27 @@
-import React from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import formatDate from '/helpers/dateAndTimeConversion.js'
 
-function DatePickerUI({ selectedDateTime, setSelectedDateTime }) {
+function DatePickerUI({ selectedDateTime, setSelectedDateTime, appointments }) {    //  appointments props for grey out
+
+  const filterTakenTimes = (time) => {
+    console.log('Filtering time:', time)
+    if (appointments.length === 0) return true
+  
+    const dateStr = formatDate(time.toISOString());  // yyyy-mm-dd
+    const timeStr = time.toTimeString().slice(0, 5)  // HH:mm
+    console.log('Filtering time:', dateStr, timeStr)
+
+    // Find if this time on the selected date is already booked
+    const isTaken = appointments.some(appt => {
+      const apptDate = formatDate(new Date(appt.date).toISOString()); // Format date
+      const apptTime = appt.time;                                     // Time from the appointment info
+      return apptDate === dateStr && apptTime === timeStr;            // Compare date and time
+    });
+  
+    return !isTaken // Return true to keep this time, false to disable it
+  } 
 
   // DAY OF WEEK
   const isWeekday = (date) => {
@@ -29,7 +48,7 @@ function DatePickerUI({ selectedDateTime, setSelectedDateTime }) {
             maxTime={new Date(0, 0, 0, 17)} // 5 PM
             filterDate={isWeekday}
             minDate={today} 
-            //filterTime={filterPassedTime}
+            filterTime={filterTakenTimes}   // we now need this for taken slots
             />
       </div>
     </div>
