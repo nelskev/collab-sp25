@@ -8,6 +8,7 @@ import ReviewsPage from './pages/ReviewsPage.jsx'
 
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
+import AppointmentsPage from './pages/AppointmentPage.jsx';
 
 
 function App() {
@@ -35,6 +36,11 @@ function App() {
 
         <Route path="/admin" element={<AdminHomePage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+        <Route path='/appointmentPage' element={
+          <>
+          <Navbar />
+          <AppointmentsPage />
+        </>} />
       </Routes>  
       </>
   )
