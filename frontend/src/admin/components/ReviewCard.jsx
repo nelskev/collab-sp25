@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Rating } from 'react-simple-star-rating';
 
 // export default function ReviewCard() {
 //   const [reviews, setReviews] = useState();
@@ -56,13 +57,71 @@ import React, { useState, useEffect } from 'react';
 
 
 
+// const ReviewCard = ({ review }) => {
+//   try {
+//     return (
+//       <div className="review-card"
+//       >
+//         <h2>{review.title}</h2>
+//         <p>{review.description}</p>
+//         <p>Rating: {review.rating}</p>
+//       </div>
+//     );
+//   } catch (error) {
+//     return <p>Unable to load review: {error.message}</p>;
+//   }
+// };
+
+// export default ReviewCard;
+
+
+// ReviewCard.jsx
+
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+
+
+// function formatDate(dateValue) {
+//   if (!(dateValue instanceof Date)) {
+//     throw new Error('Input must be a valid Date object');
+//   }
+
+//   const options = { year: 'numeric', month: 'long', day: 'numeric' };
+//   const formatter = new Intl.DateTimeFormat('en-US', options);
+//   const parts = formatter.formatToParts(dateValue);
+
+//   const month = parts.find(part => part.type === 'month').value;
+//   const day = parts.find(part => part.type === 'day').value;
+//   const year = parts.find(part => part.type === 'year').value;
+
+//   return `${month} ${day}, ${year}`;
+// }
+
+
 const ReviewCard = ({ review }) => {
   try {
     return (
       <div className="review-card">
-        <h2>{review.title}</h2>
-        <p>{review.description}</p>
-        <p>Rating: {review.rating}</p>
+        <h2>{review.name}</h2>
+        <Rating style={{ transformOrigin: 'left', transform: 'scale(0.5,0.5)', textAlign: 'left', marginTop: '-10px' }} initialValue={review.rating} readonly />
+        <p>{formatDate(review.reviewDate)}</p>       
+        <p>{review.comment}</p>
+        {/* <p>Rating: {review.rating}</p> */}
+        {review.response && (
+          
+          <div className='border-top mt-2'>
+        
+            <h3>Owner Response:</h3>
+            <p>{review.response}</p>
+          </div>
+        )}
       </div>
     );
   } catch (error) {
