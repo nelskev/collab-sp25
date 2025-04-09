@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-
 const FormDetails = () => {
   const [email, setEmail] = useState('');
-  const [formMessage, setFormMessage] = useState('');
 
   const handleEmailSend = () => {
     if (!email || !email.includes('@')) {
@@ -11,9 +9,9 @@ const FormDetails = () => {
       return;
     }
 
-    // Simulated send (you would call your backend/email API here)
-    setFormMessage(`Form details sent to ${email}`);
-    setEmail('');
+    const subject = encodeURIComponent("Car Dealership Form Details");
+    const body = encodeURIComponent("Attached is the form with the frequently asked questions.\n\nThanks!");
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -25,7 +23,15 @@ const FormDetails = () => {
         </div>
       </div>
 
-      <button className="download-button">DOWNLOAD FORMS</button>
+      {/* Link to download the form file */}
+      <a 
+        href="/Fake_Car_Dealership_FAQ.docx" 
+        download 
+        className="download-button"
+        style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '20px' }}
+      >
+        <button>DOWNLOAD FORMS</button>
+      </a>
 
       <div className="email-section">
         <input
@@ -38,7 +44,6 @@ const FormDetails = () => {
         <button onClick={handleEmailSend} className="email-button">
           Email Form
         </button>
-        {formMessage && <p className="success-message">{formMessage}</p>}
       </div>
     </div>
   );
