@@ -19,6 +19,8 @@ function AdminAppointmentsPage() {
   const [phone, setPhone] = useState('')
   const [details, setDetails] = useState('')
   const [appointments, setAppointments] = useState([]) 
+  // eslint-disable-next-line no-unused-vars
+  const [selectedAppointment, setSelectedAppointment] = useState(null) // for modal
 
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
@@ -104,6 +106,7 @@ function AdminAppointmentsPage() {
       <AppointmentForm
         selectedDateTime={selectedDateTime}
         setSelectedDateTime={setSelectedDateTime}
+        appointments={appointments}  // grey out taken appointment
         name={name}
         setName={setName}
         email={email}
@@ -117,13 +120,14 @@ function AdminAppointmentsPage() {
 
       <div className="cards-wrapper">
         {appointments.map((appointment) => (
-          <div key={appointment._id} className="card d-flex flex-column flex-lg-row gap-1 gap-lg-3 p-2 p-lg-1">
+          <div key={appointment._id} className="card d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-around gap-1 gap-lg-3 p-2 p-lg-1">
             <div className="col-12 col-lg-1">{formatDate(appointment.date)}</div>
             <div className="col-12 col-lg-1">{appointment.time}</div>
             <div className="col-12 col-lg-2">{appointment.name}</div>
-            <div className="col-12 col-lg-2">{appointment.email}</div>
-            <div className="col-12 col-lg-1">{appointment.phone}</div>
-            <div className="col-12 col-lg-auto">{appointment.details}</div>
+            {/* <div className="col-12 col-lg-2">{appointment.email}</div>
+            <div className="col-12 col-lg-1">{appointment.phone}</div> */}
+            {/* <div className="col-12 col-lg-auto">{appointment.details}</div> */}
+            <button className='btn btn-primary'>Details / Modal Btn</button>
           </div>
         ))}
       </div>

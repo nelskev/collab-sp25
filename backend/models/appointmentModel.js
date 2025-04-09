@@ -4,11 +4,10 @@ import mongoose from 'mongoose';
 const appointmentSchema = new mongoose.Schema({
     date: { type: Date, required: true },
     time: { type: String, required: true }, // "08:00", "09:00", etc.
-    // name: { type: String, required: true },
-    // email: { type: String, required: true, unique: true },
-    // phone: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    phone: { type: String, required: true },
     details: { type: String, required: true }, 
-    // userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }    // for now we are not relating users-to-appointments as users do not sign-in
 });
 
 // Create Mongoose Model

@@ -9,7 +9,7 @@ const router = express.Router()
 
 // GET All Appointments 
 router.get('/', async (req, res) => {
-    const allAppointments = await Appointment.find()
+    const allAppointments = await Appointment.find()       // find()
     console.log(allAppointments)
     res.status(200).json(allAppointments)
 })
@@ -17,14 +17,14 @@ router.get('/', async (req, res) => {
 
 // POST Appointment
 router.post('/', async (req, res) => {
-    const { date, time, details, name, email, phone, userId } = req.body
+    const { date, time, details, name, email, phone } = req.body
 
     try {
-      const existingAppointments = await Appointment.findOne({ date, time, details, name, email, phone })
+      const existingAppointments = await Appointment.findOne({ date, time });  // only check time & date or it will still let another user pick that time slot!
       
-      if (!existingAppointments) {  // before saving, query DB to see if the appointment is already taken. If taken send error
-        const newAppointment = new Appointment({ date, time, details, name, email, phone, userId })  
-        await newAppointment.save() 
+      if (!existingAppointments) { 
+        const newAppointment = new Appointment({ date, time, details, name, email, phone })  
+        await newAppointment.save()                                                                         //save()
         res.status(200).json(newAppointment)
         //console.log(newAppointment)
       }else{
@@ -42,7 +42,7 @@ router.put('/:id', async (req, res) => {
     const { date, time, details, name, email, phone } = req.body;
   
     try {
-      const updatedAppointment = await Appointment.findByIdAndUpdate(
+      const updatedAppointment = await Appointment.findByIdAndUpdate(     // findByIdAndUpdate()
         req.params.id,
         { date, time, details, name, email, phone },
         { new: true } 
@@ -65,8 +65,7 @@ router.delete('/:id', async (req, res) => {
   const { id: appointmentId } = req.params // 
 
   try {
-    const result = await Appointment.deleteOne({ _id: appointmentId })
-
+    const result = await Appointment.deleteOne({ _id: appointmentId })     // deleteOne()
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: 'Appointment not found' })
     }
