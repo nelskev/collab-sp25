@@ -40,6 +40,12 @@ export default function Navbar() {
                 <h5 className="m-0">Collision Repair</h5>
             </div>
           </a>
+
+          {/*/ ******* React Router Link ADMIN ******* /*/}
+          <Link to="/admin" className="m-0 text-end d-md-none">
+            <img src={'./admin-icon.png'} alt="" width='30'/>
+          </Link>
+
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

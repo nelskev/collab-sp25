@@ -1,7 +1,10 @@
-import express from "express";
-import Appointment from '../models/appointmentModel.js';
+import express from "express"
+import Appointment from '../models/appointmentModel.js'
 
-const router = express.Router();
+const router = express.Router()
+//  JOI npm library for validation
+//  Add date-picker npm library
+//  add name, phone and email to model ------>  ( Marco is doing this )
 
 const getAvailableSlotsForDate = async (dateStr) => {
   try {
@@ -43,70 +46,73 @@ const getAvailableSlotsForDate = async (dateStr) => {
 
 // GET All Appointments 
 router.get('/', async (req, res) => {
-    try {
-        const allAppointments = await Appointment.find().populate('contact'); // Populate contact details
-        console.log("Appointments with Contact Info:", allAppointments);
-        res.status(200).json(allAppointments);
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).json({ code: 500, status: "Error fetching appointments" });
-    }
-});
-
-// Fetch available slots for a specific date, added by MarcoRamos 4/06/2025
-router.get('/available-slots/:date', async (req, res) => {
-  const { date } = req.params;
-  console.log('Request for slots on:', date);
-
-  try {
-    const availableSlots =  await getAvailableSlotsForDate(date);
-    console.log('Available Slots:', availableSlots);
-
-    if (!availableSlots || availableSlots.length === 0) {
-      return res.status(404).json({ message: 'No available slots found.' });
-    }
-
-    res.json(availableSlots);
-  } catch (error) {
-    console.error('Error fetching available slots:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// GET Appointment by DATE ( will finish this later after deciding on filters )
-router.get('/:date', async (req, res) => {
- 
-});
+    const allAppointments = await Appointment.find()       // find()
+    console.log(allAppointments)
+    res.status(200).json(allAppointments)
+})
 
 
 // POST Appointment
 router.post('/', async (req, res) => {
-    const { date, time, details } = req.body;
-    console.log(req.body);
+    const { date, time, details, name, email, phone } = req.body
 
     try {
-        const newAppointment = new Appointment({ date, time, details, contact: req.body.contact });  //populate appoinment task
-        await newAppointment.save();  
-        res.status(201).json(newAppointment);  
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).json({ code: 500, status: "Error saving appointment" });
+      const existingAppointments = await Appointment.findOne({ date, time });  // only check time & date or it will still let another user pick that time slot!
+      
+      if (!existingAppointments) { 
+        const newAppointment = new Appointment({ date, time, details, name, email, phone })  
+        await newAppointment.save()                                                                         //save()
+        res.status(200).json(newAppointment)
+        //console.log(newAppointment)
+      }else{
+        res.status(400).json('Appointment already taken')
+      }
+
+    } catch (error) {
+      console.error(error)
+      res.status(500).json('Internal server error.')
     }
- 
-});
+})
+
+// UPDATE Appointment
+router.put('/:id', async (req, res) => {
+    const { date, time, details, name, email, phone } = req.body;
+  
+    try {
+      const updatedAppointment = await Appointment.findByIdAndUpdate(     // findByIdAndUpdate()
+        req.params.id,
+        { date, time, details, name, email, phone },
+        { new: true } 
+      );
+  
+      if (!updatedAppointment) {
+        return res.status(404).json({ message: 'Appointment not found' });
+      }
+  
+      res.status(200).json(updatedAppointment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
 
 // DELETE Appointment
 router.delete('/:id', async (req, res) => {
-    try {
-        const deletedAppointment = await Appointment.findByIdAndDelete(req.params.id);
-        if (!deletedAppointment) {
-            return res.status(404).json({ status: "Appointment not found" });
-        }
-        res.json({ status: `Appointment for ${deletedAppointment.time} deleted` });
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).json({ code: 500, status: "Error deleting appointment" });
-    }
-});
+  const { id: appointmentId } = req.params // 
 
-export default router;
+  try {
+    const result = await Appointment.deleteOne({ _id: appointmentId })     // deleteOne()
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'Appointment not found' })
+    }
+
+    res.status(200).json({ message: 'Appointment deleted' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Internal server error' })
+  }
+})
+
+
+export default router

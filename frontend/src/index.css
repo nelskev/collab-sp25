@@ -130,8 +130,39 @@ image{
 }
 
 
+/****** DATEPICKER ******/
+.datepicker-wrapper{
+  width: 340px;
+}
+.custom-datepicker-input{
+  display: flex;
+  align-items: center;
+  width: 230px !important;
+  gap: 7px;
+  background-color: rgb(225, 244, 255);
+  padding: 6px 0 6px 12px;
+  border-radius: 11px;
+}
+.react-datepicker-popper {
+ position: absolute;
+ left: -20px !important
+}
 
+.datepicker{
+  width: 180px;
+  border: none;
+  border-radius: 7px;
+  text-align: center;
+}
+.datepicker-label{
+  width: 225px !important;
+  padding: 0 0 0 12px;
+}
 
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--disabled {
+  /* color: #ccc; */
+  color: rgb(255, 141, 141) !important;
+}
 
 
 
