@@ -20,9 +20,9 @@ router.post('/', async (req, res) => {
     const { date, time, details, name, email, phone } = req.body
 
     try {
-      const existingAppointments = await Appointment.findOne({ date, time, details, name, email, phone })   // findOne()
+      const existingAppointments = await Appointment.findOne({ date, time });  // only check time & date or it will still let another user pick that time slot!
       
-      if (!existingAppointments) {  // before saving, query DB to see if the appointment is already taken. If taken send error
+      if (!existingAppointments) { 
         const newAppointment = new Appointment({ date, time, details, name, email, phone })  
         await newAppointment.save()                                                                         //save()
         res.status(200).json(newAppointment)
