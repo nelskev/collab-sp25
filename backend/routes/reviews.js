@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 // POST NEW REVIEW
 router.post("/", async (req, res) => {
     const { name, rating, description } = req.body; 
-    console.log('POST request received at /employees');
+    console.log('POST request received at /reviews');
     console.log('Request body:', req.body);
     try {
         const newReview = new Review({ name, rating, description });  

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import formatDate from '../../../helpers/dateAndTimeConversion';
+// import formatDate from '../../../helpers/dateAndTimeConversion';
 // import EmployeeCard from './../components/EmployeeCard';
 // import EmployeeForm from './../components/EmployeeForm';
 
@@ -11,7 +11,30 @@ import formatDate from '../../../helpers/dateAndTimeConversion';
 import ReviewCard from '../components/ReviewCard';
 import AdminNavbar from '../components/AdminNavbar';
 
+import formatDate from '../components/ReviewCard';
 
+
+
+{/*
+  Goals for current page:
+
+
+  Necessary for sprint:
+
+  Connect to MongoDB
+
+
+  -----------------------------------------------------
+
+  
+
+  Optional if time allows
+
+  Improve datepicker formatting by potentially removing visibility if date selector is not selected.
+  
+  Potential response delete
+  
+  */}
 
 
 // const CardList = () => {
@@ -57,14 +80,23 @@ import AdminNavbar from '../components/AdminNavbar';
 
 
 
-export default function AdminReviewsPage() {
+function AdminReviewsPage() {
+
+  useEffect(() => {
+    document.title = (`ADMIN : Scotts Collision Repair`);
+  }, []);
+
+
 
   const [sortCriteria, setSortCriteria] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [response, setResponse] = useState('');
-  const [showResponseForm, setShowResponseForm] = useState(false);
-  const [startDate, setStartDate] = useState(null);
+  // const [showResponseForm, setShowResponseForm] = useState(false);
 
+
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   
 
 
@@ -132,7 +164,7 @@ export default function AdminReviewsPage() {
       name: 'Needs Improvement',
       comment: 'The scheduling was late and my car was finished way later than expected.',
       rating: 2,
-      reviewDate: new Date(2023, 0, 1),
+      reviewDate: new Date(2025, 3, 8),
       response: '',
       responseDate: null,
     },
@@ -194,30 +226,69 @@ export default function AdminReviewsPage() {
   
 
 
-  // const handleSortChange = (event) => {
-  //   setSortCriteria(event.target.value);
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/reviews')
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      // setAppointments(data)
+      console.log('Server response:', data)
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])      // useEffect only handles the initial data load (runs once), which is our state array
+
+
+
+  // const handleSortChange = (e) => {
+  //   setSortCriteria(e.target.value);
   // };
 
 
-  // const handleSortChange = (event) => {
-  //   const newSortCriteria = event.target.value;
+  // const handleSortChange = (e) => {
+  //   const newSortCriteria = e.target.value;
   //   setSortCriteria(newSortCriteria);
   //   if (newSortCriteria !== 'date' && sortOrder === 'custom') {
   //     setSortOrder('asc'); // Reset sort order to 'asc' when criteria changes
   //   }
   // };
 
-  const handleSortChange = (event) => {
-    const newSortCriteria = event.target.value;
+  // const handleSortChange = (e) => {
+  //   const newSortCriteria = e.target.value;
+  //   setSortCriteria(newSortCriteria);
+  //   if (newSortCriteria === 'date' && sortOrder === 'custom') {
+  //     setSortOrder('asc'); // Reset sort order to 'asc' when criteria changes
+  //   }
+  // };
+
+
+  const handleSortChange = (e) => {
+    const newSortCriteria = e.target.value;
     setSortCriteria(newSortCriteria);
-    if (newSortCriteria === 'date' && sortOrder === 'custom') {
-      setSortOrder('asc'); // Reset sort order to 'asc' when criteria changes
+    if (newSortCriteria !== 'date' || sortOrder !== 'custom') {
+      setStartDate(null); // Reset the date filter
+      setEndDate(null); // Reset the date filter
+    }
+    if (newSortCriteria !== 'date' && sortOrder === 'custom') {
+      setSortOrder('desc'); // Reset sort order to 'asc' when criteria changes
     }
   };
 
-  const handleSortOrderChange = (event) => {
-    setSortOrder(event.target.value);
+  const handleSortOrderChange = (e) => {
+    const newSortOrder = e.target.value;
+    setSortOrder(newSortOrder);
+    if (newSortOrder !== 'custom') {
+      setStartDate(null); // Reset the date filter
+      setEndDate(null); // Reset the date filter
+    }
   };
+  
 
 
   // const filteredReviews = startDate
@@ -234,13 +305,21 @@ export default function AdminReviewsPage() {
   //   })
   // : reviews;
 
-  const filteredReviews = startDate
+//   const filteredReviews = startDate
+//   ? reviews.filter(review => {
+//       const reviewDate = new Date(review.reviewDate);
+//       return reviewDate.toDateString() === startDate.toDateString();
+//     })
+//   : reviews;
+// console.log('Filtered reviews:', filteredReviews);
+
+
+const filteredReviews = startDate && endDate
   ? reviews.filter(review => {
       const reviewDate = new Date(review.reviewDate);
-      return reviewDate.toDateString() === startDate.toDateString();
+      return reviewDate >= startDate && reviewDate <= endDate;
     })
   : reviews;
-console.log('Filtered reviews:', filteredReviews);
 
 useEffect(() => {
   console.log('Component re-rendered');
@@ -322,37 +401,55 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
     }
   };
 
-  const handleButtonClick = () => {
-    if (selectedReview) {
-      alert(`You selected review ${selectedReview.name}`);
-      // Add your button activation logic here
-    } else {
-      alert('Please select a review');
-    }
-  };
+  // const handleButtonClick = () => {
+  //   if (selectedReview) {
+  //     alert(`You selected review ${selectedReview.name}`);
+  //     // Add your button activation logic here
+  //   } else {
+  //     alert('Please select a review');
+  //   }
+  // };
 
 
   const handleDeleteReview = (reviewId) => {
     if (window.confirm('Are you sure you want to delete this review?')) {
       setReviews(reviews.filter((review) => review.id !== reviewId));
+      setSelectedReview(null);
     }
   };
 
-  const handleResponseChange = (event) => {
-    setResponse(event.target.value);
+  const handleResponseChange = (e) => {
+    setResponse(e.target.value);
   };
 
   const handleResponseSubmit = (reviewId) => {
+    if (window.confirm(`Confirm response message: ${response} `)) {
     const updatedReviews = reviews.map((review) => {
       if (review.id === reviewId) {
-        return { ...review, response: response };
+        return { ...review, response: response, responseDate: new Date()
+        };
       }
       return review;
     });
     setReviews(updatedReviews);
     setResponse('');
+    setSelectedReview(null);
+  }
   };
   
+
+  // const handleResponseSubmit = (reviewId) => {
+  //   const updatedReviews = {
+  //     ...reviews,
+  //     [reviewId]: {
+  //       ...reviews[reviewId],
+  //       response,
+  //       responseDate: new Date(),
+  //     },
+  //   };
+  //   setReviews(updatedReviews);
+  //   setResponse('');
+  // };
  
   
 
@@ -410,7 +507,7 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
             <select value={sortOrder} onChange={handleSortOrderChange}>
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
-              <option value="custom" disabled={ sortCriteria === `date` ? false : true}>Select Date</option>
+              <option value="custom" disabled={ sortCriteria === `date` ? `` : true}>Select Date</option>
             </select>
               {/* <DatePicker
                 selected={startDate}
@@ -419,16 +516,35 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
                 disabled={ sortCriteria === `date` && sortOrder === `custom` ? false : true}
               /> */}
 
+<div style={{
+   display: 'flex',
+  //  alignItems: 'center'
+}}>
+
+
 <DatePicker
   selected={startDate}
   onChange={(date) => {
     setStartDate(date);
-    console.log('Selected date:', date);
+    if (endDate == null) {setEndDate(date)};
+    // console.log('Selected date:', date);
   }}
   placeholderText="Select a date"
   disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
+  // style={{ display: (sortCriteria === 'date' || sortOrder === 'custom') ? 'inline-block' : 'none' }}
 />
+<DatePicker
+  selected={endDate}
+  onChange={(date) => {
+    setEndDate(date);
+    // console.log('Selected end date:', date);
+  }}
+  placeholderText="Select end date"
+  disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
+  // style={{ display: (sortCriteria === 'date' || sortOrder === 'custom') ? 'inline-block' : 'none' }
 
+/>
+</div>
               
           {/* <div className="border p-3 overflow-auto" style={{ height: '500px' }}>
             {reviews.map((review) => (
@@ -446,7 +562,10 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
     <ReviewCard review={review} response={review.response} />              </div>
             ))} */}
 
-<div className="border p-3 overflow-auto" style={{ height: '500px' }}>
+<div className="border p-3 overflow-auto" 
+style={{ height: '500px' }} 
+
+>
   {sortedReviews.map((review) => (
     <div
       key={review.id}
@@ -491,6 +610,10 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
 
 
 
+
+
+
+
 <button
   type="button"
   className="btn btn-secondary mx-2"
@@ -521,3 +644,7 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
   );
 };
 
+
+
+
+export default AdminReviewsPage;

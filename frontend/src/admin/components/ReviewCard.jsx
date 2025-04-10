@@ -88,6 +88,7 @@ const formatDate = (dateString) => {
 };
 
 
+
 // function formatDate(dateValue) {
 //   if (!(dateValue instanceof Date)) {
 //     throw new Error('Input must be a valid Date object');
@@ -118,7 +119,8 @@ const ReviewCard = ({ review }) => {
           
           <div className='border-top mt-2'>
         
-            <h3>Owner Response:</h3>
+            <h4>Owner Response:</h4>
+            {review.responseDate &&( <p>on {formatDate(review.responseDate)}</p>)}
             <p>{review.response}</p>
           </div>
         )}
