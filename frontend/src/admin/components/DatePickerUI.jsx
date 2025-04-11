@@ -1,6 +1,6 @@
 import React from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+//import DatePicker from 'react-datepicker'
+//import 'react-datepicker/dist/react-datepicker.css'
 import formatDate from '/helpers/dateAndTimeConversion.js'
 
 function DatePickerUI({ selectedDateTime, setSelectedDateTime, appointments }) {    //  appointments props for grey out
