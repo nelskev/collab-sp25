@@ -130,7 +130,71 @@ image{
 }
 
 
+/****** DATEPICKER ******/
+.datepicker-wrapper{
+  width: 340px;
+}
+.custom-datepicker-input{
+  display: flex;
+  align-items: center;
+  width: 230px !important;
+  gap: 7px;
+  background-color: rgb(225, 244, 255);
+  padding: 6px 0 6px 12px;
+  border-radius: 11px;
+}
+.react-datepicker-popper {
+ position: absolute;
+ left: -20px !important
+}
 
+.datepicker{
+  width: 180px;
+  border: none;
+  border-radius: 7px;
+  text-align: center;
+}
+.datepicker-label{
+  width: 225px !important;
+  padding: 0 0 0 12px;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--disabled {
+  /* color: #ccc; */
+  color: rgb(255, 141, 141) !important;
+}
+
+/* APPOINTMENT PAGE */
+.cards-wrapper{
+  width: 100%;
+  max-width: 870px;
+  margin: 0 auto;
+}
+.details-pane-wrapper {
+  margin: 350px 0 0 0 
+}
+.details-pane{
+  top: 0;
+  max-width: 870px;
+  min-height: 350px;
+  margin: 0 auto;
+  z-index: 1000
+}
+.details-information{
+  background-color: azure;
+}
+.details-button-container{
+  background-color: beige;
+}
+
+/* MODAL */
+
+.modal{
+  max-width: 350px;
+  width: 100%;
+  transform: translateX(-50%) !important;
+  left: 50% 
+}
 
 
 
