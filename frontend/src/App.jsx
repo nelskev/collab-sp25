@@ -29,10 +29,10 @@ function App() {
             <Services />
           </>
         }/>
-        <Route path="/reviews" element={
+        <Route path="/list_reviews" element={
           <>
             <Navbar />
-            <ReviewsPage />
+            <ListReviewsPages />
           </>
         }/>
         <Route path="/contact" element={
@@ -74,10 +74,3 @@ export default App
 // </>
 // </Router>
 
-
-      </Routes>
-    </>
-  );
-}
-
-export default App;
