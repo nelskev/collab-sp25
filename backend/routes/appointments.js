@@ -6,56 +6,21 @@ const router = express.Router()
 //  Add date-picker npm library
 //  add name, phone and email to model ------>  ( Marco is doing this )
 
-const getAvailableSlotsForDate = async (dateStr) => {
-  try {
-      // Convert dateStr to start and end of the day in UTC
-      const startOfDay = new Date(dateStr + 'T00:00:00');
-      startOfDay.setUTCHours(0, 0, 0, 0);
 
-      const endOfDay = new Date(dateStr + 'T23:59:59');
-      endOfDay.setUTCHours(23, 59, 59, 999);
-
-      const allSlots = [
-          "09:00", "10:00", "11:00",
-          "13:00", "14:00", "15:00", "16:00", "17:00",
-          "18:00"
-      ];
-
-      // Query appointments within the day
-      const bookedAppointments = await Appointment.find({
-          date: {
-              $gte: startOfDay,
-              $lte: endOfDay
-          }
-      });
-
-      console.log("Booked Appointments:", bookedAppointments);
-
-      // Extract booked times
-      const bookedTimes = bookedAppointments.map(appt => appt.time);
-
-      // Filter available slots
-      const availableSlots = allSlots.filter(slot => !bookedTimes.includes(slot));
-
-      return availableSlots;
-  } catch (error) {
-      console.error("Error in getAvailableSlotsForDate:", error);
-      return [];
-  }
-};
 
 // GET All Appointments 
 router.get('/', async (req, res) => {
-    const allAppointments = await Appointment.find()       // find()
+    const allAppointments = await Appointment.find()     
     console.log(allAppointments)
     res.status(200).json(allAppointments)
 })
 
 
+
 // POST Appointment
 router.post('/', async (req, res) => {
     const { date, time, details, name, email, phone } = req.body
-
+    console.log("Date received from frontend:", date);
     try {
       const existingAppointments = await Appointment.findOne({ date, time });  // only check time & date or it will still let another user pick that time slot!
       
@@ -63,7 +28,7 @@ router.post('/', async (req, res) => {
         const newAppointment = new Appointment({ date, time, details, name, email, phone })  
         await newAppointment.save()                                                                         //save()
         res.status(200).json(newAppointment)
-        //console.log(newAppointment)
+        console.log("New Appointment:", newAppointment)
       }else{
         res.status(400).json('Appointment already taken')
       }
