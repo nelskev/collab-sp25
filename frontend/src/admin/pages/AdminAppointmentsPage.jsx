@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import formatDate from '/helpers/dateAndTimeConversion'
+// import formatName from '/helpers/stringConversion'
 import AdminNavbar from '../components/AdminNavbar'
 import AppointmentForm from '../components/AppointmentForm'
 
@@ -19,7 +20,6 @@ function AdminAppointmentsPage() {
   const [phone, setPhone] = useState('')
   const [details, setDetails] = useState('')
   const [appointments, setAppointments] = useState([]) 
-  // eslint-disable-next-line no-unused-vars
   const [selectedAppointment, setSelectedAppointment] = useState(null) // for modal
 
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
@@ -118,19 +118,53 @@ function AdminAppointmentsPage() {
         handleSubmit={handleSubmit}
       />
 
-      <div className="cards-wrapper">
-        {appointments.map((appointment) => (
-          <div key={appointment._id} className="card d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-around gap-1 gap-lg-3 p-2 p-lg-1">
-            <div className="col-12 col-lg-1">{formatDate(appointment.date)}</div>
-            <div className="col-12 col-lg-1">{appointment.time}</div>
-            <div className="col-12 col-lg-2">{appointment.name}</div>
-            {/* <div className="col-12 col-lg-2">{appointment.email}</div>
-            <div className="col-12 col-lg-1">{appointment.phone}</div> */}
-            {/* <div className="col-12 col-lg-auto">{appointment.details}</div> */}
-            <button className='btn btn-primary'>Details / Modal Btn</button>
+      {/* DETAILS PANE */}
+      {selectedAppointment && (
+        <div
+          className="w-100 details-pane p-1 p-lg-4 my-5 bg-white border border-2"
+          id={`details-pane-${selectedAppointment._id}`}>
+
+          <h3 className="fs-4 text-center mb-3">Selected Appointment</h3>
+
+          <div className="details-information">
+
+            <div className="col-12 d-flex justify-content-between">
+              <span className="text-dark fw-semibold">{formatDate(selectedAppointment.date)}</span>
+              <span className="text-success fw-semibold">{selectedAppointment.time}</span>
+            </div>
+
+            {/* {formatName(selectedAppointment.name)} */}
+            <div className="col-12 col-lg-3">{selectedAppointment.name}</div>
+            <div className="col-12 col-lg-3">{selectedAppointment.email}</div>
+            <div className="col-12 col-lg-3">{selectedAppointment.phone}</div>
+            <div className="col-12 col-lg-auto p-3">{selectedAppointment.details}</div>
+
           </div>
-        ))}
-      </div>
+
+          <div className="details-button-container d-flex gap-3 p-3 gap-lg-4">
+            <button className="w-50 btn btn-dark">Update</button>
+            <button className="w-50 btn btn-primary">Save</button>
+          </div>
+        </div>
+      )}
+
+      {/* CARDS WRAPPER */}
+      {appointments.map((appointment) => (
+        <div className="cards-wrapper" key={appointment._id}>
+          <div className="card rounded-0 d-flex flex-column gap-3 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 m-0">
+            <div className="col-12 col-lg-3">{formatDate(appointment.date)}</div>
+            <div className="col-12 col-lg-3">{appointment.time}</div>
+
+               {/* {formatName(selectedAppointment.name)} */}
+            <div className="col-12 col-lg-3">{appointment.name}</div>
+
+            <button type="button" className="btn btn-primary p-1"
+              onClick={() => setSelectedAppointment(appointment)}>
+              Details
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
     </>
   )
