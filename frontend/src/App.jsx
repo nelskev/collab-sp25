@@ -4,6 +4,7 @@ import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 import ReviewsPage from './pages/ReviewsPage.jsx'
+import ContactPage from './pages/ContactPage.jsx'
 
 import Navbar from './components/Navbar.jsx';
 import MissionStatement from './components/MissionStatement.jsx';
@@ -28,14 +29,22 @@ function App() {
             <Services />
           </>
         }/>
+        <Route path="/reviews" element={
+          <>
+            <Navbar />
+            <ReviewsPage />
+          </>
+        }/>
+        <Route path="/contact" element={
+          <>
+            <Navbar />
+            <ContactPage />
+          </>
+        }/>
+       
+       
 
-        {/* Route for ReviewsPage */}
-        <Route path="/leave_review" element={<ReviewsPage />} />
 
-        {/* Route for ListReviewsPage */}
-        <Route path="/list_reviews" element={<ListReviewsPage />} />
-
-        {/* Admin route */}
         <Route path="/admin" element={<AdminHomePage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
       </Routes>  
