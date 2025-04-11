@@ -164,6 +164,39 @@ image{
   color: rgb(255, 141, 141) !important;
 }
 
+/* APPOINTMENT PAGE */
+.cards-wrapper{
+  width: 100%;
+  max-width: 870px;
+  margin: 0 auto;
+}
+.details-pane-wrapper {
+  margin: 350px 0 0 0 
+}
+.details-pane{
+  top: 0;
+  max-width: 870px;
+  min-height: 350px;
+  margin: 0 auto;
+  z-index: 1000
+}
+.details-information{
+  background-color: azure;
+}
+.details-button-container{
+  background-color: beige;
+}
+
+/* MODAL */
+
+.modal{
+  max-width: 350px;
+  width: 100%;
+  transform: translateX(-50%) !important;
+  left: 50% 
+}
+
+
 
 
 /***********************************************/
