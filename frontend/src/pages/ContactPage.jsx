@@ -6,7 +6,7 @@ function ContactPage() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
-    //const [details, setDetails] = useState('')
+    const [details, setDetails] = useState('')
     const [contacts, setContacts] = useState([])
 
     const fetchData = async () => {
@@ -44,7 +44,7 @@ function ContactPage() {
               name,
               email,
               phone,
-              //details,
+              details,
             }),
           })
     
@@ -59,7 +59,7 @@ function ContactPage() {
             setName('')
             setEmail('')
             setPhone('')
-            //setDetails('')
+            setDetails('')
     
           } else {
             console.error('Failed to create contact')
@@ -82,8 +82,8 @@ function ContactPage() {
             setEmail={setEmail}
             phone={phone}
             setPhone={setPhone}
-            //details={details}
-            //setDetails={setDetails}
+            details={details}
+            setDetails={setDetails}
             handleSubmit={handleSubmit}
           />
         </div>

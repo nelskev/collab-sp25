@@ -1,4 +1,4 @@
-//import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css'
 import DatePickerUI from './DatePickerUI'
 
 // Send over props from AppointmentPage.jsx

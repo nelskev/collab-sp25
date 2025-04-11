@@ -2,7 +2,7 @@ function ContactForm({
     name, setName,
     email, setEmail,
     phone, setPhone,
-    //details, setDetails,
+    details, setDetails,
     handleSubmit,
 }) {
     return (
@@ -19,12 +19,12 @@ function ContactForm({
                 <label className="form-label">Phone</label>
                 <input type="tel" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} required />
             </div>
-            {/*
+            
             <div className="mb-3">
                 <label className="form-label">Details</label>
-                <textarea className="form-control" value={details} onChange={(e) => setDetails(e.target.value)} required />
+                <textarea className="form-control" value={details} onChange={(e) => setDetails(e.target.value)}  />
             </div>
-            */}
+            
             <button type="submit" className="btn btn-primary w-100 fs-5 mt-3 mb-2">
                 Send Email
             </button>
