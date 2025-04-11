@@ -11,7 +11,19 @@ import AdminNavbar from '../components/AdminNavbar';
 
 
 
+/* 
+  Admin Reviews Page:
 
+
+  This page has:
+  
+  1. The reviews element and fetches the data from the review cluster to 
+  gather all the necessary information to display the reviews. 
+  2. Admin ability to respond to reviews and delete them.
+
+  
+  
+  */
 
 
 
@@ -109,7 +121,7 @@ const filteredReviews = startDate && endDate
       const endDateMidnight = new Date(endDate);
       endDateMidnight.setHours(23, 59, 59, 0);
       return reviewDate >= startDateMidnight && reviewDate <= endDateMidnight;
-    })
+    }) // startDateMidnight and endDateMidnight are used so if the user selects one day the filter will select it regardless of time.
   : reviews;
 
 
@@ -353,7 +365,7 @@ style={{ height: '500px' }}
   rows="5"
   className={`form-control mt-2`}
   style= {{display: selectedReview ? '': 'none' }}
-  disabled={!selectedReview}
+  // disabled={!selectedReview}
 />
 
 
