@@ -15,12 +15,13 @@ router.get('/', async (req, res) => {
 
 // Add new review
 router.post('/', async (req, res) => {
-  const { name, comment, rating, response } = req.body;
+  const { name, comment, rating, reviewDate, response } = req.body;
 
   const newReview = new Review({
     name,
     comment,
     rating,
+    reviewDate: reviewDate || new Date().toISOString(),
     response
   });
 

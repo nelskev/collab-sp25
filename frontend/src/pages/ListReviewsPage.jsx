@@ -12,7 +12,7 @@ export default function ListReviewsPage() {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const month = date.toLocaleString('default', { month: 'short' }); // "Jan", "Feb", etc.
+    const month = date.toLocaleString('default', { month: 'short' }); // Shows month in abbreviation
     const day = date.getDate();
     const year = date.getFullYear();
     
@@ -48,13 +48,9 @@ export default function ListReviewsPage() {
   const sortedReviews = reviews.sort((a, b) => {
     if (sortOrder === 'asc') {
       if (sortFilter === 'rating') return a.rating - b.rating;
-      if (sortFilter === 'name') return a.name.localeCompare(b.name);
-      if (sortFilter === 'comment') return a.comment.localeCompare(b.comment);
       if (sortFilter === 'reviewDate') return a.reviewDate.localeCompare(b.reviewDate);
     } else {
       if (sortFilter === 'rating') return b.rating - a.rating;
-      if (sortFilter === 'name') return b.name.localeCompare(a.name);
-      if (sortFilter === 'comment') return b.comment.localeCompare(a.comment);
       if (sortFilter === 'reviewDate') return a.reviewDate.localeCompare(b.reviewDate);
     }
   });
@@ -74,8 +70,6 @@ export default function ListReviewsPage() {
           <label htmlFor="sortFilter" className="form-label mb-0">Sort by:</label>
           <select id="sortFilter" value={sortFilter} onChange={handleSortChange} className="form-select w-auto">
             <option value="rating">Rating</option>
-            <option value="name">Name</option>
-            <option value="comment">Comment</option>
             <option value="reviewDate">Date</option>
           </select>
 

@@ -3,7 +3,6 @@ import Navbar from './components/Navbar.jsx'
 import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
-import ReviewsPage from './pages/ReviewsPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 
 import Navbar from './components/Navbar.jsx';
@@ -29,15 +28,17 @@ function App() {
             <Services />
           </>
         }/>
-        <Route path="/list_reviews" element={
-          <>
-            <Navbar />
-            <ListReviewsPages />
-          </>
+        {/* Route for Leaving a review */}
+        <Route path="/leave_review" element={
+            <ReviewsPage />
         }/>
+        {/* Route for viewing list of reviews */}
+        <Route path="/list_reviews" element={
+          <ListReviewsPage />
+        }/>
+
         <Route path="/contact" element={
           <>
-            <Navbar />
             <ContactPage />
           </>
         }/>
