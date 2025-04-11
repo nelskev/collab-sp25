@@ -4,8 +4,7 @@ import mongoose from "mongoose";
 const reviewSchema = new mongoose.Schema({
   // id: { type: Number, required: true },  // mongo doesn't use typical int id's, they are long strings
   //
-  name: { type: String, maxlength: 50, required: true },
-  title: { type: String, maxlength: 100, required: true },
+  name: { type: String, required: true },
   rating: {
     type: Number,
     required: true,
@@ -14,14 +13,14 @@ const reviewSchema = new mongoose.Schema({
   },
   comment: { type: String, required: true },
   reviewDate: { type: Date, default: Date.now },
-  response: {
+  ownerResponse: {
     type: String,
     maxlength: 250,
     minlength: 50,
     required: false,
     default: null,
   },
-  responseDate: {
+  ownerResponseDate: {
     type: Date,
     required: false,
     default: null,

@@ -1,10 +1,12 @@
+
+ 
+
 import express from "express";
 import Review from "../models/reviewsModel.js";
 
 const router = express.Router();
 
-
-// GET All Reviews   (setup schema/model first!)
+// GET All Reviews
 router.get("/", async (req, res) => {
     try {
         const reviews = await Review.find(); 
@@ -14,7 +16,8 @@ router.get("/", async (req, res) => {
         res.status(500).json({ code: 500, status: "Error fetching reviews" });
     }
 });
-// GET REVIEW BY ID  
+
+// GET REVIEW BY ID
 router.get("/:id", async (req, res) => {
     try {
         const review = await Review.findById(req.params.id);  
@@ -30,11 +33,11 @@ router.get("/:id", async (req, res) => {
 
 // POST NEW REVIEW
 router.post("/", async (req, res) => {
-    const { name, rating, description } = req.body; 
+    const { name, rating, comment } = req.body; 
     console.log('POST request received at /reviews');
     console.log('Request body:', req.body);
     try {
-        const newReview = new Review({ name, rating, description });  
+        const newReview = new Review({ name, rating, comment });  
         await newReview.save();  
         res.status(201).json(newReview);  
     } catch (err) {
@@ -43,14 +46,13 @@ router.post("/", async (req, res) => {
     }
 });
 
-
 // UPDATE REVIEW 
 router.put("/:id", async (req, res) => {
-    const { name, rating, description } = req.body;
+    const { name, rating, comment, ownerResponse, ownerResponseDate } = req.body;
     try {
         const updatedReview = await Review.findByIdAndUpdate(
             req.params.id,
-            { name, rating, description },
+            { name, rating, comment, ownerResponse, ownerResponseDate },
             { new: true }  
         );
         if (!updatedReview) {
@@ -78,5 +80,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
- 
- 
