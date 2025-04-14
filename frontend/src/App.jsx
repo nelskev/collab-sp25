@@ -41,6 +41,7 @@ function App() {
             <ContactPage />
           </>
         }/>
+          
         <Route path='/appointmentPage' element={
           <>
           <Navbar />

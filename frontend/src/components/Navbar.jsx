@@ -67,17 +67,28 @@ export default function Navbar() {
                   <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
                 </ul>
               </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link REVIEWS ******* /*/}
                 <Link to="/list_reviews" className="m-0 text-end">
                   Reviews
-                </Link></li>
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                {/*/ ******* React Router Link ABOUT ******* /*/}
+                <Link to="/about" className="m-0 text-end">
+                  About
+                </Link>
+              </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
                 <Link to="/contact" className="m-0 text-end">
                   Contact
                 </Link>
               </li>
+
               <li className="nav-item">
                 <a className="nav-link" href="#">Directions</a>
               </li>
