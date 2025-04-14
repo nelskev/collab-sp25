@@ -22,6 +22,9 @@ body {
 .custom-blue{
   color: cornflowerblue;
 }
+.section-header-blue{
+  color: #052c65 !important;
+}
 image{
   width: 100%;
   height: auto;
@@ -132,7 +135,7 @@ image{
 
 /****** DATEPICKER ******/
 .datepicker-wrapper{
-  width: 340px;
+  width: 310px;
 }
 .custom-datepicker-input{
   display: flex;
@@ -171,22 +174,34 @@ image{
   margin: 0 auto;
 }
 .details-pane-wrapper {
-  margin: 350px 0 0 0 
+  margin: 350px 0 0 0;
 }
 .details-pane{
-  top: 0;
+  position: relative;
+  top: 5px;
   max-width: 870px;
   min-height: 350px;
   margin: 0 auto;
-  z-index: 1000
+  z-index: 1000;
+  max-height: 638px !important;
 }
-.details-information{
-  background-color: azure;
+.sort-appointments-dropdown{
+  margin: 0 auto !important
 }
-.details-button-container{
-  background-color: beige;
+.sort-appointments-dropdown select{
+  width: 330px;
+  text-align: center !important;
+  margin: 0 auto !important;
+  background-color: rgb(225, 244, 255);
+  border: 1px solid rgb(194, 194, 194)
 }
-
+.sort-appointments-dropdown select option{
+  width: 330px;
+  text-align: center !important;
+  margin: 0 auto !important;
+  background-color: white;
+  border: none
+}
 /* MODAL */
 
 .modal{
@@ -196,12 +211,42 @@ image{
   left: 50% 
 }
 
+/* ACCORDION */
+.accordion{
+  width: 330px !important;
+  max-width: 330px;
+}
+.accordion-button{
+  padding: .6rem 1.2rem;
+  outline: 2px solid rgba(0, 81, 255, 0.212) !important;
+}
+.accordion-button:not(.collapsed) {
+ background-color: transparent !important;
+}
+
+/* DETAILS PANE */
+.details-pane{
+  max-width: 330px !important;
+}
+
+/* CARDS WRAPPER */
+.cards-wrapper{
+ width: 100%;
+ max-width: 330px;
+}
 
 
 
 /***********************************************/
 /**************** MEDIA QUERIES ****************/
 /***********************************************/
+
+@media screen and (min-width: 550px) {
+  .accordion, .details-pane, .cards-wrapper, .sort-appointments-dropdown, .sort-appointments-dropdown *{
+    min-width: 550px !important;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .section-1{
       min-height: 400px;
