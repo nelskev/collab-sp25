@@ -10,11 +10,13 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const reviews = await Review.find(); 
-        res.json(reviews);  
+        // res.json(reviews);
+        return res.status(200).json(reviews);
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ code: 500, status: "Error fetching reviews" });
     }
+    
 });
 
 // GET REVIEW BY ID
@@ -24,7 +26,8 @@ router.get("/:id", async (req, res) => {
         if (!review) {
             return res.status(404).json({ status: "Review not found" });
         }
-        res.json(review);
+        // res.json(review);
+        return res.status(200).json(review);
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ code: 500, status: "Error fetching review" });

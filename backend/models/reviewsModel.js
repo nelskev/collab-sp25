@@ -15,8 +15,6 @@ const reviewSchema = new mongoose.Schema({
   reviewDate: { type: Date, default: Date.now },
   ownerResponse: {
     type: String,
-    maxlength: 250,
-    minlength: 50,
     required: false,
     default: null,
   },
