@@ -11,11 +11,17 @@ export default function ReviewsPage() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-         const sortedReviews = data
-        .sort((a, b) => b.rating - a.rating) // Sort by rating
-        .sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate)) // Then sort by date
-        .slice(0, 5); // Get the top 5
-      setReviews(sortedReviews);
+        // Fetch reviews from the server
+        const response = await fetch('http://localhost:8000/reviews');
+        const data = await response.json();
+    
+        // Sort the reviews by rating and date
+        const sortedReviews = data
+          .sort((a, b) => b.rating - a.rating)  // Sort by rating
+          .sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate))  // Then sort by date
+          .slice(0, 5); // Get 5
+    
+        setReviews(sortedReviews);
       } catch (err) {
         // Log error if fetching fails
         console.error('Could not load reviews:', err);

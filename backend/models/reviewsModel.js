@@ -17,7 +17,7 @@ const reviewSchema = new mongoose.Schema({
   comment: {
     type: String,
     maxlength: 250,
-    minlength: 50,
+    minlength: 4,
     required: true 
   },
   reviewDate: {

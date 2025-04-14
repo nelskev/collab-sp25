@@ -6,7 +6,7 @@ export default function ListReviewsPage() {
   // Store reviews, selected sorting filter, and any errors from server
   const [reviews, setReviews] = useState([]);
   const [sortFilter, setSortFilter] = useState('rating');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortOrder, setSortOrder] = useState('desc');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -44,21 +44,56 @@ export default function ListReviewsPage() {
     setSortOrder(event.target.value);
   };
 
-  // Sort reviews based on selected filter and order
+  // Sort reviews based on selected filter
   const sortedReviews = [...reviews].sort((a, b) => {
-    if (sortOrder === 'asc') {
-      if (sortFilter === 'rating') return a.rating - b.rating;
-      if (sortFilter === 'reviewDate') return new Date(a.reviewDate) - new Date(b.reviewDate);
-    } else {
-      if (sortFilter === 'rating') return b.rating - a.rating;
-      if (sortFilter === 'reviewDate') return new Date(b.reviewDate) - new Date(a.reviewDate);
+    const dateA = new Date(a.reviewDate);
+    const dateB = new Date(b.reviewDate);
+  
+    if (sortFilter === 'rating') {
+      if (sortOrder === 'asc') {
+        if (a.rating !== b.rating) {
+          return a.rating - b.rating;
+        } else {
+          return dateA - dateB;
+        }
+      }
+  
+      if (sortOrder === 'desc') {
+        if (a.rating !== b.rating) {
+          return b.rating - a.rating;
+        } else {
+          return dateB - dateA;
+        }
+      }
     }
-  });
+  
+    if (sortFilter === 'reviewDate') {
+      if (sortOrder === 'asc') {
+        if (dateA.getTime() !== dateB.getTime()) {
+          return dateA - dateB;
+        } else {
+          return a.rating - b.rating;
+        }
+      }
+  
+      if (sortOrder === 'desc') {
+        if (dateA.getTime() !== dateB.getTime()) {
+          return dateB - dateA;
+        } else {
+          return b.rating - a.rating;
+        }
+      }
+    }
+  });  
 
   // Show message while searching
-  if (loading) return <div className="container section-3">Loading reviews...</div>;
+  if (loading) {
+    return <div className="container section-3">Loading reviews...</div>;
+  }
 
-  if (error) return <div className="container section-3 text-danger">{error}</div>;
+  if (error) {
+     return <div className="container section-3 text-danger">{error}</div>;
+  }
 
   return (
     <>
