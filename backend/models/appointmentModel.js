@@ -16,6 +16,11 @@ const Appointment = mongoose.model('Appointment', appointmentSchema);
 export default Appointment;
 
 
+// Let's say we want to change all 'managers' past and present to 'lead'
+// We would change enum above to : enum: ['lead', 'base-agent']
+// Make sure mongo connection is open and available then do the update
+// Then in terminal: we would run 'node ./updates/updateRoles.js' from the backend folder
+// This is a one time operation then we are done, and it's not constantly querying/updating
 
 
 //  Hoppscotch/Postman POST request sample:
