@@ -6,9 +6,13 @@ import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 import ReviewsPage from './pages/ReviewsPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
+import ContactPage from './pages/ContactPage.jsx'
+
 
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
+import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
+import AppointmentsPage from './pages/AppointmentPage.jsx';
 
 
 function App() {
@@ -30,17 +34,34 @@ function App() {
             <ReviewsPage />
           </>
         }/>
+
        <Route path="/about" element={
           <>
             <Navbar />
             <AboutPage />
           </>
         }/>
+         
+        <Route path="/contact" element={
+          <>
+            <Navbar />
+            <ContactPage />
+          </>
+        }/>
+          
+        <Route path='/appointmentPage' element={
+          <>
+          <Navbar />
+          <AppointmentsPage />
+          </>
+        } />
        
 
 
         <Route path="/admin" element={<AdminHomePage />} />
+        <Route path='/adminreviews' element={<AdminReviewsPage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+
       </Routes>  
       </>
   )
