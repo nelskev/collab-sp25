@@ -82,6 +82,7 @@ export default function Navbar() {
                 </Link>
               </li>
 
+              <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
                 <Link to="/contact" className="m-0 text-end">
                   Contact
