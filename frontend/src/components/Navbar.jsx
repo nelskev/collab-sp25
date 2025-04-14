@@ -74,6 +74,11 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/about" className="m-0 text-end">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="#">Directions</a>
               </li>
               <li className="nav-item">
