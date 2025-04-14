@@ -14,6 +14,7 @@ import ReviewsPage from './pages/ReviewsPage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
+import AppointmentsPage from './pages/AppointmentPage.jsx';
 
 
 function App() {
@@ -41,7 +42,12 @@ function App() {
             <ContactPage />
           </>
         }/>
-       
+        <Route path='/appointmentPage' element={
+          <>
+          <Navbar />
+          <AppointmentsPage />
+          </>
+        } />
        
 
 

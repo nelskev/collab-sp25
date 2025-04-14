@@ -7,18 +7,20 @@ const router = express.Router()
 //  add name, phone and email to model ------>  ( Marco is doing this )
 
 
+
 // GET All Appointments 
 router.get('/', async (req, res) => {
-    const allAppointments = await Appointment.find()       // find()
+    const allAppointments = await Appointment.find()     
     console.log(allAppointments)
     res.status(200).json(allAppointments)
 })
 
 
+
 // POST Appointment
 router.post('/', async (req, res) => {
     const { date, time, details, name, email, phone } = req.body
-
+    console.log("Date received from frontend:", date);
     try {
       const existingAppointments = await Appointment.findOne({ date, time });  // only check time & date or it will still let another user pick that time slot!
       
@@ -26,7 +28,7 @@ router.post('/', async (req, res) => {
         const newAppointment = new Appointment({ date, time, details, name, email, phone })  
         await newAppointment.save()                                                                         //save()
         res.status(200).json(newAppointment)
-        //console.log(newAppointment)
+        console.log("New Appointment:", newAppointment)
       }else{
         res.status(400).json('Appointment already taken')
       }
