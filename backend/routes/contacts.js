@@ -31,11 +31,11 @@ router.get('/:id', async (req, res) => {
 
 // POST Contact
 router.post('/', async (req, res) => {
-    const { name, phone, email } = req.body;
+    const { name, phone, email, details } = req.body;
     console.log(req.body);
 
     try {
-        const newContact = new Contact({ name, phone, email });
+        const newContact = new Contact({ name, phone, email, details });
         await newContact.save();
         res.status(201).json(newContact);
     } catch (err) {
