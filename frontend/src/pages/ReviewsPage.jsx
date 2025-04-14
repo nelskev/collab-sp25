@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { Link } from 'react-router-dom';
 
-//initialize array of reviews objects with some sample content
 export default function ReviewsPage() {
   // Store reviews from the server
   const [reviews, setReviews] = useState([]);
@@ -12,11 +11,11 @@ export default function ReviewsPage() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch('http://localhost:8000/reviews');
-        const data = await res.json();
-        // Sorts the reviews by date to the latest 5
-        const sortedReviews = data.sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate)).slice(0, 5);
-        setReviews(sortedReviews); 
+         const sortedReviews = data
+        .sort((a, b) => b.rating - a.rating) // Sort by rating
+        .sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate)) // Then sort by date
+        .slice(0, 5); // Get the top 5
+      setReviews(sortedReviews);
       } catch (err) {
         // Log error if fetching fails
         console.error('Could not load reviews:', err);
