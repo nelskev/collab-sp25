@@ -4,14 +4,8 @@ import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 import ContactPage from './pages/ContactPage.jsx'
-
-import Navbar from './components/Navbar.jsx';
-import MissionStatement from './components/MissionStatement.jsx';
-import Appointments from './components/Appointments.jsx';
-import Services from './components/Services.jsx';
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
-
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
 

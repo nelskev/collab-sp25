@@ -45,13 +45,13 @@ export default function ListReviewsPage() {
   };
 
   // Sort reviews based on selected filter and order
-  const sortedReviews = reviews.sort((a, b) => {
+  const sortedReviews = [...reviews].sort((a, b) => {
     if (sortOrder === 'asc') {
       if (sortFilter === 'rating') return a.rating - b.rating;
-      if (sortFilter === 'reviewDate') return a.reviewDate.localeCompare(b.reviewDate);
+      if (sortFilter === 'reviewDate') return new Date(a.reviewDate) - new Date(b.reviewDate);
     } else {
       if (sortFilter === 'rating') return b.rating - a.rating;
-      if (sortFilter === 'reviewDate') return a.reviewDate.localeCompare(b.reviewDate);
+      if (sortFilter === 'reviewDate') return new Date(b.reviewDate) - new Date(a.reviewDate);
     }
   });
 
