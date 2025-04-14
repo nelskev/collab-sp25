@@ -1,4 +1,6 @@
+import Joi from "joi";
 import mongoose from "mongoose";
+// const joi = require("joi");
 
 // Define review Schema
 const reviewSchema = new mongoose.Schema({
@@ -24,6 +26,22 @@ const reviewSchema = new mongoose.Schema({
     default: null,
   },
 });
+
+
+
+// Define review Schema
+// const reviewSchema = new mongoose.Schema({
+  reviewSchema.methods.joiValidate= function(obj) {
+    var schema = {
+    name: Joi.string().min(3).max(50).required(),
+    rating: Joi.integer().min(1).max(5).required(),
+    comment: Joi.string().min(3).max(500).required(),
+    reviewDate: Joi.date(),
+    ownerResponse: Joi.string().allow(null, ""),
+    ownerResponseDate: Joi.date().allow(null),
+  }
+  return Joi.validate(obj, schema);
+};
 
 // Create Mongoose Model
 const Review = mongoose.model("review", reviewSchema);

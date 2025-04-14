@@ -1,6 +1,3 @@
-
- 
-
 import express from "express";
 import Review from "../models/reviewsModel.js";
 
@@ -10,7 +7,6 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const reviews = await Review.find(); 
-        // res.json(reviews);
         return res.status(200).json(reviews);
     } catch (err) {
         console.log(err.message);
@@ -26,7 +22,6 @@ router.get("/:id", async (req, res) => {
         if (!review) {
             return res.status(404).json({ status: "Review not found" });
         }
-        // res.json(review);
         return res.status(200).json(review);
     } catch (err) {
         console.log(err.message);
@@ -34,34 +29,40 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// POST NEW REVIEW
+
 router.post("/", async (req, res) => {
-    const { name, rating, comment } = req.body; 
-    console.log('POST request received at /reviews');
-    console.log('Request body:', req.body);
     try {
-        const newReview = new Review({ name, rating, comment });  
-        await newReview.save();  
-        res.status(201).json(newReview);  
+      const review = new Review(req.body);
+      const result = review.joiValidate(req.body);
+      if (result.error) {
+        return res.status(400).json({ code: 400, status: "Invalid request", error: result.error.details });
+      }
+      await review.save();
+      res.status(201).json(review);
     } catch (err) {
-        console.log(err.message);
-        res.status(500).json({ code: 500, status: "Error saving review" });
+      console.log(err.message);
+      res.status(500).json({ code: 500, status: "Error creating review" });
     }
-});
+  });
+  
 
 // UPDATE REVIEW 
 router.put("/:id", async (req, res) => {
-    const { name, rating, comment, ownerResponse, ownerResponseDate } = req.body;
     try {
+        const review = new Review(req.body);
+        const result = review.joiValidate(req.body);
+        if (result.error) {
+            return res.status(400).json({ code: 400, status: "Invalid request", error: result.error.details });
+        }
         const updatedReview = await Review.findByIdAndUpdate(
             req.params.id,
-            { name, rating, comment, ownerResponse, ownerResponseDate },
+            req.body,
             { new: true }  
         );
         if (!updatedReview) {
             return res.status(404).json({ status: "Review not found" });
         }
-        res.json({ status: `${updatedReview.name} has been updated` });
+        res.status(200).json(updatedReview);
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ code: 500, status: "Error updating review" });
@@ -75,7 +76,7 @@ router.delete("/:id", async (req, res) => {
         if (!deletedReview) {
             return res.status(404).json({ status: "Review not found" });
         }
-        res.json({ status: `Review "${deletedReview.name}" deleted` });
+        res.status(200).json({ status: `Review "${deletedReview.name}" deleted` });
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ code: 500, status: "Error deleting review" });
