@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 function ContactForm({
     name, setName,
     email, setEmail,
@@ -33,3 +36,4 @@ function ContactForm({
 }
 
 export default ContactForm
+

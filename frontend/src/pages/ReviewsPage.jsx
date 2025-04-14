@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { Link } from 'react-router-dom';
 
+//initialize array of reviews objects with some sample content
 export default function ReviewsPage() {
   // Store reviews from the server
   const [reviews, setReviews] = useState([]);

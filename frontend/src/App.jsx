@@ -4,8 +4,13 @@ import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 import ContactPage from './pages/ContactPage.jsx'
+
+
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
+import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
+import AppointmentsPage from './pages/AppointmentPage.jsx';
+
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
 
@@ -36,12 +41,19 @@ function App() {
             <ContactPage />
           </>
         }/>
-       
+        <Route path='/appointmentPage' element={
+          <>
+          <Navbar />
+          <AppointmentsPage />
+          </>
+        } />
        
 
 
         <Route path="/admin" element={<AdminHomePage />} />
+        <Route path='/adminreviews' element={<AdminReviewsPage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+
       </Routes>  
       </>
   )
