@@ -116,6 +116,7 @@ export default function ReviewsPage() {
                 <div>
                   <p className="mb-0">Response from owner:</p>
                   <p>{review.ownerResponse}</p>
+                  <p>{review.ownerResponseDate}</p>
                 </div>
               )}
             </div>
