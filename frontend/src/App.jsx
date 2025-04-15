@@ -10,6 +10,7 @@ import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
+import LocationPage from './pages/LocationPage.jsx';
 
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
@@ -46,6 +47,12 @@ function App() {
           <>
           <Navbar />
           <AppointmentsPage />
+          </>
+        } />
+        <Route path='/locationPage' element={
+          <>
+          <Navbar />
+          <LocationPage />
           </>
         } />
        
