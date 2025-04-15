@@ -40,6 +40,12 @@ export default function Navbar() {
                 <h5 className="m-0">Collision Repair</h5>
             </div>
           </a>
+
+          {/*/ ******* React Router Link ADMIN ******* /*/}
+          <Link to="/admin" className="m-0 text-end d-md-none">
+            <img src={'./admin-icon.png'} alt="" width='30'/>
+          </Link>
+
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -61,14 +67,30 @@ export default function Navbar() {
                   <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
                 </ul>
               </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link REVIEWS ******* /*/}
-                <Link to="/reviews" className="m-0 text-end">
+                <Link to="/list_reviews" className="m-0 text-end">
                   Reviews
                 </Link>
               </li>
+
               <li className="nav-item">
-                <a className="nav-link" href="#">Directions</a>
+                {/*/ ******* React Router Link ABOUT ******* /*/}
+                <Link to="/about" className="m-0 text-end">
+                  About
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                {/*/ ******* React Router Link Contact ******* /*/}
+                <Link to="/contact" className="m-0 text-end">
+                  Contact
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link className="nav-link" to="locationPage">Directions</Link>
               </li>
               <li className="nav-item">
               <Link to="/forms" className="m-0 text-end">
