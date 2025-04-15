@@ -12,6 +12,7 @@ import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
+import LocationPage from './pages/LocationPage.jsx';
 
 
 function App() {
@@ -43,6 +44,12 @@ function App() {
           <>
           <Navbar />
           <AppointmentsPage />
+          </>
+        } />
+        <Route path='/locationPage' element={
+          <>
+          <Navbar />
+          <LocationPage />
           </>
         } />
        

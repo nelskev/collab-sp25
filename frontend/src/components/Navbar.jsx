@@ -80,7 +80,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Directions</a>
+                <Link className="nav-link" to="locationPage">Directions</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Download Forms</a>
