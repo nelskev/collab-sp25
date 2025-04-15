@@ -14,7 +14,8 @@
     "react": "^19.0.0",
     "react-datepicker": "^8.2.1",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "^7.4.0",
+    "react-simple-star-rating": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
