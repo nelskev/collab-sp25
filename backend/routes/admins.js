@@ -9,6 +9,21 @@ import express from "express";
 
 const router = express.Router();
 
+
+
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const admin = await Admin.findOne({ username });
+  if (!admin) return res.status(401).send("Invalid credentials");
+
+  const isValidPassword = await admin.comparePassword(password);
+  if (!isValidPassword) return res.status(401).send("Invalid credentials");
+
+  // Login successful, return token or redirect to dashboard
+  res.send("Login successful");
+});
+
+
 // GET All Admins
 router.get("/", async (req, res) => {
     try {

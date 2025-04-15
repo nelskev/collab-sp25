@@ -10,6 +10,26 @@ const adminSchema = new mongoose.Schema({
     });
 
 
+
+adminSchema.pre("save", function(next) {
+    // Hash password before saving
+    bcrypt.hash(this.password, 10, function(err, hash) {
+        if (err) return next(err);
+        this.password = hash;
+        next();
+    });
+    });
+    
+    adminSchema.methods.comparePassword = function(password, next) {
+    // Compare password
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+        if (err) return next(err);
+        next(null, isMatch);
+    });
+    };
+      
+
+
 const Admin = mongoose.model("Admin", adminSchema);
 
 export default Admin;
