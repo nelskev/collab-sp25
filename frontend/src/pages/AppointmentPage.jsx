@@ -33,6 +33,10 @@ const AppointmentPage = () => {
     fetchData();
   }, [])
 
+  useEffect(() => {
+    document.title = 'Appointment'
+  }, [])
+
   const handleAppointmentCreated = () => {
     fetchData()     // add new appointment
   }
