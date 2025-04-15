@@ -73,8 +73,12 @@ function ContactPage() {
         <>
         <div className="container d-flex flex-column bg-light border border-1 rounded-4 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
           <h1 className="text-center fs-3 m-0 mt-1">Contact page 2</h1>
+          <div>
+            <img src={'./scott.jpg'} class="img-fluid rounded-start" alt="Scott's Picture" />
+          </div>
+          
     
-          {/* AppointmentForm gets called and uses our empty state variables we already initialized, and fills them with values*/}
+          {/* ContactForm gets called and uses our empty state variables we already initialized, and fills them with values*/}
           <ContactForm
             name={name}
             setName={setName}
