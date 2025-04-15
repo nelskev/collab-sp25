@@ -73,8 +73,13 @@ function ContactPage() {
         <>
         <div className="container d-flex flex-column bg-light border border-1 rounded-4 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
           <h1 className="text-center fs-3 m-0 mt-1">Contact page 2</h1>
-          <div>
-            <img src={'./scott.jpg'} class="img-fluid rounded-start" alt="Scott's Picture" />
+          <div class="d-flex flex-column gap-3 col-4 col-md-3 col-lg-2 col-xl-2 mx-auto">
+            <img src={'/scott.jpg'} class="img-fluid rounded-start" alt="Scott's Picture" />
+            <div>
+              <p>Scott Didriksen</p>
+              <p><a href="tel:+2087414097">208-562-3174</a></p>
+              <p><a href="mailto:vladkolmorgan@my.cwi.edu">scottdidriksen@cwi.edu</a></p>
+            </div>
           </div>
           
     
