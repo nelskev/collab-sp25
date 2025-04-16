@@ -1,6 +1,5 @@
 import Joi from "joi";
 import mongoose from "mongoose";
-// const joi = require("joi");
 
 // Define review Schema
 const reviewSchema = new mongoose.Schema({
@@ -29,7 +28,7 @@ const reviewSchema = new mongoose.Schema({
   ownerResponse: {
     type: String,
     maxlength: 250,
-    minlength: 50,
+    minlength: 4, 
     required: false,
     default: null,
   },
@@ -40,20 +39,19 @@ const reviewSchema = new mongoose.Schema({
   },
 });
 
+// Define Joi validation schema
+const reviewJoiSchema = Joi.object({
+  name: Joi.string().min(1).max(20).required(),
+  rating: Joi.number().min(1).max(5).required(),
+  comment: Joi.string().min(4).max(250).required(),
+  reviewDate: Joi.date().allow(null),
+  ownerResponse: Joi.string().min(4).max(250).allow(null, ""),
+  ownerResponseDate: Joi.date().allow(null),
+});
 
-
-// Define review Schema
-// const reviewSchema = new mongoose.Schema({
-  reviewSchema.methods.joiValidate= function(obj) {
-    var schema = {
-    name: Joi.string().min(3).max(50).required(),
-    rating: Joi.integer().min(1).max(5).required(),
-    comment: Joi.string().min(3).max(500).required(),
-    reviewDate: Joi.date(),
-    ownerResponse: Joi.string().allow(null, ""),
-    ownerResponseDate: Joi.date().allow(null),
-  }
-  return Joi.validate(obj, schema);
+// Add static method to schema for validation
+reviewSchema.statics.validate = function(obj) {
+  return reviewJoiSchema.validate(obj);
 };
 
 // Create Mongoose Model
