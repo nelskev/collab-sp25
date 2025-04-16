@@ -11,6 +11,7 @@ import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
+import CustPaintPage from './pages/CustPaintPage.jsx';
 
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
@@ -18,11 +19,11 @@ import ListReviewsPage from './pages/ListReviewsPage.jsx';
 function App() {
   return (
     <>
-      <Navbar />
       <Routes>
         {/* Main root route */}
         <Route path="/" element={
           <>
+           <Navbar />
             <MissionStatement />
             <Appointments />
             <Services />
@@ -30,17 +31,32 @@ function App() {
         }/>
         {/* Route for Leaving a review */}
         <Route path="/leave_review" element={
+          <>
+            <Navbar />
             <ReviewsPage />
+          </>
         }/>
         {/* Route for viewing list of reviews */}
         <Route path="/list_reviews" element={
-          <ListReviewsPage />
+          <>
+            <Navbar />
+            <ListReviewsPage />
+          </>
         }/>
 
         <Route path="/contact" element={
           <>
+            <Navbar />
             <ContactPage />
           </>
+        }/>
+
+        <Route path="/CustPaintPage" element={
+          <>
+            <Navbar /> 
+            <CustPaintPage />
+          </>
+            
         }/>
           
         <Route path='/appointmentPage' element={
