@@ -59,13 +59,13 @@ function App() {
             
         }/>
           
-        <Route path='/appointmentPage' element={
+        <Route path='/appointments' element={
           <>
           <Navbar />
           <AppointmentsPage />
           </>
         } />
-        <Route path='/locationPage' element={
+        <Route path='/location' element={
           <>
           <Navbar />
           <LocationPage />
