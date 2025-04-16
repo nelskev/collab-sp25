@@ -1,68 +1,81 @@
-//import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx'
 import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
-import ReviewsPage from './pages/ReviewsPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 
 
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
-
-import ReviewsPage from './pages/ReviewsPage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
-
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
+import LocationPage from './pages/LocationPage.jsx';
+import CustPaintPage from './pages/CustPaintPage.jsx';
 
+import ReviewsPage from './pages/ReviewsPage.jsx';
+import ListReviewsPage from './pages/ListReviewsPage.jsx';
 
 function App() {
   return (
-      <>
+    <>
       <Routes>
-        {/* Render your main content components here for the root path */}
+        {/* Main root route */}
         <Route path="/" element={
           <>
-            <Navbar />
+           <Navbar />
             <MissionStatement />
             <Appointments />
             <Services />
           </>
         }/>
-        <Route path="/reviews" element={
+        {/* Route for Leaving a review */}
+        <Route path="/leave_review" element={
           <>
             <Navbar />
             <ReviewsPage />
           </>
         }/>
+        {/* Route for viewing list of reviews */}
+        <Route path="/list_reviews" element={
+          <>
+            <Navbar />
+            <ListReviewsPage />
+          </>
+        }/>
+
         <Route path="/contact" element={
           <>
             <Navbar />
             <ContactPage />
           </>
         }/>
+
+        <Route path="/CustPaintPage" element={
+          <>
+            <Navbar /> 
+            <CustPaintPage />
+          </>
+            
+        }/>
+          
         <Route path='/appointmentPage' element={
           <>
           <Navbar />
           <AppointmentsPage />
           </>
         } />
+        <Route path='/locationPage' element={
+          <>
+          <Navbar />
+          <LocationPage />
+          </>
+        } />
        
 
 
         <Route path="/admin" element={<AdminHomePage />} />
-
-
-        <Route path='/adminreviews' element={
-        <>
-          <AdminReviewsPage />
-          
-        </>
-        
-        
-        }/>
-
+        <Route path='/adminreviews' element={<AdminReviewsPage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
 
       </Routes>  
@@ -91,5 +104,4 @@ export default App
 //   </Routes>
 // </>
 // </Router>
-
 

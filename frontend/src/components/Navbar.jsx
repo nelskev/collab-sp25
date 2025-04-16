@@ -64,23 +64,36 @@ export default function Navbar() {
                 <ul className="dropdown-menu">
                   <li><a className="dropdown-item" href="#collision-repair">Collision Repair</a></li>
                   <li><a className="dropdown-item" href="#painting">Painting</a></li>
-                  <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
+                  {/* <li><a className="dropdown-item" href="#CustPaintPage">Specialty Painting</a></li> */}
+                  <li><a className="dropdown-item" href="#specialty-painting">
+                    {<Link to="/CustPaintPage" className="m-0 text-end" style={{textDecoration: "none"}}>Specialty Painting</Link>}
+                  </a></li>
                 </ul>
               </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link REVIEWS ******* /*/}
-                <Link to="/reviews" className="m-0 text-end">
+                <Link to="/list_reviews" className="m-0 text-end">
                   Reviews
                 </Link>
               </li>
+
+              <li className="nav-item">
+                {/*/ ******* React Router Link ABOUT ******* /*/}
+                <Link to="/about" className="m-0 text-end">
+                  About
+                </Link>
+              </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
                 <Link to="/contact" className="m-0 text-end">
                   Contact
                 </Link>
               </li>
+
               <li className="nav-item">
-                <a className="nav-link" href="#">Directions</a>
+                <Link className="nav-link" to="locationPage">Directions</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Download Forms</a>

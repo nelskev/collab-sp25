@@ -12,6 +12,7 @@ function ContactForm({
 }) {
     return (
         <form onSubmit={handleSubmit} className="p-2 my-3 col-12 col-med-9 col-lg-5 col-xl-4 mx-auto">
+        <h1 className="sticky-top bg-white p-2 border-bottom">Contact Form</h1>
             <div className="mb-3">
                 <label className="form-label">Name</label>
                 <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required />
@@ -31,7 +32,7 @@ function ContactForm({
             </div>
             
             <button type="submit" className="btn btn-primary w-100 fs-5 mt-3 mb-2">
-                Send Email
+                Submit Contact
             </button>
         </form>
     );
