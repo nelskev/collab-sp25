@@ -75,7 +75,7 @@ function ContactPage() {
           
           <div class="d-flex flex-column gap-3 col-4 col-md-3 col-lg-2 col-xl-2 mx-auto">
             <h1 className="text-center fs-3 m-0 mt-1">Contact Details</h1>
-            <img src={'/scott.jpg'} class="img-fluid rounded-start" alt="Scott's Picture" />
+            <img src={'/owner_scott.png'} class="img-fluid rounded-start" alt="Scott's Picture" />
             <div>
               <p>Scott Didriksen</p>
               <p><a href="tel:+2087414097">208-562-3174</a></p>
