@@ -9,7 +9,7 @@ import ContactPage from './pages/ContactPage.jsx'
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
-import FormDetails from './components/Forms.jsx';
+import FormDetails from './components/Forms/Forms.jsx';
 import './App.css';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
