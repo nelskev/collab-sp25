@@ -64,7 +64,10 @@ export default function Navbar() {
                 <ul className="dropdown-menu">
                   <li><a className="dropdown-item" href="#collision-repair">Collision Repair</a></li>
                   <li><a className="dropdown-item" href="#painting">Painting</a></li>
-                  <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
+                  {/* <li><a className="dropdown-item" href="#CustPaintPage">Specialty Painting</a></li> */}
+                  <li><a className="dropdown-item" href="#specialty-painting">
+                    {<Link to="/CustPaintPage" className="m-0 text-end" style={{textDecoration: "none"}}>Specialty Painting</Link>}
+                  </a></li>
                 </ul>
               </li>
 

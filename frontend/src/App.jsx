@@ -11,6 +11,7 @@ import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
+import CustPaintPage from './pages/CustPaintPage.jsx';
 
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
@@ -41,6 +42,10 @@ function App() {
           <>
             <ContactPage />
           </>
+        }/>
+
+        <Route path="/CustPaintPage" element={
+            <CustPaintPage />
         }/>
           
         <Route path='/appointmentPage' element={
