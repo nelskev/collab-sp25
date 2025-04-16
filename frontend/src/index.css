@@ -185,25 +185,47 @@ image{
   z-index: 1000;
   max-height: 638px !important;
 }
+
+/* ADMIN APPT PAGE SORT TOOLBAR */
+.sort-appointments-wrapper {
+  width: auto;
+  background-color: aqua;
+  height: 35px;
+  margin: 0 0 20px 0
+}
+
 .sort-appointments-dropdown{
-  margin: 0 auto !important
+  width: 165px;
+  margin: 0 auto !important;
 }
 .sort-appointments-dropdown select{
-  width: 330px;
-  text-align: center !important;
+  width: 165px;
   margin: 0 auto !important;
   background-color: rgb(225, 244, 255);
-  border: 1px solid rgb(194, 194, 194)
+  border: 1px solid rgb(194, 194, 194);
+  align-content: stretch;
+  text-align: center;
 }
 .sort-appointments-dropdown select option{
-  width: 330px;
-  text-align: center !important;
   margin: 0 auto !important;
   background-color: white;
-  border: none
+  text-align: center;
+  border: none;
 }
-/* MODAL */
 
+.sort-dates-input{
+  background-color: rgb(225, 244, 255);
+  border: 1px solid rgb(194, 194, 194);
+  padding: 2px 4px;
+  align-content: stretch;
+  width: 165px;
+}
+.sort-dates-input:focus{
+  border-color: rgb(194, 194, 194);
+  outline: none;
+}
+
+/* MODAL */
 .modal{
   max-width: 350px;
   width: 100%;
@@ -242,7 +264,16 @@ image{
 /***********************************************/
 
 @media screen and (min-width: 550px) {
-  .accordion, .details-pane, .cards-wrapper, .sort-appointments-dropdown, .sort-appointments-dropdown *{
+  .sort-appointments-wrapper {
+    width: auto;
+  }
+  .sort-dates-input{
+    width: 275px;
+  }
+  .sort-appointments-dropdown, .sort-appointments-dropdown *{
+    width: 275px !important;
+  }
+  .accordion, .details-pane, .cards-wrapper{
     min-width: 550px !important;
   }
 }

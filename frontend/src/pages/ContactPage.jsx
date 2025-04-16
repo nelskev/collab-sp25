@@ -70,11 +70,20 @@ function ContactPage() {
     }
 
     return (
-        <>
-        <div className="container d-flex flex-column bg-light border border-1 rounded-4 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
-          <h1 className="text-center fs-3 m-0 mt-1">Contact page 2</h1>
-    
-          {/* AppointmentForm gets called and uses our empty state variables we already initialized, and fills them with values*/}
+      <>
+        <div className="side-by-side-desktop d-flex flex-column flex-xl-row align-items-xl-start justify-content-lg-center mx-auto gap-3">
+          
+          <div class="d-flex flex-column gap-3 col-4 col-md-3 col-lg-2 col-xl-2 mx-auto">
+            <h1 className="text-center fs-3 m-0 mt-1">Contact Details</h1>
+            <img src={'/owner_scott.png'} class="img-fluid rounded-start" alt="Scott's Picture" />
+            <div>
+              <p>Scott Didriksen</p>
+              <p><a href="tel:+2087414097">208-562-3174</a></p>
+              <p><a href="mailto:vladkolmorgan@my.cwi.edu">scottdidriksen@cwi.edu</a></p>
+            </div>
+          </div>
+          
+          {/* ContactForm gets called and uses our empty state variables we already initialized, and fills them with values*/}
           <ContactForm
             name={name}
             setName={setName}
@@ -87,7 +96,7 @@ function ContactPage() {
             handleSubmit={handleSubmit}
           />
         </div>
-        </>
+      </>
     )
 }
 

@@ -19,11 +19,11 @@ import ListReviewsPage from './pages/ListReviewsPage.jsx';
 function App() {
   return (
     <>
-      <Navbar />
       <Routes>
         {/* Main root route */}
         <Route path="/" element={
           <>
+           <Navbar />
             <MissionStatement />
             <Appointments />
             <Services />
@@ -31,21 +31,32 @@ function App() {
         }/>
         {/* Route for Leaving a review */}
         <Route path="/leave_review" element={
+          <>
+            <Navbar />
             <ReviewsPage />
+          </>
         }/>
         {/* Route for viewing list of reviews */}
         <Route path="/list_reviews" element={
-          <ListReviewsPage />
+          <>
+            <Navbar />
+            <ListReviewsPage />
+          </>
         }/>
 
         <Route path="/contact" element={
           <>
+            <Navbar />
             <ContactPage />
           </>
         }/>
 
         <Route path="/CustPaintPage" element={
+          <>
+            <Navbar /> 
             <CustPaintPage />
+          </>
+            
         }/>
           
         <Route path='/appointmentPage' element={
