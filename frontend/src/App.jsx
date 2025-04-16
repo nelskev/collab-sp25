@@ -12,6 +12,7 @@ import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
 import CustPaintPage from './pages/CustPaintPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
@@ -69,6 +70,12 @@ function App() {
           <>
           <Navbar />
           <LocationPage />
+          </>
+        } />
+        <Route path='/AboutPage' element={
+          <>
+          <Navbar />
+          <AboutPage />
           </>
         } />
        
