@@ -80,7 +80,7 @@ export default function Navbar() {
 
               <li className="nav-item">
                 {/*/ ******* React Router Link ABOUT ******* /*/}
-                <Link to="/about" className="m-0 text-end">
+                <Link to="/AboutPage" className="m-0 text-end">
                   About
                 </Link>
               </li>
