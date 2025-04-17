@@ -1,6 +1,7 @@
 import React from 'react'
 import ContactForm from '../components/ContactForm'
 import { useEffect, useState } from 'react'
+import ConfirmationModal from "../components/ConfirmationModal";
 
 function ContactPage() {
     const [name, setName] = useState('')
@@ -8,6 +9,7 @@ function ContactPage() {
     const [phone, setPhone] = useState('')
     const [details, setDetails] = useState('')
     const [contacts, setContacts] = useState([])
+    const [showModal, setShowModal] = useState(false)
 
     const fetchData = async () => {
         try {
@@ -54,7 +56,7 @@ function ContactPage() {
           if (response.ok) {
             console.log('Contact created successfully')
             handleContactCreated()   // call method to add new contact if successful
-    
+            setShowModal(true)  // Show confirmation modal
             // Clear all fields/inputs if successful 
             setName('')
             setEmail('')
@@ -94,6 +96,12 @@ function ContactPage() {
             details={details}
             setDetails={setDetails}
             handleSubmit={handleSubmit}
+          />
+          {/*  Modal confirmation */}
+          <ConfirmationModal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            message="Your appointment has been booked successfully!"
           />
         </div>
       </>
