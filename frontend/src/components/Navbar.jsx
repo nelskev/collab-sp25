@@ -55,7 +55,7 @@ export default function Navbar() {
                 <a className="nav-link active" aria-current="page" href="#">Home</a>
               </li> */}
               <li className="nav-item">
-                <a className="nav-link" href="#appointments">Appointments</a>
+                <Link className="nav-link" to="/appointments">Appointments</Link>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,33 +64,39 @@ export default function Navbar() {
                 <ul className="dropdown-menu">
                   <li><Link className="dropdown-item" to="collision-repair">Collision Repair</Link></li>
                   <li><a className="dropdown-item" href="#painting">Painting</a></li>
-                  <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
+                  {/* <li><a className="dropdown-item" href="#CustPaintPage">Specialty Painting</a></li> */}
+                  <li><a className="dropdown-item" href="#specialty-painting">
+                    {<Link to="/CustPaintPage" className="m-0 text-end" style={{textDecoration: "none"}}>Specialty Painting</Link>}
+                  </a></li>
                 </ul>
               </li>
 
               <li className="nav-item">
                 {/*/ ******* React Router Link REVIEWS ******* /*/}
-                <Link to="/list_reviews" className="m-0 text-end">
+                <Link to="/list_reviews" className="nav-link">
                   Reviews
                 </Link>
               </li>
 
               <li className="nav-item">
                 {/*/ ******* React Router Link ABOUT ******* /*/}
-                <Link to="/about" className="m-0 text-end">
+
+
+                <Link to="/about" className="nav-link">
+
                   About
                 </Link>
               </li>
 
               <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
-                <Link to="/contact" className="m-0 text-end">
+                <Link to="/contact" className="nav-link">
                   Contact
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" to="locationPage">Directions</Link>
+                <Link className="nav-link" to="/location">Directions</Link>
               </li>
               <li className="nav-item">
               <Link to="/forms" className="m-0 text-end">
