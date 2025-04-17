@@ -40,7 +40,7 @@ const reviewSchema = new mongoose.Schema({
 });
 
 // Define Joi validation schema
-const reviewJoiSchema = Joi.object({
+/* const reviewJoiSchema = Joi.object({
   name: Joi.string().min(1).max(20).required(),
   rating: Joi.number().min(1).max(5).required(),
   comment: Joi.string().min(4).max(250).required(),
@@ -53,6 +53,7 @@ const reviewJoiSchema = Joi.object({
 reviewSchema.statics.validate = function(obj) {
   return reviewJoiSchema.validate(obj);
 };
+*/
 
 // Create Mongoose Model
 const Review = mongoose.model("review", reviewSchema);
