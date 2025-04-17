@@ -24,25 +24,83 @@ import ContactPage from './pages/ContactPage.jsx'
 
 function App() {
   return (
-    <>     
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<> <MissionStatement /> <Appointments /> <Services /> </>} />          
-          <Route path='/leave_review' element={<ReviewsPage />} />
-          <Route path='/list_reviews' element={<ListReviewsPage />} />
-          <Route path='/contact' element={<ContactPage />} />
-          <Route path='/custPaintPage' element={<CustPaintPage />} />
-          <Route path='/paintDetailsPage' element={<PaintDetailsPage />} />
-          <Route path='/appointments' element={<AppointmentsPage />} />
-          <Route path='/location' element={<LocationPage />} />
-          <Route path='/aboutPage' element={<AboutPage />} />
-          <Route path='/admin' element={<AdminHomePage />} />
-          <Route path='/adminreviews' element={<AdminReviewsPage />} />
-          <Route path='/adminappointments' element={<AdminAppointmentsPage />} />
-          <Route path='*' element={<FourZeroFourPage />} />
-        </Routes>    
-        {/* Add you Footer component here  */}      
-    </>
+    <>
+      <Routes>
+        {/* Main root route */}
+        <Route path="/" element={
+          <>
+           <Navbar />
+            <MissionStatement />
+            <Appointments />
+            <Services />
+          </>
+        }/>
+        {/* Route for Leaving a review */}
+        <Route path="/leave_review" element={
+          <>
+            <Navbar />
+            <ReviewsPage />
+          </>
+        }/>
+        {/* Route for viewing list of reviews */}
+        <Route path="/list_reviews" element={
+          <>
+            <Navbar />
+            <ListReviewsPage />
+          </>
+        }/>
+
+        <Route path="/contact" element={
+          <>
+            <Navbar />
+            <ContactPage />
+          </>
+        }/>
+
+        <Route path="/CustPaintPage" element={
+          <>
+            <Navbar /> 
+            <CustPaintPage />
+          </>
+            
+        }/>
+
+        <Route path="/PaintDetailsPage" element={
+          <>
+            <Navbar /> 
+            <PaintDetailsPage />
+          </>
+            
+        }/>
+          
+        <Route path='/appointments' element={
+          <>
+          <Navbar />
+          <AppointmentsPage />
+          </>
+        } />
+        <Route path='/location' element={
+          <>
+          <Navbar />
+          <LocationPage />
+          </>
+        } />
+        <Route path='/AboutPage' element={
+          <>
+          <Navbar />
+          <AboutPage />
+          </>
+        } />
+       
+
+
+        <Route path="/admin" element={<AdminHomePage />} />
+        <Route path='/adminreviews' element={<AdminReviewsPage />} />
+        <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+        <Route path='*' element={<FourZeroFourPage />} />
+      </Routes>  
+      </>
+
   )
 }
 export default App
