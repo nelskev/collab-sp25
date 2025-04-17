@@ -55,7 +55,7 @@ export default function Navbar() {
                 <a className="nav-link active" aria-current="page" href="#">Home</a>
               </li> */}
               <li className="nav-item">
-                <a className="nav-link" href="#appointments">Appointments</a>
+                <Link className="nav-link" to="/appointments">Appointments</Link>
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,23 +64,39 @@ export default function Navbar() {
                 <ul className="dropdown-menu">
                   <li><a className="dropdown-item" href="#collision-repair">Collision Repair</a></li>
                   <li><a className="dropdown-item" href="#painting">Painting</a></li>
-                  <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
+                  {/* <li><a className="dropdown-item" href="#CustPaintPage">Specialty Painting</a></li> */}
+                  <li><a className="dropdown-item" href="#specialty-painting">
+                    {<Link to="/CustPaintPage" className="m-0 text-end" style={{textDecoration: "none"}}>Specialty Painting</Link>}
+                  </a></li>
                 </ul>
               </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link REVIEWS ******* /*/}
-                <Link to="/reviews" className="m-0 text-end">
+                <Link to="/list_reviews" className="nav-link">
                   Reviews
                 </Link>
               </li>
+
+              <li className="nav-item">
+                {/*/ ******* React Router Link ABOUT ******* /*/}
+
+
+                <Link to="/about" className="nav-link">
+
+                  About
+                </Link>
+              </li>
+
               <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
-                <Link to="/contact" className="m-0 text-end">
+                <Link to="/contact" className="nav-link">
                   Contact
                 </Link>
               </li>
+
               <li className="nav-item">
-                <a className="nav-link" href="#">Directions</a>
+                <Link className="nav-link" to="/location">Directions</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Download Forms</a>

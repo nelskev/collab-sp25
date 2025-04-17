@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import formatDate from '/helpers/dateAndTimeConversion'
+import formatDate from '/helpers/dateConversion'
+import formatTime from '/helpers/timeConversion'
 import formatTimezone from '/helpers/convertTimezoneDate'
 // import formatString from '/helpers/stringConversion'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
+
 
 
 /* This page in a nutshell:
@@ -16,11 +18,12 @@ import EditAppointmentForm from '../components/EditAppointmentForm'
 
 function AdminAppointmentsPage() {
 
-  // state for each component to keep it's own date/time separate
+  // state for each component (CreeateAppt/EditAppt) to keep it's own date/time separate
   const [createDateTime, setCreateDateTime] = useState(null)
   const [editDateTime, setEditDateTime] = useState(null)
   // for sorting
   const [sortBy, setSortBy] = useState('date');
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -33,7 +36,10 @@ function AdminAppointmentsPage() {
   const [updatePhone, setUpdatePhone] = useState('')
   const [updateDetails, setUpdateDetails] = useState('')
 
-  
+  // use count and dailyTimeSlots for conditional rendering of appts?? Maybe, just an idea for now  :
+  // const dailyTimeSlots = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"] 
+  // const count = [count, setCount] = useState(10)
+
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
     try {
@@ -66,7 +72,7 @@ function AdminAppointmentsPage() {
     }
     
     const { date, time } = formatTimezone(createDateTime)
-
+    console.log(date, time)
     try {
       const response = await fetch('http://localhost:8000/appointments', {
         method: 'POST',
@@ -153,17 +159,46 @@ function AdminAppointmentsPage() {
     }
   }
 
+  // SORT APPOINTMENTS BT TIME/NAME - DROPDOWN LOGIC
   const sortedAppointments = appointments.sort((a, b) => {
     switch (sortBy) {
       case 'name':
-        return a.name.localeCompare(b.name) // Sort by name
-      case 'date':
-      default:
-        { const dateA = new Date(a.date).getTime()
-        const dateB = new Date(b.date).getTime()
-        return dateA - dateB } // Sort by date
+        return a.name.localeCompare(b.name)
+  
+      case 'datetime': // Sorting by both date and time
+      default: {
+        const dateStrA = new Date(a.date).toISOString().split('T')[0]
+        const dateStrB = new Date(b.date).toISOString().split('T')[0]
+  
+        const fullDateTimeA = new Date(`${dateStrA}T${a.time}`)
+        const fullDateTimeB = new Date(`${dateStrB}T${b.time}`)
+  
+        return fullDateTimeA.getTime() - fullDateTimeB.getTime()
+      }
     }
   })
+
+  // SORT APPOINTMENTS BY DATE - CALENDAR LOGIC
+  let filteredAppointments
+  let takenTimeSlots = []
+  let getApptDate
+
+  if (selectedDate) {  
+    filteredAppointments = sortedAppointments.filter((appt) => {
+      getApptDate = new Date(appt.date).toISOString().split('T')[0]
+      let apptTime = appt.time
+      if(getApptDate === selectedDate){
+        takenTimeSlots.push(apptTime)
+      }
+      return getApptDate === selectedDate
+    })
+  } else {            // if no date is selected
+    filteredAppointments = sortedAppointments
+  }
+  // setApptDate(selectedDate)
+
+  console.log(takenTimeSlots)
+  //const appointmentDeficit = dailyTimeSlots - takenTimeSlots
 
   return (
 
@@ -226,44 +261,81 @@ function AdminAppointmentsPage() {
       </div>
 
       {/* Sorting dropdown */}
-      <div className='sort-appointments-dropdown m-0 p-0'>
+
+      <div className='sort-appointments-wrapper d-flex gap-0 m-0 mb-2 mb-lg-0 mx-auto p-0'>
+
+      <div className='m-0 p-0 d-flex'>
+        <input 
+          className='m-0 sort-dates-input'
+          type="date" 
+          onChange={(e) => setSelectedDate(e.target.value)} 
+          value={selectedDate || ''}
+        />
+      </div>
+
+      <div className='sort-appointments-dropdown m-0 p-0 d-flex'>
         <select className='py-1 px-0' onChange={(e) => setSortBy(e.target.value)} value={sortBy}>
-          <option value="date">Sort by Date</option>
+          <option value="time">Sort by Time</option>
           <option value="name">Sort by Name</option>
         </select>
       </div>
 
+      </div>
 
       {/* CARDS WRAPPER */}
-      {sortedAppointments.map((appointment) => (
-        <div className="cards-wrapper" key={appointment._id}>
-          <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 m-0">
-            <div className="col-12 col-lg-3">{formatDate(appointment.date)}</div>
-            <div className="col-12 col-lg-3">{appointment.time}</div>
-
-               {/* {formatName(selectedAppointment.name)} */}
-            <div className="col-12 col-lg-3">{appointment.name}</div> 
-
-            <div className="card-button-container col-12 col-lg-3 d-flex justify-content-around gap-2 gap-lg-0">
-            <a type="button" className="btn btn-outline-primary col-5 col-lg-auto p-1" href="#details-pane-wrapper"
-                onClick={() => {
-                 setSelectedAppointment(appointment)
-                 setUpdateName(appointment.name)
-                 setUpdateEmail(appointment.email)
-                 setUpdatePhone(appointment.phone)
-                 setUpdateDetails(appointment.details)
-                }}>
-                Details
-            </a>
-            <a type="button" className="btn btn-outline-danger col-5 col-lg-auto p-1" 
-                onClick={() => handleDeleteAppointment(appointment._id)}>
-                Delete
-            </a>
+      {Array.from({ length: 10 }).map((_, index) => {
+        if (filteredAppointments[index]) {
+          const appointment = filteredAppointments[index];
+          return (
+            <div className="cards-wrapper" key={index}>
+              <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 m-0">
+                <div className="col-12 col-lg-3">{formatDate(appointment.date)}</div>
+                <div className="col-12 col-lg-3">{formatTime(appointment.time)}</div>
+                <div className="col-12 col-lg-3">{appointment.name}</div>
+                <div className="card-button-container col-12 col-lg-3 d-flex justify-content-around gap-2 gap-lg-0">
+                  <a
+                    type="button"
+                    className="btn btn-outline-primary col-5 col-lg-auto p-1"
+                    href="#details-pane-wrapper"
+                    onClick={() => {
+                      setSelectedAppointment(appointment);
+                      setUpdateName(appointment.name);
+                      setUpdateEmail(appointment.email);
+                      setUpdatePhone(appointment.phone);
+                      setUpdateDetails(appointment.details);
+                    }}
+                  >
+                    Details
+                  </a>
+                  <a
+                    type="button"
+                    className="btn btn-outline-danger col-5 col-lg-auto p-1"
+                    onClick={() => handleDeleteAppointment(appointment._id)}
+                  >
+                    Delete
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
+          );
+        } else {
+          return (
+            <div className="cards-wrapper" key={index}>
+              <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 py-lg-2 m-0">
+              <div className="col-12 col-lg-3">the date</div>
+                <div className="col-12 col-lg-3">00:00</div>
+                <div className="col-12 col-lg-6 text-success fw-semibold">Appointment available</div>
+                {/* <div className="card-button-container col-12 col-lg-3 d-flex justify-content-around gap-2 gap-lg-0">
+                  <div className='col-5 col-lg-auto p-1'></div>
+                  <div className='col-5 col-lg-auto p-1'></div>
+                </div> */}
+              </div>
+            </div>
+          );
+        }
+     })}
+
+    </div> {/* end container */}
     </>
   )
 }
