@@ -27,7 +27,7 @@ const FormDetails = () => {
 
       {/* Link to download the form file */}
       <a
-        href="/FAQ.docx"
+        href="./FAQ.docx"
         download
         className="download-button"
         style={{
@@ -38,7 +38,7 @@ const FormDetails = () => {
         <button>DOWNLOAD FAQ</button>
       </a>
       <a
-        href="/Warranty.docx"
+        href="./Warranty.docx"
         download
         className="download-button"
         style={{

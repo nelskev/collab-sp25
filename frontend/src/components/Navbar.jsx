@@ -62,7 +62,7 @@ export default function Navbar() {
                   Services
                 </a>
                 <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#collision-repair">Collision Repair</a></li>
+                  <li><Link className="dropdown-item" to="collision-repair">Collision Repair</Link></li>
                   <li><a className="dropdown-item" href="#painting">Painting</a></li>
                   <li><a className="dropdown-item" href="#specialty-painting">Specialty Painting</a></li>
                 </ul>
