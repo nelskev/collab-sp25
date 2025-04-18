@@ -1,11 +1,13 @@
-import { Routes, Route } from 'react-router-dom';
+import React from 'react'
+import { Routes,  Route} from 'react-router-dom';
+
+// Components
 import Navbar from './components/Navbar.jsx'
 import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
-import ContactPage from './pages/ContactPage.jsx'
 
-
+// Pages
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
@@ -14,9 +16,11 @@ import LocationPage from './pages/LocationPage.jsx';
 import CustPaintPage from './pages/CustPaintPage.jsx';
 import PaintDetailsPage from './pages/PaintDetailsPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
-
+import FourZeroFourPage from './pages/FourZeroFourPage.jsx';
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
+import ContactPage from './pages/ContactPage.jsx'
+
 
 function App() {
   return (
@@ -93,9 +97,10 @@ function App() {
         <Route path="/admin" element={<AdminHomePage />} />
         <Route path='/adminreviews' element={<AdminReviewsPage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
-
+        <Route path='*' element={<FourZeroFourPage />} />
       </Routes>  
       </>
+
   )
 }
 export default App
