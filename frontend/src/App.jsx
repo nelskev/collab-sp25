@@ -3,6 +3,7 @@ import { Routes,  Route} from 'react-router-dom';
 
 // Components
 import Navbar from './components/Navbar.jsx'
+import Footer from './components/Footer.jsx';
 import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
@@ -22,6 +23,7 @@ import ListReviewsPage from './pages/ListReviewsPage.jsx';
 import ContactPage from './pages/ContactPage.jsx'
 
 
+
 function App() {
   return (
     <>
@@ -33,6 +35,7 @@ function App() {
             <MissionStatement />
             <Appointments />
             <Services />
+            <Footer />
           </>
         }/>
         {/* Route for Leaving a review */}
@@ -40,6 +43,7 @@ function App() {
           <>
             <Navbar />
             <ReviewsPage />
+            <Footer />
           </>
         }/>
         {/* Route for viewing list of reviews */}
@@ -47,6 +51,7 @@ function App() {
           <>
             <Navbar />
             <ListReviewsPage />
+            <Footer />
           </>
         }/>
 
@@ -54,6 +59,7 @@ function App() {
           <>
             <Navbar />
             <ContactPage />
+            <Footer />
           </>
         }/>
 
@@ -61,6 +67,7 @@ function App() {
           <>
             <Navbar /> 
             <CustPaintPage />
+            <Footer />
           </>
             
         }/>
@@ -69,6 +76,7 @@ function App() {
           <>
             <Navbar /> 
             <PaintDetailsPage />
+            <Footer />
           </>
             
         }/>
@@ -77,18 +85,21 @@ function App() {
           <>
           <Navbar />
           <AppointmentsPage />
+          <Footer />
           </>
         } />
         <Route path='/location' element={
           <>
           <Navbar />
           <LocationPage />
+          <Footer />
           </>
         } />
         <Route path='/AboutPage' element={
           <>
           <Navbar />
           <AboutPage />
+          <Footer />
           </>
         } />
        
@@ -98,6 +109,7 @@ function App() {
         <Route path='/adminreviews' element={<AdminReviewsPage />} />
         <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
         <Route path='*' element={<FourZeroFourPage />} />
+        
       </Routes>  
       </>
 
