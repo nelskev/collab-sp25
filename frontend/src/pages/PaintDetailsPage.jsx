@@ -3,44 +3,73 @@ import { Link } from 'react-router-dom';
 import BeforeImage from '../assets/Paint_Before.jpg';
 import AfterImage from '../assets/Paint_After.jpg';
 
-
 const PaintDetailsPage = () => {
+  return (
+    <div className="container">
 
+      <div className="cards-wrapper">
 
-
-    return (
-      <div>
-
-        <h2>Painting</h2>
+        <h2 
+          className="section-header-blue" 
+          style={{ 
+            alignItems: 'center',
+            paddingLeft: '12rem',
+            paddingTop: '2rem',
+            paddingBottom: '2rem'
+          }}>
+            Painting
+        </h2>
 
         {/* Before and after images */}
-        <div>
-
-          <div>
-            <img src={BeforeImage} alt='Before'/>
-            <p>Before</p>
+        <div 
+          className="details-pane" 
+          style={{
+              display: 'flex', 
+              justifyContent: 'space-around', 
+              }}>
+          
+          <div style={{textAlign: 'center'}}>
+            <img 
+              src={BeforeImage} 
+              alt="Before" 
+              style={{maxWidth: '100%'}}/>
+            <p style={{paddingTop: '.5rem'}}>Before</p>
           </div>
 
-          <div>
-            <img src={AfterImage} alt='After'/>
-            <p>After</p>
+          <div style={{textAlign: 'center'}}>
+            <img 
+              src={AfterImage}
+              alt="After" 
+              style={{maxWidth: '100%'}}/>
+            <p style={{paddingTop: '.5rem'}}>After</p>
           </div>
 
         </div>
 
-        <div>
-          <p>Description of service</p>
+        {/* Service description */}
+        <div 
+          className="details-pane" 
+          style={{textAlign: 'center'}}>
+          <p> We specialize in paint repair that blends seamlessly with your car’s original finish. 
+            Our experts provide perfect color matching and a smooth, factory-finish shine.
+            </p>
         </div>
 
-        {/* Button linking to the appointments page */}
-        <div>
-          <Link to='/appointments'>
-            <button>Make Appointment</button>
-          </Link>
+        {/* Make Appointment button */}
+        <div 
+          className="details-pane" 
+          style={{textAlign: 'center'}}>
+            <Link to="/appointments">
+              <button style={{fontSize: '1.2rem'}}>
+                Make Appointment
+              </button>
+            </Link>
         </div>
 
       </div>
-    );
-  };
 
-  export default PaintDetailsPage;
+    </div>
+  );
+};
+
+export default PaintDetailsPage;
