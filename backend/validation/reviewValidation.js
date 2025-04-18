@@ -16,13 +16,13 @@ const reviewValidationSchema = Joi.object({
         .max(250)
         .required(),
     reviewDate: Joi.date(),
-    ownerResponse: Joi.string()
+  /*  ownerResponse: Joi.string()
         .trim()
         .min(4)
         .max(250)
         .optional(),
     ownerResponseDate: Joi.date()
-        .optional(),
+        .optional(),*/
     });
 
 export default reviewValidationSchema;
