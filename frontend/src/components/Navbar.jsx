@@ -89,7 +89,7 @@ export default function Navbar() {
                 {/*/ ******* React Router Link ABOUT ******* /*/}
 
 
-                <Link to="/about" className="nav-link">
+                <Link to="/AboutPage" className="nav-link">
 
                   About
                 </Link>

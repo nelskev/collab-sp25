@@ -21,25 +21,6 @@ export default function LocationPage() {
                              width={500} height={400}  allowfullscreen="" loading="lazy" ></iframe>
                         </div>
                     </section>
-                    <section className="col p-2 ">
-                        <div className="text-center fs-3 m-0 mt-5 mb-3">
-                            <h2 className="">Contact Details</h2>
-                            <img src={'/owner_scott.png'} class="img-fluid mx-auto d-block rounded" width={250} alt="Scott's Picture" />                            
-                            <p>Scott Didriksen</p>
-                            <p><a href="tel:+2087414097">208-562-3174</a></p>
-                            <p><a href="mailto:vladkolmorgan@my.cwi.edu">scottdidriksen@cwi.edu</a></p>
-                            <div className="text-start mt-5 opsHours">
-                                <h2>Hours of Operation</h2>
-                                <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-                                <p>Saturday - Sunday: Closed</p>
-                                <p>Holidays: Closed</p>
-                                <div className="button-group">
-                                    <Link className="btn btn-success me-3 " to="/contact" >Contact us</Link>
-                                    <Link className="btn btn-success ms-3 " to="/appointments">Book an appointment</Link>
-                                </div>                                
-                            </div>                            
-                        </div>
-                    </section>
                 </div>                
             </div> 
 
@@ -51,18 +32,6 @@ export default function LocationPage() {
                     iframe, img {
                         width: 100% !important;
                         height: auto;
-                    }
-                    .button-group {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 0.75rem; /* vertical spacing between buttons */
-                        text-align: center;
-                    }
-                    .button-group .btn {
-                        width: 100%;
-                    }
-                    .opsHours {
-                        text-align: center;
                     }
                 }
 
