@@ -225,12 +225,12 @@ image{
   outline: none;
 }
 
-/* MODAL */
+/* MODAL - GLOBAL STYLE TO STAY CONSISTENT ACROSS SITE*/
 .modal{
-  max-width: 350px;
+  /* max-width: 350px; */
   width: 100%;
-  transform: translateX(-50%) !important;
-  left: 50% 
+  /* transform: translateX(-50%) !important;
+  left: 50%  */
 }
 
 /* ACCORDION */
@@ -275,6 +275,13 @@ image{
   }
   .accordion, .details-pane, .cards-wrapper{
     min-width: 550px !important;
+  }
+  /* MODAL */
+  .modal{
+    max-width: 100%;
+    width: 100%;
+    transform: translateX(0%) !important;
+    left: 0;
   }
 }
 
