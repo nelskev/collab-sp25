@@ -234,7 +234,7 @@ image{
 }
 
 /* ACCORDION */
-.accordion{
+/* .accordion{
   width: 330px !important;
   max-width: 330px;
 }
@@ -244,7 +244,7 @@ image{
 }
 .accordion-button:not(.collapsed) {
  background-color: transparent !important;
-}
+} */
 
 /* DETAILS PANE */
 .details-pane{
@@ -273,7 +273,7 @@ image{
   .sort-appointments-dropdown, .sort-appointments-dropdown *{
     width: 275px !important;
   }
-  .accordion, .details-pane, .cards-wrapper{
+  .details-pane, .cards-wrapper{
     min-width: 550px !important;
   }
 }
