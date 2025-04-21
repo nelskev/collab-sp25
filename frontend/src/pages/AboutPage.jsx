@@ -11,6 +11,38 @@ export default function AboutPage() {
             <img src={Scott} className="rounded" alt="owner scott" style={{width: '300px', height: '300px'}}/>
         </div>
 
+        {/* Example accordion that works just fine now, without being influenced by global css! */}
+        {/* <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                       Do You Work With Insurance Companies?
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>We work with all insurance companies, and in fact, we are a direct repair facility for many insurance companies.</strong>
+                    </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                       Do I Need An Appointment?
+                    </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>We do suggested scheduling an appointment through our easy-to-use form ahead of time, 
+                            but if you find yourself short on time, please give us a call and we will try and fit you in as soon as convenient.</strong> 
+                    </div>
+                    </div>
+                </div>
+            </div> */}
+
+
+
+
         <p style={{textAlign: 'center', padding: '40px'}}>Located in Nampa, Idaho, Scott’s Automotive Repair is your locally operated and family-owned repair facility. Owner, Scott Didrikson, is a seasoned expert boasting over 30 years of experience in collision repair services. Recognizing a need for reliable and affordable automotive repair in our community, Scott opened his business and as the community grew so did our shop. You can trust that our skilled technicians are committed to delivering top-tier service to restore your vehicle with precision, whether it be a minor fender bender or a major collision. Let us provide you with excellent customer service by booking an appointment with Scott’s Automotive today!</p>
 
         <h2>FAQs</h2>

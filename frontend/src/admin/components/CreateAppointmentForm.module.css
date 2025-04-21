@@ -1,0 +1,26 @@
+/* Creating this file to not pollute global CSS */
+
+/* ACCORDION */
+.accordion{
+    width: 330px !important;
+    max-width: 330px;
+  }
+  .accordion-button{
+    padding: .6rem 1.2rem;
+    outline: 2px solid rgba(0, 81, 255, 0.212) !important;
+  }
+  .accordion-button:not(.collapsed) {
+   background-color: transparent !important;
+  }
+  
+  
+  /***********************************************/
+  /**************** MEDIA QUERIES ****************/
+  /***********************************************/
+  
+  @media screen and (min-width: 550px) {
+      .accordion{
+          min-width: 550px !important;
+      }
+  }
+     
