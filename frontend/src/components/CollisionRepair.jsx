@@ -1,40 +1,47 @@
-import React from 'react';
-// import './CollisionRepair.css';
-// import beforeImage from '../assets/before.jpg';   // Replace with actual image paths
-// import afterImage from '../assets/after.jpg';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom';
+import BeforeImage from '../assets/before&After.jpeg'
+
+
 
 const CollisionRepair = () => {
-  const navigate = useNavigate();
 
-  const handleAppointmentClick = () => {
-    navigate('/appointment');
-  };
-
-  return (
-    <div className="collision-repair-container">
-      <h1>Collision Repair Services</h1>
-      <p className="description">
+    
+  
+    return (
+      <div>
+  
+  <h1>Collision Repair Services</h1>
+     
+        {/* Before and after images */}
+        <div>
+  
+          <div>
+            <img src={BeforeImage} alt='Before'/>
+           
+          </div>
+  
+         
+  
+        </div>
+  
+        <div>
+          <p>Description of service</p>
+          <p className="description">
         We specialize in high-quality collision repair to get your vehicle looking brand new.
         Whether it’s a minor dent or major bodywork, our expert technicians will restore your car to its pre-accident condition.
       </p>
-
-      <div className="image-comparison">
-        <div className="image-box">
-          <h3>Before</h3>
-          {/* <img src={beforeImage} alt="Before repair" /> */}
         </div>
-        <div className="image-box">
-          <h3>After</h3>
-          {/* <img src={afterImage} alt="After repair" /> */}
+  
+        {/* Button linking to the appointments page */}
+        <div>
+          <Link to='./pages/AppointmentPage.jsx'>
+            <button>Make Appointment</button>
+          </Link>
         </div>
+  
       </div>
-
-      <button className="appointment-button" onClick={handleAppointmentClick}>
-        Schedule an Appointment
-      </button>
-    </div>
-  );
-};
-
-export default CollisionRepair;
+    );
+  };
+  
+  export default CollisionRepair ;

@@ -24,7 +24,7 @@ import AboutPage from './pages/AboutPage.jsx';
 import FourZeroFourPage from './pages/FourZeroFourPage.jsx';
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
-import ContactPage from './pages/ContactPage.jsx'
+
 
 
 function App() {
@@ -70,6 +70,7 @@ function App() {
         }/>
         <Route path="/collision-repair" element={
           <>
+            <Navbar />
           <CollisionRepair />
 
           </>
