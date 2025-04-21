@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes,  Route} from 'react-router-dom';
+import ProtectedRoute from './admin/components/ProtectedRoute.jsx';
 
 // Components
 import Navbar from './components/Navbar.jsx'
@@ -9,6 +10,7 @@ import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 
 // Pages
+import AdminLoginPage from './admin/pages/AdminLoginPage.jsx';
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
@@ -105,9 +107,28 @@ function App() {
        
 
 
-        <Route path="/admin" element={<AdminHomePage />} />
-        <Route path='/adminreviews' element={<AdminReviewsPage />} />
-        <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+        <Route path='/adminlogin' element={
+          
+          <>
+          <Navbar />
+          <AdminLoginPage />
+          </>
+          } />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+          <AdminHomePage />
+          </ProtectedRoute>
+          } />
+        <Route path='/adminreviews' element={
+          
+          <ProtectedRoute>
+          <AdminReviewsPage /> 
+          </ProtectedRoute> } />
+        <Route path="/adminappointments" element={
+          <ProtectedRoute>
+          <AdminAppointmentsPage />
+          </ProtectedRoute>
+          } />
         <Route path='*' element={<FourZeroFourPage />} />
         
       </Routes>  
