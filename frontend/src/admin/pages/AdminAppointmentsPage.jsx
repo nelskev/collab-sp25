@@ -6,6 +6,9 @@ import formatTimezone from '/helpers/convertTimezoneDate'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
+
+import userFrontendSchema from '../validation/appointmentFormValidation'
+
 import SearchAppointment from '../components/SearchAppointment'
 
 
@@ -27,10 +30,18 @@ function AdminAppointmentsPage() {
   const [searchEmail, setSearchEmail] = useState('');
   const [isSortActive, setIsSortActive] = useState(false)
 
+  // for modal
+  const [showModal, setShowModal] = useState(false);   
+
+
   const [name, setName] = useState('')
+  const [nameError, setNameError] = useState(null);        // joi
   const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState(null);        // joi
   const [phone, setPhone] = useState('')
+  const [phoneError, setPhoneError] = useState(null);        // joi
   const [details, setDetails] = useState('')
+  const [detailsError, setDetailsError] = useState(null);        // joi
   const [appointments, setAppointments] = useState([]) 
   const [selectedAppointment, setSelectedAppointment] = useState(null) // for modal
   const [updateName, setUpdateName] = useState('')
@@ -115,13 +126,49 @@ function AdminAppointmentsPage() {
     e.preventDefault()
     console.log("Update user button clicked", selectedAppointment)
 
+    // Clear Joi
+    setNameError('')
+    setEmailError('')
+    setPhoneError('')
+    setDetailsError('')
+    
+    // Use Joi to validate the data
+    const validationResult = userFrontendSchema.validate({ name: updateName, email: updateEmail, phone: updatePhone, details: updateDetails });
+
+    if (validationResult.error) {
+        const errors = validationResult.error.details
+        errors.forEach(error=>{
+            switch(error.context.key){
+                case 'name':
+                    setNameError(error.message)
+                    break;
+                case 'email':
+                    setEmailError(error.message)
+                    break;
+                case 'phone':
+                    setPhoneError(error.message)
+                    break;
+                case 'details':
+                    setDetailsError(error.message)
+                    break;
+                default:
+                    break;
+            }
+        })
+        return;
+    }
+    setShowModal(true)  // modal  
+  }
+
+    const confirmUpdateUser = async () => {
+
     const { date, time } = formatTimezone(editDateTime)
 
-     try {
-       const response = await fetch(`http://localhost:8000/appointments/${selectedAppointment._id}`, {
-         method: 'PUT',
-         headers: { 'Content-Type': 'application/json', },
-         body: JSON.stringify({ 
+    try {
+      const response = await fetch(`http://localhost:8000/appointments/${selectedAppointment._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', },
+          body: JSON.stringify({ 
           name: updateName, 
           email: updateEmail, 
           phone: updatePhone, 
@@ -129,18 +176,19 @@ function AdminAppointmentsPage() {
           date,
           time,
         }),
-       })
-       console.log(response)
-       if (response.ok) {
-         fetchData()
-         setSelectedAppointment(null)
-       } else {
-         console.error('Failed to update user')
-       }
-     } catch (error) {
-       console.error('Error:', error)
-     }
-   }
+      })
+      console.log(response)
+      if (response.ok) {
+        fetchData()
+        setSelectedAppointment(null)
+        setShowModal(false) // modal
+      } else {
+        console.error('Failed to update user')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
    const handleDeleteAppointment = async (id) => {
     try {
@@ -164,7 +212,9 @@ function AdminAppointmentsPage() {
     if (!timeStr) return 'Invalid Time';
   
     const [hours, minutes] = timeStr.split(':');
-    const paddedHours = hours.padStart(2, '0'); 
+
+    const paddedHours = hours.padStart(2, '0'); // Add leading zero if needed
+
     console.log(`Time is ----------> ${paddedHours}:${minutes}`);
     return `${paddedHours}:${minutes}`;
   }
@@ -199,6 +249,28 @@ function AdminAppointmentsPage() {
     
     <div className="container d-flex flex-column bg-light border border-1 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h1 className="text-center fs-3 m-0 mt-1 section-header-blue">Appointment page</h1>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Confirm Update</h1>
+                <button type="button" className="btn-close" onClick={() => setShowModal(false)} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to update {updateName}?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+                <button type="button" className="btn btn-primary" onClick={confirmUpdateUser}>Confirm</button> 
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       <div className='side-by-side-desktop d-flex flex-column flex-xl-row align-items-xl-start justify-content-lg-center mx-auto gap-3'>
 
@@ -236,12 +308,16 @@ function AdminAppointmentsPage() {
             appointments={appointments}  // grey out taken appointment
             updateName={updateName}
             setUpdateName={setUpdateName}
+            nameError={nameError}             // joi
             updateEmail={updateEmail}
             setUpdateEmail={setUpdateEmail}
+            emailError={emailError}            // joi
             updatePhone={updatePhone}
             setUpdatePhone={setUpdatePhone}
+            phoneError={phoneError}           // joi
             updateDetails={updateDetails}
             setUpdateDetails={setUpdateDetails}
+            detailsError={detailsError}       // joi
             handleUpdateAppointment={handleUpdateAppointment}
             selectedAppointment={selectedAppointment} 
             />
