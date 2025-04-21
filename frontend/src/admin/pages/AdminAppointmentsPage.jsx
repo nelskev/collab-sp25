@@ -6,7 +6,9 @@ import formatTimezone from '/helpers/convertTimezoneDate'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
+
 import userFrontendSchema from '../validation/appointmentFormValidation'
+
 import SearchAppointment from '../components/SearchAppointment'
 
 
@@ -20,15 +22,17 @@ import SearchAppointment from '../components/SearchAppointment'
 
 function AdminAppointmentsPage() {
 
-  // state for each component (CreeateAppt/EditAppt) to keep it's own date/time separate
+  // state for each component (CreateAppt/EditAppt) to keep it's own date/time separate
   const [createDateTime, setCreateDateTime] = useState(null)
   const [editDateTime, setEditDateTime] = useState(null)
   // for sorting
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchEmail, setSearchEmail] = useState('');
   const [isSortActive, setIsSortActive] = useState(false)
+
   // for modal
   const [showModal, setShowModal] = useState(false);   
+
 
   const [name, setName] = useState('')
   const [nameError, setNameError] = useState(null);        // joi
@@ -208,7 +212,9 @@ function AdminAppointmentsPage() {
     if (!timeStr) return 'Invalid Time';
   
     const [hours, minutes] = timeStr.split(':');
+
     const paddedHours = hours.padStart(2, '0'); // Add leading zero if needed
+
     console.log(`Time is ----------> ${paddedHours}:${minutes}`);
     return `${paddedHours}:${minutes}`;
   }
