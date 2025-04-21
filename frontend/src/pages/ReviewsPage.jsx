@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { Link } from 'react-router-dom';
+import formatDate from '../../helpers/dateConversion';
 
 export default function ReviewsPage() {
   // Store reviews from the server
@@ -121,7 +122,7 @@ export default function ReviewsPage() {
                 <div>
                   <p className="mb-0">Response from owner:</p>
                   <p>{review.ownerResponse}</p>
-                  <p>{review.ownerResponseDate}</p>
+                  <p>{formatDate(review.ownerResponseDate)}</p>
                 </div>
               )}
             </div>

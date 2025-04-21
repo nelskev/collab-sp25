@@ -1,3 +1,4 @@
+import Joi from "joi";
 import mongoose from "mongoose";
 
 // Define review Schema
@@ -27,7 +28,7 @@ const reviewSchema = new mongoose.Schema({
   ownerResponse: {
     type: String,
     maxlength: 250,
-    minlength: 50,
+    minlength: 4, 
     required: false,
     default: null,
   },
@@ -37,6 +38,22 @@ const reviewSchema = new mongoose.Schema({
     default: null,
   },
 });
+
+// Define Joi validation schema
+/* const reviewJoiSchema = Joi.object({
+  name: Joi.string().min(1).max(20).required(),
+  rating: Joi.number().min(1).max(5).required(),
+  comment: Joi.string().min(4).max(250).required(),
+  reviewDate: Joi.date().allow(null),
+  ownerResponse: Joi.string().min(4).max(250).allow(null, ""),
+  ownerResponseDate: Joi.date().allow(null),
+});
+
+// Add static method to schema for validation
+reviewSchema.statics.validate = function(obj) {
+  return reviewJoiSchema.validate(obj);
+};
+*/
 
 // Create Mongoose Model
 const Review = mongoose.model("review", reviewSchema);

@@ -134,7 +134,9 @@ export default function Navbar() {
               <li className="nav-item">
                 {/*/ ******* React Router Link ABOUT ******* /*/}
 
-                <Link to="/about" className="nav-link">
+
+                <Link to="/AboutPage" className="nav-link">
+
                   About
                 </Link>
               </li>
