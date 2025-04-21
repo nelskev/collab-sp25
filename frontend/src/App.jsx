@@ -72,7 +72,7 @@ function App() {
 
           <Route path="/forms" element={
           <>
-            
+               <Navbar />
             <FormDetails />
           </>
         }/>
