@@ -1,14 +1,40 @@
 import mongoose from "mongoose";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
 
 const adminSchema = new mongoose.Schema({
-    username: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
     });
 
 
+/* 
+adminSchema.pre("save", async function (next) {
+    const saltRounds = 10;
+    if (this.isNew || this.isModified("password")) {
+      this.password = await bcrypt.hash(this.password, saltRounds);
+    }
+    next();
+  });
+  /*
+  
+  /*
+  adminSchema.methods.isPasswordValid = async function (password) {
+    return await bcrypt.compare(password, this.password);
+  };*/
+
+  adminSchema.methods.isPasswordValid = async function (password) {
+    try {
+      // console.log('Comparing password in model method'); // Debugging Console Messages
+      // const isValid = await bcrypt.compare(password, this.password);
+      const isValid = this.password === password;
+      // console.log('Password comparison result:', isValid); // Debugging Console Messages
+      return isValid;
+    } catch (error) {
+      console.error('Error in password validation:', error);
+      return false;
+    }
+  };
 
 /*
 adminSchema.pre("save", function(next) {
@@ -31,10 +57,12 @@ adminSchema.pre("save", function(next) {
     */
       
 
-
+/*
 adminSchema.methods.comparePassword = async function(password) {
-    return await bcrypt.compare(password, this.password);
+  return await bcrypt.compare(password, this.password);
 };
+
+
 
 adminSchema.pre("save", async function(next) {
     if (this.isNew || this.isModified("password")) {
@@ -42,6 +70,7 @@ adminSchema.pre("save", async function(next) {
     }
     next();
 });
+*/
 
 const Admin = mongoose.model("Admin", adminSchema);
 
