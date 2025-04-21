@@ -58,3 +58,61 @@
     color: green;
     font-weight: bold;
   }
+
+  .form-container {
+    padding: 40px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-box {
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .form-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .form-content {
+    font-size: 16px;
+  }
+  
+  .form-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .form-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  .form-info {
+    max-width: 70%;
+  }
+  
+  .download-button button {
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .download-button button:hover {
+    background-color: #0056b3;
+  }
+  
+  .email-section {
+    margin-top: 20px;
+    font-weight: bold;
+  }

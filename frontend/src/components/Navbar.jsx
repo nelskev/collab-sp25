@@ -62,7 +62,7 @@ export default function Navbar() {
                   Services
                 </a>
                 <ul className="dropdown-menu">
-                  <li><Link className="dropdown-item" to="collision-repair">Collision Repair</Link></li>
+                  <li><Link className="dropdown-item" to="/collision-repair">Collision Repair</Link></li>
                
                   
                   
@@ -108,7 +108,7 @@ export default function Navbar() {
                 <Link className="nav-link" to="/location">Directions</Link>
               </li>
               <li className="nav-item">
-              <Link to="/forms" className="m-0 text-end">
+              <Link to="/forms" className="nav-link">
                   Download Forms
                 </Link>
               </li>
