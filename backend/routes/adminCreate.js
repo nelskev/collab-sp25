@@ -1,6 +1,8 @@
 import express from "express";
-import bcrypt from "bcrypt";  
-const saltRounds = 10; // Adjust the cost factor as needed
+
+// import bcrypt from "bcrypt";  
+// const saltRounds = 10; // Adjust the cost factor as needed
+
 import Admin from "../models/adminModel.js";
 
 const router = express.Router();
