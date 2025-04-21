@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import ReviewCard from '../components/ReviewCard';
 import AdminNavbar from '../components/AdminNavbar';
 
+import { responseValidationSchema } from '../validation/responseValidation.js';
 
 
 
@@ -196,34 +197,44 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
 
 
   const handleResponseSubmit = (reviewId) => {
-    if (window.confirm(`Confirm response message: ${response} `)) {
-      if (reviewId) {
-        fetch(`http://localhost:8000/reviews/${reviewId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ownerResponse: response,
-            ownerResponseDate: new Date(),
-          }),
-        })
-        .then(() => {
-          const updatedReviews = reviews.map((review) => {
-            if (review._id === reviewId) {
-              return { ...review, ownerResponse: response, ownerResponseDate: new Date() };
-            }
-            return review;
-          });
-          setReviews(updatedReviews);
-          setResponse('');
-          setSelectedReview(null);
-        })
-        .catch((error) => {
-          console.error('Error:', error)
-        })
-      } else {
-        console.error('Review ID is undefined');
+    const { error } = responseValidationSchema.validate({
+      ownerResponse: response,
+      ownerResponseDate: new Date(),
+    });
+  
+    if (error) {
+      console.error('Error:', error);
+      alert(error.details[0].message);
+    } else {
+      if (window.confirm(`Confirm response message: ${response} `)) {
+        if (reviewId) {
+          fetch(`http://localhost:8000/reviews/${reviewId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              ownerResponse: response,
+              ownerResponseDate: new Date(),
+            }),
+          })
+          .then(() => {
+            const updatedReviews = reviews.map((review) => {
+              if (review._id === reviewId) {
+                return { ...review, ownerResponse: response, ownerResponseDate: new Date() };
+              }
+              return review;
+            });
+            setReviews(updatedReviews);
+            setResponse('');
+            setSelectedReview(null);
+          })
+          .catch((error) => {
+            console.error('Error:', error)
+          })
+        } else {
+          console.error('Review ID is undefined');
+        }
       }
     }
   }
