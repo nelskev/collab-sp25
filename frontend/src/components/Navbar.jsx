@@ -94,11 +94,15 @@ export default function Navbar() {
                   Services
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#collision-repair">
-                      Collision Repair
-                    </a>
-                  </li>
+
+                  <li><Link className="dropdown-item" to="/collision-repair">Collision Repair</Link></li>
+
+//                   <li>
+//                     <a className="dropdown-item" href="#collision-repair">
+//                       Collision Repair
+//                     </a>
+//                   </li>
+
 
                   <li>
                     {/*/ ******* React Router Link PAINTDETAILS ******* /*/}
@@ -154,9 +158,15 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+
+              <Link to="/forms" className="m-0 text-end">
                   Download Forms
-                </a>
+                </Link>
+
+//                 <a className="nav-link" href="#">
+//                   Download Forms
+//                 </a>
+
               </li>
             </ul>
           </div>
