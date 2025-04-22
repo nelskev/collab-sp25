@@ -53,14 +53,14 @@ image{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 3em;
+  left: 1em;
   color: white;
 }
 .top-info-bar .right{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 3rem;
+  right: 1rem;
   color: rgb(100, 148, 237);
 }
 
@@ -183,7 +183,7 @@ image{
   min-height: 350px;
   margin: 0 auto;
   z-index: 1000;
-  max-height: 638px !important;
+  /* max-height: 638px !important; */
 }
 
 /* ADMIN APPT PAGE SORT TOOLBAR */
@@ -231,19 +231,6 @@ image{
   /* transform: translateX(-50%) !important;
   left: 50%  */
 }
-
-/* ACCORDION */
-/* .accordion{
-  width: 330px !important;
-  max-width: 330px;
-}
-.accordion-button{
-  padding: .6rem 1.2rem;
-  outline: 2px solid rgba(0, 81, 255, 0.212) !important;
-}
-.accordion-button:not(.collapsed) {
- background-color: transparent !important;
-} */
 
 /* DETAILS PANE */
 .details-pane{
@@ -324,6 +311,12 @@ image{
   }
   .services img{
       max-width: 280px;
+  }
+  .top-info-bar .left{
+    left: 3em;
+  }
+  .top-info-bar .right{
+    right: 3rem;
   }
 }
 

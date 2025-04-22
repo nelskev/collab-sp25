@@ -6,6 +6,7 @@ import DatePickerUI from './DatePickerUI'
 function CreateAppointmentForm({
     selectedDateTime, setSelectedDateTime,   // datepicker
     appointments,   // grey out taken appointment
+    allErrors,  // JOI - GET ALL errors instead of individual
     name, setName,                           // apptform
     email, setEmail,                       
     phone, setPhone,
@@ -13,27 +14,31 @@ function CreateAppointmentForm({
     handleSubmit,
   }) {
 
+
   return (
 
   <div className="accordion-wrapper mx-auto">
 
-    {/* <div className="accordion accordion-flush my-4" id="add-appointment-accordion"> */}
     <div className={`accordion accordion-flush my-4 ${styles['accordion']}`} id="add-appointment-accordion">
-
+    
     <div className="accordion-item">
       <h2 className="accordion-header">
-
-          <button className={`accordion-button collapsed fw-semibold mx-auto ${styles['accordion-button']}`} 
-          type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" 
-          aria-expanded="false" aria-controls="flush-collapseOne">
-          {/* <button className="accordion-button collapsed fw-semibold mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> */}
+          <button className={`accordion-button collapsed fw-semibold mx-auto ${styles['accordion-button']}`} type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
           Add Appointment
           </button>
-
       </h2>
 
     <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#add-appointment-accordion">
     <div className="accordion-body m-0 p-0 px-lg-4 border border-2">
+
+      {/* Loop through JOI ERRORS! */}
+      {allErrors.length > 0 && (
+        <div className="d-flex flex-column border border-1 my-3 p-1">
+            {allErrors.map((msg, index) => (
+              <div className='text-danger' key={index}>{msg}</div>
+            ))}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="p-2 my-3 col-12 mx-auto">
         
@@ -47,8 +52,7 @@ function CreateAppointmentForm({
       
         <div className="mb-3">
           <label className="form-label">Name</label>
-          <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)}/>     {/* required  */}
-          {/* {nameError && <span className="text-danger">{nameError}</span>} */}
+          <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)}/>  
         </div>
   
         <div className="mb-3">
@@ -82,3 +86,4 @@ function CreateAppointmentForm({
   }
   
   export default CreateAppointmentForm
+
