@@ -94,10 +94,10 @@ export default function Navbar() {
                   Services
                 </a>
                 <ul className="dropdown-menu">
-
                   <li><Link className="dropdown-item" to="/collision-repair">Collision Repair</Link></li>
-
-
+               
+                  
+                  
                   <li>
                     {/*/ ******* React Router Link PAINTDETAILS ******* /*/}
                     <Link to="/PaintDetailsPage">

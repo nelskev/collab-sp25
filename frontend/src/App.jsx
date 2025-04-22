@@ -10,14 +10,15 @@ import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 
 import ContactPage from './pages/ContactPage.jsx'
-import CollisionRepair from './components/CollisionRepair.jsx';
+
+import CollisionRepair from './pages/CollisionRepair.jsx';
 
 // Pages
 import AdminLoginPage from './admin/pages/AdminLoginPage.jsx';
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
-import FormDetails from './components/Forms/Forms.jsx';
+import FormDetails from './pages/Forms.jsx';
 import './App.css';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
@@ -74,13 +75,14 @@ function App() {
           <>
                <Navbar />
             <FormDetails />
+            <Footer />
           </>
         }/>
         <Route path="/collision-repair" element={
           <>
             <Navbar />
           <CollisionRepair />
-
+            <Footer />
           </>
         }/>
        
@@ -108,14 +110,14 @@ function App() {
           
         <Route path='/appointments' element={
           <>
-        
+        <Navbar /> 
           <AppointmentsPage />
           <Footer />
           </>
         } />
         <Route path='/location' element={
           <>
-         
+         <Navbar /> 
           <LocationPage />
           <Footer />
           </>
