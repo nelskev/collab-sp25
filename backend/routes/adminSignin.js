@@ -1,7 +1,7 @@
 import express from "express";
 import Admin from '../models/adminModel.js'
 
-// import bcrypt from "bcrypt"; 
+import bcrypt from "bcrypt"; 
 
 const router = express.Router();
 
@@ -66,6 +66,34 @@ router.get('/:username', async (req, res) => {
   } catch (error) {
     console.error('Error during get:', error);
     res.status(500).json('Internal server error.');
+  }
+});
+
+// POST HASH PASSWORD METHOD
+router.post('/hash/:username', async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const admin = await Admin.findOne({ username });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found.' });
+    }
+
+    // const saltRounds = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(admin.password, saltRounds);
+
+    // admin.password = hashedPassword;
+
+    const saltRounds = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(admin.password, saltRounds);
+    admin.password = hashedPassword;
+    await admin.save();
+
+    res.status(200).json({ message: 'Password hashed successfully.' });
+  } catch (error) {
+    console.error('Error hashing password:', error);
+    res.status(500).json({ message: 'Internal server error.' });
   }
 });
 

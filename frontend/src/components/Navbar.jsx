@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import handleLogout from "../admin/components/HandleLogout";
 import { useNavigate } from "react-router-dom"; //For handleLogout function
 import AdminLogoutButton from "../admin/components/AdminLogoutButton"; //For handleLogout function
 
 export default function Navbar() {
+  const handleRefresh = () => {
+    window.location.reload();
+  }; // Refresh page to remove admin logout buttons
+
   return (
     <div className="navbar-wrapper">
       {/* Top Bar  */}
@@ -19,6 +23,7 @@ export default function Navbar() {
           >
             <h2 className="custom-blue m-0 fs-1">Scott's</h2>
             <h5 className="m-0">Collision Repair</h5>
+            {sessionStorage.getItem("_id") && <h5 className="m-0 text-warning">   Hello {sessionStorage.getItem('_username')}</h5>}
           </Link>
 
           <div className="right d-flex flex-column justify-content-center gap-3">
@@ -32,10 +37,11 @@ export default function Navbar() {
               </button>
             )} */}
 
-{sessionStorage.getItem("_id") && (<AdminLogoutButton />)}
+        {sessionStorage.getItem("_id") && (<AdminLogoutButton className="m-0 btn btn-outline-danger" onClick={handleRefresh}/>)}
 
 
-            <h5 className="m-0 text-center fw-bold fs-4">555-123-3498</h5>
+         {!sessionStorage.getItem("_id") &&    <h5 className="m-0 text-center fw-bold fs-4">555-123-3498</h5> // Phone number will be invisible when admin logged in
+          }
 
             {/*/ ******* React Router Link ADMIN ******* /*/}
             <Link to="/adminlogin" className="m-0 text-end">

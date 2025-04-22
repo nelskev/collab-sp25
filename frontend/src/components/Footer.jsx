@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AdminLogoutButton  from "../admin/components/AdminLogoutButton.jsx"
 
 export default function Footer() {
+    
+    function handleRefresh() {
+        window.location.reload();
+      } // Refresh page to remove admin logout buttons
+
     return (
         <footer className="bg-dark text-white mt-5 border border-3 pt-5">
             <div className="row">
@@ -38,6 +44,16 @@ export default function Footer() {
                             Download Forms
                         </Link>
                         </li>
+
+                        {sessionStorage.getItem("_id") && (
+                        <li className='nav-item'>
+                        <Link to="#"  className="nav-link link-danger">
+                        <AdminLogoutButton onClick={handleRefresh}/>
+                        </Link>
+                        </li>
+                        )}
+
+
                     </ul>
                 </nav>
 

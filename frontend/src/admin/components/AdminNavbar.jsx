@@ -18,8 +18,12 @@ export default function AdminNavbar() {
              <Link to="/"  className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0">
                 <h2 className="custom-blue m-0 fs-1">Scott's</h2>
                 <h5 className="m-0">Collision Repair</h5>
-             </Link>
+                {sessionStorage.getItem("_id") && <h5 className="m-0 text-warning admin-user">   Hello {sessionStorage.getItem('_username')}</h5>}
 
+             </Link>
+   {/* {sessionStorage.getItem('_id') && (<Link to="/" className=" d-flex justify-content-end">
+        <AdminLogoutButton /></Link>
+        )} */}
             <div className="right d-flex flex-column justify-content-center gap-3">
             <Link to="/admin" className="text-decoration-none m-0" href="index.html">
               <h5 className="m-0 text-center fw-bold fs-4 text-warning">
@@ -27,9 +31,7 @@ export default function AdminNavbar() {
               </h5>
             </Link>
 
-        {sessionStorage.getItem('_id') && (<Link to="/" className="m-0 text-end">
-        <AdminLogoutButton /></Link>
-        )}
+     
                 {/*/ ******* React Router Link ADMIN ******* /*/}
                 <Link to="/" className="m-0 text-center text-decoration-none">
                   <button 
@@ -89,6 +91,19 @@ export default function AdminNavbar() {
                   Reviews
                 </Link>
               </li>
+
+          
+
+              {sessionStorage.getItem("_id") && (
+                <li className='nav-item'>
+                <Link to="/" className="m-0 text-end text-decoration-none nav-link">
+                  {/* Logout Admin {sessionStorage.getItem('_username')} */}
+                <AdminLogoutButton className="m-0 text-end nav-link link-danger text-decoration-none"/>
+                </Link>
+                </li>
+                )}
+
+
 
             </ul>
           </div>
