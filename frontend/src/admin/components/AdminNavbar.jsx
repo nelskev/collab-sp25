@@ -1,7 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import AdminLogoutButton from './AdminLogoutButton';
 
 export default function AdminNavbar() {
+
+  
 
   return (
     <div className="navbar-wrapper">
@@ -24,10 +27,13 @@ export default function AdminNavbar() {
               </h5>
             </Link>
 
-
+        {sessionStorage.getItem('_id') && (<Link to="/" className="m-0 text-end">
+        <AdminLogoutButton /></Link>
+        )}
                 {/*/ ******* React Router Link ADMIN ******* /*/}
                 <Link to="/" className="m-0 text-center text-decoration-none">
-                  <button className='m-0 btn btn-outline-light'>Back to Home</button>
+                  <button 
+                  className='m-0 btn btn-outline-light'>Back to Home</button>
                 </Link>
             </div>
 

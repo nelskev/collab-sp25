@@ -1,4 +1,4 @@
-
+import styles from './CreateAppointmentForm.module.css';
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePickerUI from './DatePickerUI'
 
@@ -13,18 +13,23 @@ function CreateAppointmentForm({
     handleSubmit,
   }) {
 
-
   return (
 
   <div className="accordion-wrapper mx-auto">
 
-    <div className="accordion accordion-flush my-4" id="add-appointment-accordion">
+    {/* <div className="accordion accordion-flush my-4" id="add-appointment-accordion"> */}
+    <div className={`accordion accordion-flush my-4 ${styles['accordion']}`} id="add-appointment-accordion">
 
     <div className="accordion-item">
       <h2 className="accordion-header">
-          <button className="accordion-button collapsed fw-semibold mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+
+          <button className={`accordion-button collapsed fw-semibold mx-auto ${styles['accordion-button']}`} 
+          type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" 
+          aria-expanded="false" aria-controls="flush-collapseOne">
+          {/* <button className="accordion-button collapsed fw-semibold mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"> */}
           Add Appointment
           </button>
+
       </h2>
 
     <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#add-appointment-accordion">
