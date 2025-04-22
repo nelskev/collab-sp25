@@ -35,9 +35,9 @@ export default function Services() {
               <div class="col-md-8">
                 <div class="card-body">
                   <h3 class="card-title">Painting</h3>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus tempora consectetur. 
-                    Labore aperiam nostrum illo molestias odio perspiciatis, officiis fugiat dolor sequi qui soluta itaque 
-                    quae reprehenderit sunt ullam, ex esse repellendus? Obcaecati inventore earum.</p>
+                  <p class="card-text"> Our team specializes in precision paint repair 
+                    to restore your car’s original shine. We guarantee quick,
+                     affordable and customer-focused service providing a reliably flawless finish.</p>
                     <Link to='/PaintDetailsPage'> <button type="button" class="btn btn-dark">Read More</button> </Link>
                 </div>
               </div>
