@@ -53,14 +53,14 @@ image{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 3em;
+  left: 1em;
   color: white;
 }
 .top-info-bar .right{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 3rem;
+  right: 1rem;
   color: rgb(100, 148, 237);
 }
 
@@ -183,7 +183,7 @@ image{
   min-height: 350px;
   margin: 0 auto;
   z-index: 1000;
-  max-height: 638px !important;
+  /* max-height: 638px !important; */
 }
 
 /* ADMIN APPT PAGE SORT TOOLBAR */
@@ -198,20 +198,19 @@ image{
   width: 165px;
   margin: 0 auto !important;
 }
-.sort-appointments-dropdown select{
+.sort-appointments-dropdown input{
   width: 165px;
   margin: 0 auto !important;
   background-color: rgb(225, 244, 255);
   border: 1px solid rgb(194, 194, 194);
   align-content: stretch;
-  text-align: center;
 }
-.sort-appointments-dropdown select option{
+/* .sort-appointments-dropdown select option{
   margin: 0 auto !important;
   background-color: white;
   text-align: center;
   border: none;
-}
+} */
 
 .sort-dates-input{
   background-color: rgb(225, 244, 255);
@@ -225,25 +224,12 @@ image{
   outline: none;
 }
 
-/* MODAL */
+/* MODAL - GLOBAL STYLE TO STAY CONSISTENT ACROSS SITE*/
 .modal{
-  max-width: 350px;
+  /* max-width: 350px; */
   width: 100%;
-  transform: translateX(-50%) !important;
-  left: 50% 
-}
-
-/* ACCORDION */
-.accordion{
-  width: 330px !important;
-  max-width: 330px;
-}
-.accordion-button{
-  padding: .6rem 1.2rem;
-  outline: 2px solid rgba(0, 81, 255, 0.212) !important;
-}
-.accordion-button:not(.collapsed) {
- background-color: transparent !important;
+  /* transform: translateX(-50%) !important;
+  left: 50%  */
 }
 
 /* DETAILS PANE */
@@ -336,8 +322,15 @@ image{
   .sort-appointments-dropdown, .sort-appointments-dropdown *{
     width: 275px !important;
   }
-  .accordion, .details-pane, .cards-wrapper{
+  .details-pane, .cards-wrapper{
     min-width: 550px !important;
+  }
+  /* MODAL */
+  .modal{
+    max-width: 100%;
+    width: 100%;
+    transform: translateX(0%) !important;
+    left: 0;
   }
   /* faq */
   .accordion-button {
@@ -399,6 +392,12 @@ image{
   }
   .services img{
       max-width: 280px;
+  }
+  .top-info-bar .left{
+    left: 3em;
+  }
+  .top-info-bar .right{
+    right: 3rem;
   }
   /* faq */
   .accordion-button {

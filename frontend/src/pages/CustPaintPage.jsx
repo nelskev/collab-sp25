@@ -1,118 +1,166 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
-import BeforeImage from '../assets/CustPaint_Before.png'
-import AfterImage from '../assets/CustPaint_After.png'
-
+import BeforeImage from '../assets/CustPaintBefore1.jpg';
+import AfterImage from '../assets/CustPaintAfter1.jpg';
+import BeforeImage1 from '../assets/CustPaintBefore2.jpg';
+import AfterImage1 from '../assets/CustPaintAfter2.jpg';
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CustPaintPage = () => {
+  const imageSets = [
+    { before: BeforeImage, after: AfterImage },
+    { before: BeforeImage1, after: AfterImage1 },
+  ];
 
-    
-  
-    return (
-      <div>
-  
-        <h2>Specialty Painting</h2>
-  
-        {/* Before and after images */}
-        <div>
+  const faqs = [
+    {
+      question: 'How Does the Custom Paint Process Work?',
+      answer: 'The car is carefully cleaned. Any areas not to be painted are taped. A paint coating is sprayed on. The car is placed in an oven and baked to cure the coating. Two or three additional paint coats are applied, and the car baked each time. Afterwards, clear coats are applied.'
+    },
+    {
+      question: 'How Durable Is Custom Paint?',
+      answer: 'Yes, car paint is designed to be durable, providing protection against environmental factors and physical damage.'
+    },
+    {
+      question: 'What About Color Matching?',
+      answer: 'Our lastest paint technology allows for easy color matching on all vehicles.'
+    },
+    {
+      question: 'How Much Does it Cost?',
+      answer: 'The total cost depends on factors including vehicle size, condition, paint quality, prep work and the color you choose.'
+    },
+    {
+      question: 'How Long Does it Take?',
+      answer: 'In general, you can expect a body shop to spend between 40 and 80 hours to complete a full paint job for your vehicle.'
+    },
+  ];
 
-          <div className="text-center">
-              <img src={BeforeImage} className="rounded" alt="before image" style={{width: '400px', height: '300px'}}/>
-          </div>
+  return (
+    <div className='container py-3'>
+      <div className='cards-wrapper'>
 
-          <div className="text-center">
-              <img src={AfterImage} className="rounded" alt="after image" style={{width: '400px', height: '300px'}}/>
+        <h2 
+          className='section-header-blue text-center mb-3' 
+          style={{
+            paddingLeft: '0', 
+            paddingTop: '1rem', 
+            paddingBottom: '1rem' 
+          }}>
+          Specialty Painting
+        </h2>
+
+        {/* Carousel */}
+        <div className='details-pane mb-3'
+          style={{
+          display: 'flex', 
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            maxWidth: '900px', 
+            width: '100%' 
+          }}>
+            <Carousel interval={4000} indicators={true}>
+              {imageSets.map((set, idx) => (
+                <Carousel.Item key={idx}>
+                  <div 
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      flexWrap: 'nowrap',
+                      width: '100%'
+                    }}>
+                    <div style={{ 
+                      flex: '0 0 48%', 
+                      textAlign: 'center' 
+                    }}>
+                      <img 
+                        src={set.before} 
+                        alt={`Before ${idx + 1}`} 
+                        style={{ 
+                          width: '100%', 
+                          height: '300px', 
+                          objectFit: 'cover' 
+                        }} 
+                      />
+                      <p style={{ 
+                         marginTop: '0.5rem', 
+                         fontWeight: 'bold'
+                        }}>Before</p>
+                    </div>
+                    <div style={{ 
+                      flex: '0 0 48%', 
+                      textAlign: 'center'
+                    }}>
+                      <img 
+                        src={set.after} 
+                        alt={`After ${idx + 1}`} 
+                        style={{ 
+                          width: '100%', 
+                          height: '300px', 
+                          objectFit: 'cover'
+                        }} 
+                      />
+                      <p style={{ 
+                        marginTop: '0.5rem', 
+                        fontWeight: 'bold' 
+                      }}>After</p>
+                    </div>
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
           </div>
-  
-          {/*<div>
-            <img src={BeforeImage} alt='Before'/>
-            <p>Before</p>
-          </div>
-  
-          <div>
-            <img src={AfterImage} alt='After'/>
-            <p>After</p>
-          </div>*/}
-  
         </div>
-  
-        <div>
-        <p style={{textAlign: 'center', padding: '40px'}}>Custom painting for automobiles offers a unique way to personalize and enhance a vehicle's appearance, moving beyond factory paint options. It allows for a wide range of colors, finishes, and designs, including custom graphics, airbrushing, and special effects like flame patterns. The process often involves meticulous preparation, skilled application, and clear coating for a long-lasting, vibrant finish. </p>
+
+        {/* Service description */}
+        <div className='details-pane text-center mb-3'>
+          <p className='mb-3'>
+          Our custom car paint services refers to any paint job that goes beyond standard factory colors and finishes, allowing for unique designs and effects. This can include custom color matching, intricate designs, and the application of special effects like pearls, flaking, or airbrushing. The goal of custom paint is to create a one-of-a-kind appearance that reflects the owner's personality and style.
+          </p>
+        
+        {/* FAQ */}
+          <div className='accordion accordion-flush' id='accordionFlush'>
+            {faqs.map((faq, index) => (
+              <div className='accordion-item' key={index}>
+                <h2 className='accordion-header' id={`flush-heading${index}`}>
+                  <button 
+                    className='accordion-button collapsed'
+                    type='button'
+                    data-bs-toggle='collapse' 
+                    data-bs-target={`#flush-collapse${index}`} 
+                    aria-expanded='false' 
+                    aria-controls={`flush-collapse${index}`}>
+                    {faq.question}
+                  </button>
+                </h2>
+                <div 
+                  id={`flush-collapse${index}`} 
+                  className='accordion-collapse collapse' 
+                  aria-labelledby={`flush-heading${index}`} 
+                  data-bs-parent='#accordionFlush'>
+                  <div className='accordion-body p-2 bg-light'>
+                    {faq.answer}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-  
-        {/* Button linking to the appointments page */}
-        <div>
-          <Link to='./pages/AppointmentPage.jsx'>
-            <button>Make Appointment</button>
+
+        {/* Make Appointment button */}
+        <div className='details-pane text-center mb-4'>
+          <Link to='/appointments'>
+            <button className='btn btn-primary w-100 fs-5'>
+              Make Appointment
+            </button>
           </Link>
         </div>
 
-
-        <div className="accordion-flush p-5" id="accordionFlush">
-            <div className="accordion-item">
-            <h2 className="accordion-header" id="flush-headingOne">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                How Does the Custom Paint Process Work?
-                </button>
-            </h2>
-            <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
-                <div className="accordion-body p-2 bg-light">We work with all insurance companies, and in fact, we are a direct repair facility for many insurance companies.</div>
-            </div>
-            </div>
-            <div className="accordion-item">
-            <h2 className="accordion-header" id="flush-headingTwo">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                How Durable Is Custom Paint?
-                </button>
-            </h2>
-            <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlush">
-                <div className="accordion-body p-2 bg-light">We do suggested scheduling an appointment through our easy-to-use form ahead of time, but if you find yourself short on time, please give us a call and we will try and fit you in as soon as convenient.</div>
-            </div>
-            </div>
-            <div className="accordion-item">
-            <h2 className="accordion-header" id="flush-headingThree">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                What About Color Matching?
-                </button>
-            </h2>
-            <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlush">
-                <div className="accordion-body p-2 bg-light">This is, of course, dependent on the complexity of the repairs, the situation, the availability of parts and materials, and much more. It truly varies from one situation to the next. We will provide an estimated time of completion at the same time we provide the cost estimate, although this does not include the time it may take for any additional damage repairs found in teardown. In the end, we would rather make sure that the job is done right, than done fast.</div>
-            </div>
-            </div>
-            <div className="accordion-item">
-                <h2 className="accordion-header" id="flush-headingFour">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                    How Much Will It Cost?
-                </button>
-                </h2>
-                <div id="flush-collapseFour" className="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlush">
-                <div className="accordion-body p-2 bg-light">Your deductible is how much you have to pay for repairs, before your insurance kicks in for the rest. Depending on your level of insurance, this can run from zero dollars, up to thousands. Your deductible is due to Platinumwerks when you pick up your vehicle, and can be presented in check, credit card, or cash.</div>
-                </div>
-            </div>
-            <div className="accordion-item">
-                <h2 className="accordion-header" id="flush-headingFive">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                    How Much Time Will It Take?
-                </button>
-                </h2>
-                <div id="flush-collapseFive" className="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlush">
-                <div className="accordion-body p-2 bg-light">Unfortunately, the first observation and inspection doesn’t always discover deep-down damages. During the course of repair, we may find further issues that need to be addressed. In this case, we will contact the insurance company for authorization to pay for any supplemental damages, and notify you before we take further action.</div>
-                </div>
-            </div>
-            <div className="accordion-item">
-                <h2 className="accordion-header" id="flush-headingSix">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                    Do You Offer A Warranty?
-                </button>
-                </h2>
-                <div id="flush-collapseSix" className="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlush">
-                <div className="accordion-body p-2 bg-light">Yes – Scott’s Automotive Collision provides a limited lifetime warranty on parts and labor for the work we do. Please see our Warrant page for more information
-                    We know there are plenty more questions you may have to ask – these are just the most common ones. Please do get in contact with our team here at Scott’s Automotive Collision regarding any other questions you may have, our team will be happy to help you out in any way we can. Here at Scott’s, we aim to provide the best customer service of any collision center in Nampa, so let us give you a hand.</div>
-                </div>
-            </div>
-        </div>
       </div>
-    );
-  };
-  
-  export default CustPaintPage;
+    </div>
+  );
+};
+
+export default CustPaintPage;

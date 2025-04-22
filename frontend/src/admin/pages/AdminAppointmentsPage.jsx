@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import formatDate from '/helpers/dateConversion'
-import formatTime from '/helpers/timeConversion'
+import formatTimeAmPm from '/helpers/timeConversion'
 import formatTimezone from '/helpers/convertTimezoneDate'
 // import formatString from '/helpers/stringConversion'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
+import SearchAppointment from '../components/SearchAppointment'
+import userFrontendSchema from '../validation/appointmentFormValidation'
 
 
 
@@ -22,8 +25,15 @@ function AdminAppointmentsPage() {
   const [createDateTime, setCreateDateTime] = useState(null)
   const [editDateTime, setEditDateTime] = useState(null)
   // for sorting
-  const [sortBy, setSortBy] = useState('date');
   const [selectedDate, setSelectedDate] = useState(null);
+  const [searchEmail, setSearchEmail] = useState('');
+  const [isSortActive, setIsSortActive] = useState(false)
+  // for Update modal
+  const [showModal, setShowModal] = useState(false);   
+  // for Delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [nameToDelete, setNameToDelete] = useState('')  
+  const [idToDelete, setIdToDelete] = useState(null)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -35,10 +45,15 @@ function AdminAppointmentsPage() {
   const [updateEmail, setUpdateEmail] = useState('')
   const [updatePhone, setUpdatePhone] = useState('')
   const [updateDetails, setUpdateDetails] = useState('')
+  // JOI
+  const [nameError, setNameError] = useState(null);   
+  const [emailError, setEmailError] = useState(null);
+  const [phoneError, setPhoneError] = useState(null);
+  const [detailsError, setDetailsError] = useState(null);
+  const [allErrors, setAllErrors] = useState([]);
 
-  // use count and dailyTimeSlots for conditional rendering of appts?? Maybe, just an idea for now  :
-  // const dailyTimeSlots = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"] 
-  // const count = [count, setCount] = useState(10)
+
+  const dailyTimeSlots = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"] 
 
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
@@ -69,6 +84,26 @@ function AdminAppointmentsPage() {
     if (!createDateTime) {
       console.error('Please select a date and time.')
       return
+    }
+    
+    // Clear Joi
+    setNameError('')
+    setEmailError('')
+    setPhoneError('')
+    setDetailsError('')
+    setAllErrors([])
+    
+    // Use Joi to validate the data
+    const validationResult = userFrontendSchema.validate({ name: name, email: email, phone: phone, details: details },
+    { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
+
+    if (validationResult.error) {
+        const errors = validationResult.error.details
+        
+        const messages = errors.map(error => error.message);
+        setAllErrors(messages);
+
+        return;
     }
     
     const { date, time } = formatTimezone(createDateTime)
@@ -111,17 +146,44 @@ function AdminAppointmentsPage() {
     }
   }
 
+  // UPDATE USER
   const handleUpdateAppointment = async (e) => {
     e.preventDefault()
     console.log("Update user button clicked", selectedAppointment)
 
+    // Clear Joi  
+    // (Yes, I am not writing DRY code and am repeating this JOI functionality, but only since a helper function would be not so clear for us newbies)
+    setNameError('')
+    setEmailError('')
+    setPhoneError('')
+    setDetailsError('')
+    setAllErrors([])
+    
+    // Use Joi to validate the data
+    const validationResult = userFrontendSchema.validate({ name: updateName, email: updateEmail, phone: updatePhone, details: updateDetails },
+    { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
+
+    if (validationResult.error) {
+        const errors = validationResult.error.details
+        
+        const messages = errors.map(error => error.message);
+        setAllErrors(messages);
+
+        return;
+    }
+
+    setShowModal(true)  // modal  
+  }
+
+    const confirmUpdateUser = async () => {
+
     const { date, time } = formatTimezone(editDateTime)
 
-     try {
-       const response = await fetch(`http://localhost:8000/appointments/${selectedAppointment._id}`, {
-         method: 'PUT',
-         headers: { 'Content-Type': 'application/json', },
-         body: JSON.stringify({ 
+    try {
+      const response = await fetch(`http://localhost:8000/appointments/${selectedAppointment._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', },
+          body: JSON.stringify({ 
           name: updateName, 
           email: updateEmail, 
           phone: updatePhone, 
@@ -129,28 +191,39 @@ function AdminAppointmentsPage() {
           date,
           time,
         }),
-       })
-       console.log(response)
-       if (response.ok) {
-         fetchData()
-         setSelectedAppointment(null)
-       } else {
-         console.error('Failed to update user')
-       }
-     } catch (error) {
-       console.error('Error:', error)
-     }
-   }
+      })
+      console.log(response)
+      if (response.ok) {
+        fetchData()
+        setSelectedAppointment(null)
+        setShowModal(false) // modal
+      } else {
+        console.error('Failed to update user')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
-   const handleDeleteAppointment = async (id) => {
+  // DELETE USER
+   const handleDeleteAppointment = async (id, name) => {
+    setShowDeleteModal(true)  // modal  
+    setNameToDelete(name)
+    setIdToDelete(id)
+    console.log(id, name)
+  }
+
+  const confirmDeleteUser  = async (idToDelete) => {
+    console.log(idToDelete)
     try {
-      const response = await fetch(`http://localhost:8000/appointments/${id}`, {
+      const response = await fetch(`http://localhost:8000/appointments/${idToDelete}`, {
         method: 'DELETE',
       })
   
       if (response.ok) {
         console.log('Appointment deleted successfully')
         fetchData() // refresh the list
+        setShowDeleteModal(false)  // delete modal
       } else {
         console.error('Failed to delete appointment')
       }
@@ -159,56 +232,92 @@ function AdminAppointmentsPage() {
     }
   }
 
-  // SORT APPOINTMENTS BT TIME/NAME - DROPDOWN LOGIC
-  const sortedAppointments = appointments.sort((a, b) => {
-    switch (sortBy) {
-      case 'name':
-        return a.name.localeCompare(b.name)
+  // Returns MILITARY TIME to match 'dailyTimeSlots' array
+  function formatTime(timeStr) {
+    if (!timeStr) return 'Invalid Time';
   
-      case 'datetime': // Sorting by both date and time
-      default: {
-        const dateStrA = new Date(a.date).toISOString().split('T')[0]
-        const dateStrB = new Date(b.date).toISOString().split('T')[0]
-  
-        const fullDateTimeA = new Date(`${dateStrA}T${a.time}`)
-        const fullDateTimeB = new Date(`${dateStrB}T${b.time}`)
-  
-        return fullDateTimeA.getTime() - fullDateTimeB.getTime()
-      }
-    }
-  })
+    const [hours, minutes] = timeStr.split(':');
+    const paddedHours = hours.padStart(2, '0'); // Add leading zero if needed
+    console.log(`Time is ----------> ${paddedHours}:${minutes}`);
+    return `${paddedHours}:${minutes}`;
+  }
 
   // SORT APPOINTMENTS BY DATE - CALENDAR LOGIC
-  let filteredAppointments
-  let takenTimeSlots = []
-  let getApptDate
+  let filteredAppointments;
 
-  if (selectedDate) {  
-    filteredAppointments = sortedAppointments.filter((appt) => {
-      getApptDate = new Date(appt.date).toISOString().split('T')[0]
-      let apptTime = appt.time
-      if(getApptDate === selectedDate){
-        takenTimeSlots.push(apptTime)
-      }
-      return getApptDate === selectedDate
-    })
-  } else {            // if no date is selected
-    filteredAppointments = sortedAppointments
+  if (selectedDate) {
+    filteredAppointments = appointments.filter((appt) => {
+      const apptDate = new Date(appt.date).toISOString().split('T')[0];
+      return apptDate === selectedDate;
+    });
+  } else {
+    filteredAppointments = appointments;
   }
-  // setApptDate(selectedDate)
 
-  console.log(takenTimeSlots)
-  //const appointmentDeficit = dailyTimeSlots - takenTimeSlots
+  // SEARCH APPOINTMENTS BY EMAIL
+  const handleSearchedAppointments = filteredAppointments.filter((appt) =>
+    searchEmail === '' || appt.email.toLowerCase().includes(searchEmail.toLowerCase())
+  );
+
+  // SORT TOGGLING FOR DISPLAY
+  const toggleSorting = () => {
+    setIsSortActive(!isSortActive);
+  };
+
 
   return (
 
     <>
     <AdminNavbar />
     
-    <div className="container d-flex flex-column bg-light border border-1 rounded-4 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
+    <div className="container d-flex flex-column bg-light border border-1 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h1 className="text-center fs-3 m-0 mt-1 section-header-blue">Appointment page</h1>
 
-      <div className='side-by-side-desktop d-flex flex-column flex-xl-row align-items-xl-start justify-content-lg-center mx-auto gap-3'>
+      {/* UPDATE APPOINTMENT Confirmation Modal */}
+      {showModal && (
+        <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Confirm Update</h1>
+                <button type="button" className="btn-close" onClick={() => setShowModal(false)} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to update {updateName}?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+                <button type="button" className="btn btn-primary" onClick={confirmUpdateUser}>Confirm</button> 
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      {/* DELETE APPOINTMENT Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="modal fade show" id="delete-Modal" tabIndex="-1" aria-labelledby="delete-ModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="delete-ModalLabel">Confirm Delete</h1>
+                <button type="button" className="btn-close" onClick={() => setShowDeleteModal(false)} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to delete {nameToDelete}?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                <button type="button" className="btn btn-primary" onClick={() => confirmDeleteUser(idToDelete)}>Confirm</button> 
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      <div className='side-by-side-desktop d-flex flex-column align-items-xl-start justify-content-lg-center mx-auto gap-3'>
 
       {/* AppointmentForm gets called and uses our empty state variables we already initilized, and fills them with values */}
       <CreateAppointmentForm
@@ -225,6 +334,7 @@ function AdminAppointmentsPage() {
         setPhone={setPhone}
         details={details}
         setDetails={setDetails}
+        allErrors={allErrors}             // JOI all errors
         handleSubmit={handleSubmit}
       />
 
@@ -250,6 +360,7 @@ function AdminAppointmentsPage() {
             setUpdatePhone={setUpdatePhone}
             updateDetails={updateDetails}
             setUpdateDetails={setUpdateDetails}
+            allErrors={allErrors}             // JOI all errors
             handleUpdateAppointment={handleUpdateAppointment}
             selectedAppointment={selectedAppointment} 
             />
@@ -260,8 +371,7 @@ function AdminAppointmentsPage() {
 
       </div>
 
-      {/* Sorting dropdown */}
-
+      {/* Sorting by DATE or EMAIL */}
       <div className='sort-appointments-wrapper d-flex gap-0 m-0 mb-2 mb-lg-0 mx-auto p-0'>
 
       <div className='m-0 p-0 d-flex'>
@@ -274,24 +384,64 @@ function AdminAppointmentsPage() {
       </div>
 
       <div className='sort-appointments-dropdown m-0 p-0 d-flex'>
-        <select className='py-1 px-0' onChange={(e) => setSortBy(e.target.value)} value={sortBy}>
+        {/* <input type="text" placeholder="search email" className="py-1 ps-2" value={searchEmail} onChange={(e) => setSearchEmail(e.target.value)}/> */}
+        <input 
+          type="text" 
+          placeholder="search email" 
+          className="py-1 ps-2" 
+          value={searchEmail}
+          onChange={(e) => {
+            const value = e.target.value;
+            setSearchEmail(value);
+            if (!isSortActive && value.trim() !== "") {
+              toggleSorting();
+            } else if (isSortActive && value.trim() === "") {
+              toggleSorting(); // turn it off when field is cleared
+            }
+          }}
+        />
+
+        {/* <select className='py-1 px-0' onChange={(e) => setSortBy(e.target.value)} value={sortBy}>
           <option value="time">Sort by Time</option>
           <option value="name">Sort by Name</option>
-        </select>
+        </select> */}
       </div>
 
       </div>
 
-      {/* CARDS WRAPPER */}
-      {Array.from({ length: 10 }).map((_, index) => {
-        if (filteredAppointments[index]) {
-          const appointment = filteredAppointments[index];
-          return (
+
+
+
+      {/* SEARCH RESULTS APPOINTMENTS */}
+      {isSortActive ? (
+          <SearchAppointment
+            appointments={handleSearchedAppointments} // use 'handleSearchedAppointments' filter above and pass results to child
+            setUpdateName={setUpdateName}
+            setUpdateEmail={setUpdateEmail}
+            setUpdatePhone={setUpdatePhone}
+            setUpdateDetails={setUpdateDetails}
+            setSelectedAppointment={setSelectedAppointment}
+            handleDeleteAppointment={handleDeleteAppointment}
+           />
+      ) : (
+
+      <>
+       {dailyTimeSlots.map((timeSlot, index) => {
+
+          const appointment = handleSearchedAppointments.find((appt) => {
+            const formattedApptTime = formatTime(appt.time);
+            return formattedApptTime === timeSlot;
+          })
+          
+          if (appointment) {
+            const formattedApptTime = formatTime(appointment.time);
+            return (
             <div className="cards-wrapper" key={index}>
               <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 m-0">
                 <div className="col-12 col-lg-3">{formatDate(appointment.date)}</div>
-                <div className="col-12 col-lg-3">{formatTime(appointment.time)}</div>
+                <div className="col-12 col-lg-3">{formatTimeAmPm(formattedApptTime)}</div>
                 <div className="col-12 col-lg-3">{appointment.name}</div>
+
                 <div className="card-button-container col-12 col-lg-3 d-flex justify-content-around gap-2 gap-lg-0">
                   <a
                     type="button"
@@ -307,37 +457,34 @@ function AdminAppointmentsPage() {
                   >
                     Details
                   </a>
-                  <a
-                    type="button"
-                    className="btn btn-outline-danger col-5 col-lg-auto p-1"
-                    onClick={() => handleDeleteAppointment(appointment._id)}
-                  >
+                  <a type="button" className="btn btn-outline-danger col-5 col-lg-auto p-1" onClick={() => handleDeleteAppointment(appointment._id, appointment.name)} >
                     Delete
                   </a>
                 </div>
+
               </div>
             </div>
           );
         } else {
-          return (
-            <div className="cards-wrapper" key={index}>
-              <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 py-lg-2 m-0">
-              <div className="col-12 col-lg-3">the date</div>
-                <div className="col-12 col-lg-3">00:00</div>
-                <div className="col-12 col-lg-6 text-success fw-semibold">Appointment available</div>
-                {/* <div className="card-button-container col-12 col-lg-3 d-flex justify-content-around gap-2 gap-lg-0">
-                  <div className='col-5 col-lg-auto p-1'></div>
-                  <div className='col-5 col-lg-auto p-1'></div>
-                </div> */}
+            return (
+              <div className="cards-wrapper" key={index}>
+                <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 py-lg-2 m-0">
+                  <div className="col-12 col-lg-3">{formatDate(selectedDate)}</div>
+                  <div className="col-12 col-lg-3">{formatTimeAmPm(timeSlot)}</div>
+                  <div className="col-12 col-lg-6 text-success fw-semibold">
+                    Appointment available
+                  </div>
+                </div>
               </div>
-            </div>
-          );
+            );
         }
-     })}
+      })}
+      </>
+    )} 
 
-    </div> {/* end container */}
-    </>
-  )
+  </div> {/* end container */}
+  </>
+  );
 }
 
 export default AdminAppointmentsPage

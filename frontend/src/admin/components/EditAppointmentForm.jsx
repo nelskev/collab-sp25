@@ -4,6 +4,7 @@ import DatePickerUI from './DatePickerUI'
 //   updateName, setUpdateName, updateEmail, setUpdateEmail, updatePhone, setUpdatePhone, updateDetails, setUpdateDetails, selectedAppointment, handleUpdateUser
 function EditAppointmentForm({  
         updateName, setUpdateName, 
+        allErrors,  // JOI - GET ALL errors instead of individual
         updateEmail, setUpdateEmail, 
         updatePhone, setUpdatePhone, 
         updateDetails, setUpdateDetails, 
@@ -29,11 +30,19 @@ function EditAppointmentForm({
   }, [selectedAppointment, setSelectedDateTime, setUpdateDetails, setUpdateEmail, setUpdateName, setUpdatePhone]);
   
   
-
   
   return (
     <form onSubmit={handleUpdateAppointment} className="p-0 my-3 col-12 mx-auto mx-0">
     <h3 className="section-header-blue fs-5 text-center fw-semibold m-0">Edit Appointment details</h3>
+
+    {/* Loop through JOI ERRORS! */}
+    {allErrors.length > 0 && (
+      <div className="d-flex flex-column border border-1 my-3 p-1">
+          {allErrors.map((msg, index) => (
+            <div className='text-danger' key={index}>{msg}</div>
+          ))}
+      </div>
+    )}
 
     <div className='form-body px-2'>
 

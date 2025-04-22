@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes,  Route} from 'react-router-dom';
+import ProtectedRoute from './admin/components/ProtectedRoute.jsx';
 
 // Components
 import Navbar from './components/Navbar.jsx'
@@ -8,10 +9,17 @@ import MissionStatement from './components/MissionStatement.jsx'
 import Appointments from './components/Appointments.jsx'
 import Services from './components/Services.jsx'
 
+import ContactPage from './pages/ContactPage.jsx'
+
+import CollisionRepair from './pages/CollisionRepair.jsx';
+
 // Pages
+import AdminLoginPage from './admin/pages/AdminLoginPage.jsx';
 import AdminHomePage from './admin/pages/AdminHomePage.jsx';
 import AdminReviewsPage from './admin/pages/AdminReviewsPage.jsx';
 import AdminAppointmentsPage from './admin/pages/AdminAppointmentsPage.jsx';
+import FormDetails from './pages/Forms.jsx';
+import './App.css';
 import AppointmentsPage from './pages/AppointmentPage.jsx';
 import LocationPage from './pages/LocationPage.jsx';
 import CustPaintPage from './pages/CustPaintPage.jsx';
@@ -20,7 +28,7 @@ import AboutPage from './pages/AboutPage.jsx';
 import FourZeroFourPage from './pages/FourZeroFourPage.jsx';
 import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
-import ContactPage from './pages/ContactPage.jsx'
+
 
 
 
@@ -63,6 +71,24 @@ function App() {
           </>
         }/>
 
+          <Route path="/forms" element={
+          <>
+               <Navbar />
+            <FormDetails />
+            <Footer />
+          </>
+        }/>
+        <Route path="/collision-repair" element={
+          <>
+            <Navbar />
+          <CollisionRepair />
+            <Footer />
+          </>
+        }/>
+       
+       
+
+
         <Route path="/CustPaintPage" element={
           <>
             <Navbar /> 
@@ -80,17 +106,18 @@ function App() {
           </>
             
         }/>
+
           
         <Route path='/appointments' element={
           <>
-          <Navbar />
+        <Navbar /> 
           <AppointmentsPage />
           <Footer />
           </>
         } />
         <Route path='/location' element={
           <>
-          <Navbar />
+         <Navbar /> 
           <LocationPage />
           <Footer />
           </>
@@ -105,9 +132,28 @@ function App() {
        
 
 
-        <Route path="/admin" element={<AdminHomePage />} />
-        <Route path='/adminreviews' element={<AdminReviewsPage />} />
-        <Route path="/adminappointments" element={<AdminAppointmentsPage />} />
+        <Route path='/adminlogin' element={
+          
+          <>
+          <Navbar />
+          <AdminLoginPage />
+          </>
+          } />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+          <AdminHomePage />
+          </ProtectedRoute>
+          } />
+        <Route path='/adminreviews' element={
+          
+          <ProtectedRoute>
+          <AdminReviewsPage /> 
+          </ProtectedRoute> } />
+        <Route path="/adminappointments" element={
+          <ProtectedRoute>
+          <AdminAppointmentsPage />
+          </ProtectedRoute>
+          } />
         <Route path='*' element={<FourZeroFourPage />} />
         
       </Routes>  
