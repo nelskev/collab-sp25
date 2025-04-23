@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import formatDate from '/helpers/dateConversion'
 import formatTimeAmPm from '/helpers/timeConversion'
@@ -93,13 +92,31 @@ function AdminAppointmentsPage() {
     setDetailsError('')
     setAllErrors([])
     
-    // Use Joi to validate the data
-    const validationResult = userFrontendSchema.validate({ name: name, email: email, phone: phone, details: details },
+  // Use Joi to validate the data
+  const validationResult = userFrontendSchema.validate({ name: name, email: email, phone: phone, details: details },
     { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
 
     if (validationResult.error) {
         const errors = validationResult.error.details
-        
+        errors.forEach(error=>{
+          switch(error.context.key){
+              case 'name':
+                  setNameError(error.message)
+                  break;
+              case 'email':
+                  setEmailError(error.message)
+                  break;
+              case 'phone':
+                  setPhoneError(error.message)
+                  break;
+              case 'details':
+                  setDetailsError(error.message)
+                  break;
+              default:
+                  break;
+          }
+      })
+      
         const messages = errors.map(error => error.message);
         setAllErrors(messages);
 
@@ -159,15 +176,33 @@ function AdminAppointmentsPage() {
     setDetailsError('')
     setAllErrors([])
     
-    // Use Joi to validate the data
-    const validationResult = userFrontendSchema.validate({ name: updateName, email: updateEmail, phone: updatePhone, details: updateDetails },
+  // Use Joi to validate the data
+  const validationResult = userFrontendSchema.validate({ name: updateName, email: updateEmail, phone: updatePhone, details: updateDetails },
     { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
 
     if (validationResult.error) {
         const errors = validationResult.error.details
-        
-        const messages = errors.map(error => error.message);
-        setAllErrors(messages);
+        errors.forEach(error=>{
+          switch(error.context.key){
+              case 'name':
+                  setNameError(error.message)
+                  break;
+              case 'email':
+                  setEmailError(error.message)
+                  break;
+              case 'phone':
+                  setPhoneError(error.message)
+                  break;
+              case 'details':
+                  setDetailsError(error.message)
+                  break;
+              default:
+                  break;
+          }
+      })
+      
+        // const messages = errors.map(error => error.message);
+        // setAllErrors(messages);
 
         return;
     }
@@ -334,7 +369,13 @@ function AdminAppointmentsPage() {
         setPhone={setPhone}
         details={details}
         setDetails={setDetails}
+
         allErrors={allErrors}             // JOI all errors
+        nameError={nameError}
+        emailError={emailError}
+        phoneError={phoneError}
+        detailsError={detailsError}       // JOI
+
         handleSubmit={handleSubmit}
       />
 
@@ -360,7 +401,13 @@ function AdminAppointmentsPage() {
             setUpdatePhone={setUpdatePhone}
             updateDetails={updateDetails}
             setUpdateDetails={setUpdateDetails}
+
             allErrors={allErrors}             // JOI all errors
+            nameError={nameError}
+            emailError={emailError}
+            phoneError={phoneError}
+            detailsError={detailsError}       // JOI
+
             handleUpdateAppointment={handleUpdateAppointment}
             selectedAppointment={selectedAppointment} 
             />
