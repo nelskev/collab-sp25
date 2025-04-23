@@ -130,34 +130,10 @@ export default function Navbar() {
               </li>
 
               <li className="nav-item">
-                {/*/ ******* React Router Link ABOUT ******* /*/}
-
-
-                <Link to="/AboutPage" className="nav-link">
-
-                  About
-                </Link>
-              </li>
-
-              <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
                 <Link to="/contact" className="nav-link">
                   Contact
                 </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/location">
-                  Directions
-                </Link>
-              </li>
-              <li className="nav-item">
-
-              <Link to="/forms" className="nav-link">
-                  Download Forms
-                </Link>
-
-
               </li>
             </ul>
           </div>
