@@ -13,29 +13,6 @@ const PaintDetailsPage = () => {
     { before: BeforeImage1, after: AfterImage1 },
   ];
 
-  const faqs = [
-    {
-      question: 'How long does a paint job take?',
-      answer: 'Most paint jobs are completed within 1 hour appointments.'
-    },
-    {
-      question: 'Will the new paint match my car’s original color?',
-      answer: 'Yes. We use precision color-matching technology to ensure we match your vehicle’s finish.'
-    },
-    {
-      question: 'Is the paint job covered by a warranty?',
-      answer: 'Possibly.'
-    },
-    {
-      question: 'Can you fix scratches and chips',
-      answer: 'Yes.'
-    },
-    {
-      question: 'How do I make an appointment',
-      answer: 'Just click the "Make an Appointment" button to see available appointment slots.'
-    },
-  ];
-
   return (
     <div className='container py-3'>
       <div className='cards-wrapper'>
@@ -123,31 +100,123 @@ const PaintDetailsPage = () => {
         
         {/* FAQ */}
           <div className='accordion accordion-flush' id='accordionFlush'>
-            {faqs.map((faq, index) => (
-              <div className='accordion-item' key={index}>
-                <h2 className='accordion-header' id={`flush-heading${index}`}>
-                  <button 
-                    className='accordion-button collapsed'
-                    type='button'
-                    data-bs-toggle='collapse' 
-                    data-bs-target={`#flush-collapse${index}`} 
-                    aria-expanded='false' 
-                    aria-controls={`flush-collapse${index}`}>
-                    {faq.question}
-                  </button>
-                </h2>
-                <div 
-                  id={`flush-collapse${index}`} 
-                  className='accordion-collapse collapse' 
-                  aria-labelledby={`flush-heading${index}`} 
-                  data-bs-parent='#accordionFlush'>
-                  <div className='accordion-body p-2 bg-light'>
-                    {faq.answer}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+            <div className='accordion-item'>
+              <h2 className='accordion-header' id='flush-heading0'>
+                <button 
+                  className='accordion-button collapsed'
+                  type='button'
+                  data-bs-toggle='collapse'
+                  data-bs-target='#flush-collapse0'
+                  aria-expanded='false' 
+                  aria-controls='flush-collapse0'>
+                How long does a paint job take?
+                </button>
+              </h2>
+            <div 
+              id='flush-collapse0'
+              className='accordion-collapse collapse' 
+              aria-labelledby='flush-heading0' 
+              data-bs-parent='#accordionFlush'>
+            <div className='accordion-body p-2 bg-light'>
+              Most paint jobs are completed within 1 hour appointments.
+            </div>
+    </div>
+  </div>
+
+  <div className='accordion-item'>
+    <h2 className='accordion-header' id='flush-heading1'>
+      <button 
+        className='accordion-button collapsed'
+        type='button'
+        data-bs-toggle='collapse' 
+        data-bs-target='#flush-collapse1' 
+        aria-expanded='false' 
+        aria-controls='flush-collapse1'>
+        Will the new paint match my car’s original color?
+      </button>
+    </h2>
+    <div 
+      id='flush-collapse1' 
+      className='accordion-collapse collapse' 
+      aria-labelledby='flush-heading1' 
+      data-bs-parent='#accordionFlush'>
+      <div className='accordion-body p-2 bg-light'>
+        Yes. We use precision color-matching technology to ensure we match your vehicle’s finish.
+      </div>
+    </div>
+  </div>
+
+  <div className='accordion-item'>
+    <h2 className='accordion-header' id='flush-heading2'>
+      <button 
+        className='accordion-button collapsed'
+        type='button'
+        data-bs-toggle='collapse' 
+        data-bs-target='#flush-collapse2' 
+        aria-expanded='false' 
+        aria-controls='flush-collapse2'>
+        Is the paint job covered by a warranty?
+      </button>
+    </h2>
+    <div 
+      id='flush-collapse2' 
+      className='accordion-collapse collapse' 
+      aria-labelledby='flush-heading2' 
+      data-bs-parent='#accordionFlush'>
+      <div className='accordion-body p-2 bg-light'>
+        Possibly.
+      </div>
+    </div>
+  </div>
+
+  <div className='accordion-item'>
+    <h2 className='accordion-header' id='flush-heading3'>
+      <button 
+        className='accordion-button collapsed'
+        type='button'
+        data-bs-toggle='collapse' 
+        data-bs-target='#flush-collapse3' 
+        aria-expanded='false' 
+        aria-controls='flush-collapse3'>
+        Can you fix scratches and chips?
+      </button>
+    </h2>
+    <div 
+      id='flush-collapse3' 
+      className='accordion-collapse collapse' 
+      aria-labelledby='flush-heading3' 
+      data-bs-parent='#accordionFlush'>
+      <div className='accordion-body p-2 bg-light'>
+        Yes.
+      </div>
+    </div>
+  </div>
+
+  <div className='accordion-item'>
+    <h2 className='accordion-header' id='flush-heading4'>
+      <button 
+        className='accordion-button collapsed'
+        type='button'
+        data-bs-toggle='collapse' 
+        data-bs-target='#flush-collapse4' 
+        aria-expanded='false' 
+        aria-controls='flush-collapse4'>
+        How do I make an appointment?
+      </button>
+    </h2>
+    <div 
+      id='flush-collapse4' 
+      className='accordion-collapse collapse' 
+      aria-labelledby='flush-heading4' 
+      data-bs-parent='#accordionFlush'>
+      <div className='accordion-body p-2 bg-light'>
+        Just click the "Make an Appointment" button to see available appointment slots.
+      </div>
+    </div>
+  </div>
+
+</div>
+
         </div>
 
         {/* Make Appointment button */}
