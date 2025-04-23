@@ -32,6 +32,9 @@ export default function AdminNavbar() {
               </h5>
             </Link> */}
 
+{sessionStorage.getItem('_id') && (<Link to="/" className="m-0 btn btn-outline-danger">
+        <AdminLogoutButton /></Link>
+        )}
      
                 {/*/ ******* React Router Link ADMIN ******* /*/}
                 <Link to="/" className="m-0 text-center text-decoration-none">
