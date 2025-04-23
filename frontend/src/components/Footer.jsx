@@ -35,7 +35,7 @@ export default function Footer() {
                             </Link>
                             </li>
                             <li className="nav-item">
-                            <Link to="#" className="nav-link p-0">
+                            <Link to="/forms" className="nav-link p-0">
                                 Download Forms
                             </Link>
                             </li>
