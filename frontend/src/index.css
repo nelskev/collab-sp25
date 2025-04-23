@@ -53,14 +53,14 @@ image{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 3em;
+  left: 1em;
   color: white;
 }
 .top-info-bar .right{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 3rem;
+  right: 1rem;
   color: rgb(100, 148, 237);
 }
 
@@ -183,7 +183,7 @@ image{
   min-height: 350px;
   margin: 0 auto;
   z-index: 1000;
-  max-height: 638px !important;
+  /* max-height: 638px !important; */
 }
 
 /* ADMIN APPT PAGE SORT TOOLBAR */
@@ -232,19 +232,6 @@ image{
   left: 50%  */
 }
 
-/* ACCORDION */
-/* .accordion{
-  width: 330px !important;
-  max-width: 330px;
-}
-.accordion-button{
-  padding: .6rem 1.2rem;
-  outline: 2px solid rgba(0, 81, 255, 0.212) !important;
-}
-.accordion-button:not(.collapsed) {
- background-color: transparent !important;
-} */
-
 /* DETAILS PANE */
 .details-pane{
   max-width: 330px !important;
@@ -255,12 +242,75 @@ image{
  width: 100%;
  max-width: 330px;
 }
+/****** FAQ ******/
+/* faq container */
+.accordion-flush {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* faq item */
+.accordion-item {
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* headers */
+.accordion-header {
+  margin-bottom: 0;
+}
+
+/* q button */
+.accordion-button {
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #212529;
+  padding: 1rem;
+  box-shadow: none;
+  border-radius: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* hovered */
+.accordion-button:hover,
+.accordion-button:focus {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+/* open */
+.accordion-button:not(.collapsed) {
+  background-color: #dee2e6;
+  color: #000;
+}
+
+/* answer */
+.accordion-body {
+  background-color: #f1f3f5;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
 
 
 
 /***********************************************/
 /**************** MEDIA QUERIES ****************/
 /***********************************************/
+@media screen and (max-width: 576px) {
+  .accordion-button {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .accordion-body {
+    padding: 0.75rem;
+  }
+}
 
 @media screen and (min-width: 550px) {
   .sort-appointments-wrapper {
@@ -281,6 +331,15 @@ image{
     width: 100%;
     transform: translateX(0%) !important;
     left: 0;
+  }
+  /* faq */
+  .accordion-button {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  .accordion-body {
+    padding: 1rem;
   }
 }
 
@@ -315,6 +374,15 @@ image{
   .top-info-bar{
       display: flex !important;
   }
+  /* faq */
+  .accordion-button {
+    font-size: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .accordion-body {
+    padding: 1.25rem;
+  }
 }
 
 @media only screen and (min-width: 992px) {
@@ -324,6 +392,21 @@ image{
   }
   .services img{
       max-width: 280px;
+  }
+  .top-info-bar .left{
+    left: 3em;
+  }
+  .top-info-bar .right{
+    right: 3rem;
+  }
+  /* faq */
+  .accordion-button {
+    font-size: 1.3rem;
+    padding: 1.5rem;
+  }
+
+  .accordion-body {
+    padding: 1.5rem;
   }
 }
 
@@ -337,5 +420,13 @@ image{
   }
   .section-1 p{
       font-size: 1.5rem !important;
+  }
+  /* faq */
+  .accordion-button {
+    font-size: 1.4rem;
+  }
+
+  .accordion-body {
+    padding: 1.75rem;
   }
 }

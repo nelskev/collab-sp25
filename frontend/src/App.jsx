@@ -110,14 +110,14 @@ function App() {
           
         <Route path='/appointments' element={
           <>
-        
+        <Navbar /> 
           <AppointmentsPage />
           <Footer />
           </>
         } />
         <Route path='/location' element={
           <>
-         
+         <Navbar /> 
           <LocationPage />
           <Footer />
           </>

@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 // import handleLogout from "../admin/components/HandleLogout";
 import { useNavigate } from "react-router-dom"; //For handleLogout function
 import AdminLogoutButton from "../admin/components/AdminLogoutButton"; //For handleLogout function
+import Logo from '../assets/Logo2.png';
 
 export default function Navbar() {
   return (
     <div className="navbar-wrapper">
       {/* Top Bar  */}
-      <div className="top-info-bar w-100 d-flex justify-content-between py-5 px-4 bg-white">
+      <div className="top-info-bar w-100 justify-content-between py-5 px-4 bg-white">
         <div className="carbon-background">
           {/*/ ******* React Router Link HOME ******* /*/}
           {/* large Logo  */}
@@ -17,8 +18,7 @@ export default function Navbar() {
             className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
             href="index.html"
           >
-            <h2 className="custom-blue m-0 fs-1">Scott's</h2>
-            <h5 className="m-0">Collision Repair</h5>
+             <img src={Logo}  alt="logo" style={{width: '300px', height: '300px'}}/>
           </Link>
 
           <div className="right d-flex flex-column justify-content-center gap-3">
@@ -52,6 +52,8 @@ export default function Navbar() {
           {/*/ ******* Internal Link (scroll down) can be Anchor ******* /*/}
           <a className="navbar-brand d-md-none" href="index.html">
             <div className="left d-xs-none d-lg-flex flex-column logo-small">
+              
+              {/* <img src={Logo}  alt="logo" style={{width: '200px', height: '200px'}}/> */}
               <h2 className="custom-blue m-0 fs-1">Scott's</h2>
               <h5 className="m-0">Collision Repair</h5>
             </div>
@@ -130,34 +132,10 @@ export default function Navbar() {
               </li>
 
               <li className="nav-item">
-                {/*/ ******* React Router Link ABOUT ******* /*/}
-
-
-                <Link to="/AboutPage" className="nav-link">
-
-                  About
-                </Link>
-              </li>
-
-              <li className="nav-item">
                 {/*/ ******* React Router Link Contact ******* /*/}
                 <Link to="/contact" className="nav-link">
                   Contact
                 </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/location">
-                  Directions
-                </Link>
-              </li>
-              <li className="nav-item">
-
-              <Link to="/forms" className="nav-link">
-                  Download Forms
-                </Link>
-
-
               </li>
             </ul>
           </div>
