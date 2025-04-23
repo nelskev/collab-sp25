@@ -1,51 +1,111 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import BeforeImage from '../assets/before&After.jpeg'
-
+import AfterImage from '../assets/collision_before.png';
+import BeforeImage from '../assets/collision_after.png';
+import AfterImage1 from '../assets/collision_before1.png';
+import BeforeImage1 from '../assets/collision_after1.png';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 const CollisionRepair = () => {
 
+ const imageSets = [
+    { before: BeforeImage, after: AfterImage },
+    { before: BeforeImage1, after: AfterImage1 },
+  ];
+
   const faqs = [
     {
-      question: 'How long does a paint job take?',
-      answer: 'Most paint jobs are completed within 1 hour appointments.'
+      question: 'How long does collision repair take?',
+      answer: 'Most minor collision repairs can be completed within a few days. For more extensive damage, we’ll provide a time estimate after inspection.'
     },
     {
-      question: 'Will the new paint match my car’s original color?',
-      answer: 'Yes. We use precision color-matching technology to ensure we match your vehicle’s finish.'
+      question: 'Will the repaired area match the rest of my car?',
+      answer: 'Yes. Our technicians use precision tools and factory-grade paint to ensure seamless integration with your vehicle’s original look.'
     },
     {
-      question: 'Is the paint job covered by a warranty?',
-      answer: 'Possibly.'
+      question: 'Is collision repair covered by insurance?',
+      answer: 'In most cases, yes. We work with all major insurance providers and can assist with your claim.'
     },
     {
-      question: 'Can you fix scratches and chips',
-      answer: 'Yes.'
+      question: 'Can you fix frame damage?',
+      answer: 'Yes. We use advanced frame-straightening equipment to repair structural damage safely and accurately.'
     },
     {
-      question: 'How do I make an appointment',
-      answer: 'Just click the "Make an Appointment" button to see available appointment slots.'
+      question: 'How do I schedule a repair?',
+      answer: 'Click the "Make an Appointment" button to choose a date and time that works best for you.'
     },
   ];
   
     return (
       <div className='container py-3'>
-  <div>
+  <div className='cards-wrapper'>
 
 
   <h1>Collision Repair Services</h1>
      
         {/* Before and after images */}
-        <div className='cards-wrapper'>
-  
-          <div>
-            <img src={BeforeImage} alt='Before'/>
-           
+        <div className='details-pane mb-3'
+          style={{
+          display: 'flex', 
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            maxWidth: '900px', 
+            width: '100%' 
+          }}>
+            <Carousel interval={4000} indicators={true}>
+              {imageSets.map((set, idx) => (
+                <Carousel.Item key={idx}>
+                  <div 
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      flexWrap: 'nowrap',
+                      width: '100%'
+                    }}>
+                    <div style={{ 
+                      flex: '0 0 48%', 
+                      textAlign: 'center' 
+                    }}>
+                      <img 
+                        src={set.before} 
+                        alt={`Before ${idx + 1}`} 
+                        style={{ 
+                          width: '100%', 
+                          height: '300px', 
+                          objectFit: 'cover' 
+                        }} 
+                      />
+                      <p style={{ 
+                         marginTop: '0.5rem', 
+                         fontWeight: 'bold'
+                        }}>Before</p>
+                    </div>
+                    <div style={{ 
+                      flex: '0 0 48%', 
+                      textAlign: 'center'
+                    }}>
+                      <img 
+                        src={set.after} 
+                        alt={`After ${idx + 1}`} 
+                        style={{ 
+                          width: '100%', 
+                          height: '300px', 
+                          objectFit: 'cover'
+                        }} 
+                      />
+                      <p style={{ 
+                        marginTop: '0.5rem', 
+                        fontWeight: 'bold' 
+                      }}>After</p>
+                    </div>
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
           </div>
-  
-         
-  
         </div>
   
         <div>
