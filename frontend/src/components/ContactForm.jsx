@@ -9,7 +9,11 @@ function ContactForm({
 }) {
     return (
         <form onSubmit={handleSubmit} className="p-2 my-3 col-12 col-med-9 col-lg-12 col-xl-5 mx-auto">
-        <h1 className="sticky-top bg-white p-2 border-bottom">Contact Form</h1>
+
+       <h1 className="p-2 border-bottom">Contact Form</h1>
+
+       {/* <h1 className="sticky-top bg-white p-2 border-bottom">Contact Form</h1> */}
+
             <div className="mb-3">
                 <label className="form-label">Name</label>
                 <input type="text" className="form-control" placeholder="John Smith" value={name} onChange={(e) => setName(e.target.value)} required />
