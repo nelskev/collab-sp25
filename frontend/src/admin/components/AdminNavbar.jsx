@@ -2,7 +2,7 @@ import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLogoutButton from './AdminLogoutButton';
-
+// import Logo  from '../../assets/Logo2.png';
 export default function AdminNavbar() {
 
   
@@ -19,7 +19,9 @@ export default function AdminNavbar() {
              <Link to="/"  className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0">
                 <h2 className="custom-blue m-0 fs-1">Scott's</h2>
                 <h5 className="m-0">Collision Repair</h5>
-                {sessionStorage.getItem("_id") && <h5 className="m-0 text-warning admin-user">   Hello {sessionStorage.getItem('_username')}</h5>}
+
+
+        
 
              </Link>
    {/* {sessionStorage.getItem('_id') && (<Link to="/" className=" d-flex justify-content-end">
@@ -37,10 +39,18 @@ export default function AdminNavbar() {
         )}
      
                 {/*/ ******* React Router Link ADMIN ******* /*/}
-                <Link to="/" className="m-0 text-center text-decoration-none">
+                {/* <Link to="/" className="m-0 text-center text-decoration-none">
                   <button 
                   className='m-0 btn btn-outline-light'>Back to Home</button>
-                </Link>
+                </Link> */}
+
+
+<div className="m-0 text-end d-flex align-items-center">
+  {sessionStorage.getItem("_id") && <h5 className="text-warning me-2">{sessionStorage.getItem('_username')}</h5>}
+  <Link to="/">
+  <img src={"./admin-icon.png"} alt="" width="30" />
+  </Link>
+</div>
             </div>
 
         </div>
@@ -96,7 +106,7 @@ export default function AdminNavbar() {
           
 
               {sessionStorage.getItem("_id") && (
-                <li className='nav-item'>
+                <li className='nav-item d-block d-md-none py-0'>
                 <Link to="/" className="m-0 text-end text-decoration-none nav-link">
                   {/* Logout Admin {sessionStorage.getItem('_username')} */}
                 <AdminLogoutButton className="m-0 text-end nav-link link-danger text-decoration-none"/>

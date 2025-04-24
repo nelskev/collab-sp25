@@ -44,8 +44,8 @@ export default function Footer() {
                                 </li>
 
                                         {sessionStorage.getItem("_id") && (
-                                <li className='nav-item'>
-                                <Link to="#"  className="nav-link link-danger">
+                                <li className='nav-item m-1'>
+                                <Link to="#"  className="nav-link  p-0 fw-bold link-danger">
                                 <AdminLogoutButton onClick={handleRefresh}/>
                                 </Link>
                                 </li>
