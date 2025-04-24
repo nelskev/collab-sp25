@@ -101,7 +101,7 @@ function ContactPage() {
           <ConfirmationModal
             show={showModal}
             onClose={() => setShowModal(false)}
-            message="Your appointment has been booked successfully!"
+            message="Your contact has been sent successfully!"
           />
         </div>
       </>
