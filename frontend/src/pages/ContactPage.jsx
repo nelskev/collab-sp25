@@ -74,10 +74,9 @@ function ContactPage() {
     return (
       <>
         <div className="side-by-side-desktop d-flex flex-column flex-xl-row align-items-xl-start justify-content-lg-center mx-auto gap-3">
-          
-          <div class="d-flex flex-column gap-3 col-4 col-md-3 col-lg-2 col-xl-2 mx-auto">
+          <div class="d-flex flex-column gap-3 col-6 col-md-4 col-lg-4 col-xl-4 mx-auto text-center">
             <h1 className="text-center fs-3 m-0 mt-1">Contact Details</h1>
-            <img src={'/owner_scott.png'} class="img-fluid rounded-start" alt="Scott's Picture" />
+            <img src={'/owner_scott.png'} class="img-fluid rounded-start mx-auto" alt="Scott's Picture" width="250" height="auto" />
             <div>
               <p>Scott Didriksen</p>
               <p><a href="tel:+2087414097"><i class="fa-solid fa-phone me-2"></i>208-562-3174</a></p>
