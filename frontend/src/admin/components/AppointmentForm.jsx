@@ -10,7 +10,15 @@ function AppointmentForm({
     phone, setPhone,
     details, setDetails,
     handleSubmit,
-  }) {
+    // allErrors,
+    nameError,
+    emailError,
+    phoneError,
+    detailsError
+
+    
+  }) 
+  {
     return (
       <form onSubmit={handleSubmit} className="p-2 my-3 col-12 col-md-9 col-lg-5 col-xl-4 mx-auto">
         
@@ -24,27 +32,30 @@ function AppointmentForm({
   
         <div className="mb-3">
           <label className="form-label">Name</label>
-          <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required />
-          {/* {nameError && <span className="text-danger">{nameError}</span>} */}
+          <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)}  />
+          {nameError && <span className="text-danger">{nameError}</span>} 
         </div>
   
         <div className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)}  />
+          {emailError && <span className="text-danger">{emailError}</span>}
         </div>
   
         <div className="mb-3">
           <label className="form-label">Phone</label>
-          <input type="tel" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+          <input type="tel" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)}  />
+          {phoneError && <span className="text-danger">{phoneError}</span>}
         </div>
   
         <div className="mb-3">
           <label className="form-label">Details</label>
-          <textarea className="form-control" value={details} onChange={(e) => setDetails(e.target.value)} required />
+          <textarea className="form-control" value={details} onChange={(e) => setDetails(e.target.value)}  />
+          {detailsError && <span className="text-danger">{detailsError}</span>}
         </div>
   
         <button type="submit" className="btn btn-primary w-100 fs-5 mt-3 mb-2">
-          Schedule appointment
+          Schedule Appointment
         </button>
       </form>
     );

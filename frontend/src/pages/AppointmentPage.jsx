@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppointmentForm from "../admin/components/AppointmentForm";
 import ConfirmationModal from "../components/ConfirmationModal";
+import userFrontendSchema from "../admin/validation/appointmentFormValidation";
 
 const AppointmentPage = () => {
   
@@ -12,6 +13,13 @@ const AppointmentPage = () => {
   const [appointments, setAppointments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+    // JOI
+    const [nameError, setNameError] = useState(null);   
+    const [emailError, setEmailError] = useState(null);
+    const [phoneError, setPhoneError] = useState(null);
+    const [detailsError, setDetailsError] = useState(null);
+    const [allErrors, setAllErrors] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -50,48 +58,85 @@ const AppointmentPage = () => {
       return
     }
     setErrorMessage('') 
+    // Clear Joi
+    setNameError('')
+    setEmailError('')
+    setPhoneError('')
+    setDetailsError('')
+    setAllErrors([])
 
-    const offset = selectedDateTime.getTimezoneOffset()
-    const adjustedTime = new Date(selectedDateTime.getTime() - offset * 60 * 1000)
+        // Use Joi to validate the data
+    const validationResult = userFrontendSchema.validate({ name: name, email: email, phone: phone, details: details },
+      { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
 
-    try {
-      const response = await fetch('/appointments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          date: adjustedTime.toISOString().split('T')[0],
-          time: adjustedTime.toISOString().split('T')[1].slice(0, 5),
-          name,
-          email,
-          phone,
-          details,
-        }),
-      })
+      if (validationResult.error) {
+          const errors = validationResult.error.details
+          errors.forEach(error=>{
+            switch(error.context.key){
+                case 'name':
+                    setNameError(error.message)
+                    break;
+                case 'email':
+                    setEmailError(error.message)
+                    break;
+                case 'phone':
+                    setPhoneError(error.message)
+                    break;
+                case 'details':
+                    setDetailsError(error.message)
+                    break;
+                default:
+                    break;
+            }
+        })
+        
+          const messages = errors.map(error => error.message);
+          setAllErrors(messages);
 
-      const result = await response.json()
-      console.log('Server response:', result)
-
-      if (response.ok) {
-        console.log('Appointment created successfully')
-        handleAppointmentCreated()   // call method to add new appointment if successful
-
-        setShowModal(true)  // Show confirmation modal
-        // Clear all fields/inputs if successful
-        setSelectedDateTime(null)  
-        setName('')
-        setEmail('')
-        setPhone('')
-        setDetails('')
-
-      } else {
-        console.error('Failed to create appointment')
+          return;
       }
-    } catch (error) {
-      console.error('Error:', error)
+
+      const offset = selectedDateTime.getTimezoneOffset()
+      const adjustedTime = new Date(selectedDateTime.getTime() - offset * 60 * 1000)
+
+      try {
+        const response = await fetch('/appointments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            date: adjustedTime.toISOString().split('T')[0],
+            time: adjustedTime.toISOString().split('T')[1].slice(0, 5),
+            name,
+            email,
+            phone,
+            details,
+          }),
+        })
+
+        const result = await response.json()
+        console.log('Server response:', result)
+
+        if (response.ok) {
+          console.log('Appointment created successfully')
+          handleAppointmentCreated()   // call method to add new appointment if successful
+
+          setShowModal(true)  // Show confirmation modal
+          // Clear all fields/inputs if successful
+          setSelectedDateTime(null)  
+          setName('')
+          setEmail('')
+          setPhone('')
+          setDetails('')
+
+        } else {
+          console.error('Failed to create appointment')
+        }
+      } catch (error) {
+        console.error('Error:', error)
+      }
     }
-  }
 
   return (
     
@@ -118,6 +163,12 @@ const AppointmentPage = () => {
          setPhone={setPhone}
          details={details}
          setDetails={setDetails}
+         
+         allErrors={allErrors}             // JOI all errors
+         nameError={nameError}
+         emailError={emailError}
+         phoneError={phoneError}
+         detailsError={detailsError}       // JOI
          handleSubmit={handleSubmit}
       />
 
