@@ -13,7 +13,7 @@ export default function Navbar() {
   return (
     <div className="navbar-wrapper">
       {/* Top Bar  */}
-      <div className="top-info-bar w-100 d-flex justify-content-between py-5 px-4 bg-white">
+      <div className="top-info-bar w-100 justify-content-between py-5 px-4 bg-white">
         <div className="carbon-background">
           {/*/ ******* React Router Link HOME ******* /*/}
           {/* large Logo  */}

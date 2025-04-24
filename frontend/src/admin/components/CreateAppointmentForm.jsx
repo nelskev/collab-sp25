@@ -6,20 +6,23 @@ import DatePickerUI from './DatePickerUI'
 function CreateAppointmentForm({
     selectedDateTime, setSelectedDateTime,   // datepicker
     appointments,   // grey out taken appointment
-    allErrors,  // JOI - GET ALL errors instead of individual
     name, setName,                           // apptform
     email, setEmail,                       
     phone, setPhone,
     details, setDetails,
     handleSubmit,
+    // allErrors,
+    nameError,
+    emailError,
+    phoneError,
+    detailsError
   }) {
 
-
   return (
-
+    
   <div className="accordion-wrapper mx-auto">
 
-    <div className={`accordion accordion-flush my-4 ${styles['accordion']}`} id="add-appointment-accordion">
+    <div className={`accordion p-0 accordion-flush my-4 ${styles['accordion']}`} id="add-appointment-accordion">
     
     <div className="accordion-item">
       <h2 className="accordion-header">
@@ -29,16 +32,7 @@ function CreateAppointmentForm({
       </h2>
 
     <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#add-appointment-accordion">
-    <div className="accordion-body m-0 p-0 px-lg-4 border border-2">
-
-      {/* Loop through JOI ERRORS! */}
-      {allErrors.length > 0 && (
-        <div className="d-flex flex-column border border-1 my-3 p-1">
-            {allErrors.map((msg, index) => (
-              <div className='text-danger' key={index}>{msg}</div>
-            ))}
-        </div>
-      )}
+    <div className="accordion-body m-0 p-0 px-lg-4 border border-2 bg-white">
 
       <form onSubmit={handleSubmit} className="p-2 my-3 col-12 mx-auto">
         
@@ -53,21 +47,25 @@ function CreateAppointmentForm({
         <div className="mb-3">
           <label className="form-label">Name</label>
           <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)}/>  
+          {nameError && <div className="text-danger">{nameError}</div>} 
         </div>
   
         <div className="mb-3">
           <label className="form-label">Email</label>
           <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+          {emailError && <div className="text-danger">{emailError}</div>} 
         </div>
   
         <div className="mb-3">
           <label className="form-label">Phone</label>
           <input type="tel" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          {phoneError && <div className="text-danger">{phoneError}</div>} 
         </div>
   
         <div className="mb-3">
           <label className="form-label">Details</label>
           <textarea className="form-control" value={details} onChange={(e) => setDetails(e.target.value)}  />
+          {detailsError && <div className="text-danger">{detailsError}</div>} 
         </div>
   
         <button type="submit" className="btn btn-outline-primary w-100 fs-5 mt-3 mb-2">
@@ -83,7 +81,6 @@ function CreateAppointmentForm({
 
     </div>
     )
-  }
+}
   
-  export default CreateAppointmentForm
-
+export default CreateAppointmentForm
