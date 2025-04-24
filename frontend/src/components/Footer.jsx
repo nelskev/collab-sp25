@@ -1,69 +1,73 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../index.css";
+import Logo from '../assets/Logo2.png';
 
 export default function Footer() {
     return (
-        <footer className="bg-dark text-white mt-5 border border-3 pt-5">
-            <div className="container bg-dark">
-                <div className="row text-center text-lg-center">
-
-                    <section className="col-12 col-lg-3 mb-4">
-                        <div className="logo-small mb-3">
-                            <Link to="/"  className="d-left flex-column align-items-center align-items-lg-start text-decoration-none" href="index.html">
-                                <h4 className="custom-blue m-0 fs-1">Scott's</h4>
-                                <h7 className="m-0">Collision Repair</h7>
+        <footer className="footer">
+            <div className="container-fluid py-4 p-0 bg-primary bg-dark text-white">
+                <div className="row ms-3">
+                    {/* Logo and Description */}
+                    <section className="col-12 col-md-4 mb-4">
+                        <div className="d-flex justify-content-center mb-0">
+                            <Link to="/">
+                                <img src={Logo} alt="logo" style={{ width: '150px', height: '150px' }} loading="lazy" />
                             </Link>
                         </div>
-                        <p>Serving the Treasure Valley since 1986, we are a trusted auto body shop and can help! We fix everything from small dents and scratches, to custom paint, and complete collision repair. Don't take our word for it, read our <Link to="/list_reviews" className="">reviews</Link> </p>
-                    </section> 
+                        <p className="text-start p-2 mt-0">
+                            Serving the Treasure Valley since 1986, we are a trusted auto body shop and can help! We fix everything from small dents and scratches, to custom paint, and complete collision repair. Don't take our word for it, read our <Link to="/list_reviews" className="text-decoration-none">reviews</Link>.
+                        </p>
+                    </section>
 
-                    <nav className="col-12 col-lg-2 mb-4 nav text-center text=lg-center">
-                        <ul className="list-unstyled">
-                            <li className="nav-item">
-                            <Link to="/" className="nav-link p-0">
-                                Home
-                            </Link>
-                            </li>
-                            <li className="nav-item">
-                            <Link to="/AboutPage" className="nav-link p-0">
-                                About
-                            </Link>
-                            </li>
-                            <li className="nav-item">
-                            <Link to="/location" className="nav-link p-0">
-                                Location
-                            </Link>
-                            </li>
-                            <li className="nav-item">
-                            <Link to="#" className="nav-link p-0">
-                                Download Forms
-                            </Link>
-                            </li>
-                        </ul>
-                    </nav>
+                    {/* Quick Links */}
+                    <section className=" col-12 col-md-2 mt-4 ">
+                        <nav className="nav flex-column mb-2">
+                            <ul className=" list-unstyled d-flex flex-column align-items-center align-items-md-start text-center text-md-start">
+                                <li className="nav-item m-1">
+                                    <Link to="/" className="nav-link p-0 fw-bold ">Home</Link>
+                                </li>
+                                <li className="nav-item m-1">
+                                    <Link to="/AboutPage" className="nav-link p-0 fw-bold">About</Link>
+                                </li>
+                                <li className="nav-item m-1">
+                                    <Link to="/location" className="nav-link p-0 fw-bold">Location</Link>
+                                </li>
+                                <li className="nav-item m-1">
+                                    <Link to="/forms" className="nav-link p-0 fw-bold">Download Forms</Link>
+                                </li>
+                            </ul>
+                        </nav>                        
+                    </section>
 
-                    <section className="col-12 col-lg-3 mb-4">
-                        <div className="text-start">
-                            <p className="fw-bold">Hours of Operation</p>
-                            <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-                            <p>Saturday - Sunday: Closed</p>
-                            <p>Holidays: Closed</p>
-                            <div className="d-flex flex-column gap-2 me-3">
-                                <Link className="btn btn-success" to="/contact" >Contact us</Link>
-                                <Link className="btn btn-success" to="/appointments">Appointment</Link>
-                            </div>                                
+                    {/* Hours of Operation */}
+                    <section className="col-12 col-md-3 mb-4 mt-4">
+                        <p className="fw-bold text-center text-md-start">Hours of Operation</p>
+                        <p className="text-center text-md-start">Monday - Friday: 8:00 AM - 5:00 PM</p>
+                        <p className="text-center text-md-start">Saturday - Sunday: Closed</p>
+                        <p className="text-center text-md-start">Holidays: Closed</p>
+                        <div className="d-flex flex-column gap-2 align-items-center align-items-md-start">
+                            <Link className="btn btn-primary" to="/contact">Contact us</Link>
+                            <Link className="btn btn-primary" to="/appointments">Appointment</Link>
                         </div>
                     </section>
 
-                    <section className="col-12 col-lg-3 mb-4 ">
+                    {/* Contact Details */}
+                    <section className="col-12 col-md-3 text-center text-md-start d-flex justify-content-end flex-column align-items-center align-items-md-start">
                         <p className="fw-bold">Contact Details</p>
-                        <img src={'/owner_scott.png'} class="img-fluid rounded mb-2" width={100} alt="Scott's Picture" />
-                        <div className="">
+                        <img src={'/owner_scott.png'} className="img-fluid rounded mb-2" width={100} alt="Scott's Picture" />
                         <p className="mb-2">Scott Didriksen</p>
-                        <p className="m-2"><a href="tel:+2087414097"><i class="fa-solid fa-phone me-2"></i>208-562-3174</a></p>
-                        <p className="m-2"><a href="mailto:vladkolmorgan@my.cwi.edu"><i class="fa-solid fa-envelope me-2"></i>scottdidriksen@cwi.edu</a></p>
-                        </div>
-                        <div className="social-media">
+                        <p className="m-2">
+                            <a href="tel:+2087414097" className="text-decoration-none">
+                                <i className="fa-solid fa-phone me-2"></i>208-562-3174
+                            </a>
+                        </p>
+                        <p className="m-2">
+                            <a href="mailto:vladkolmorgan@my.cwi.edu" className="text-decoration-none">
+                                <i className="fa-solid fa-envelope me-2"></i>scottdidriksen@cwi.edu
+                            </a>
+                        </p>
+                        <div className="social-media ms-2 d-flex justify-content-center justify-content-md-start">
                             <a href="https://www.facebook.com/" target="_blank" className="me-2"><i className="fa-brands fa-facebook"></i></a>
                             <a href="https://www.instagram.com/" target="_blank" className="me-2"><i className="fa-brands fa-instagram"></i></a>
                             <a href="https://www.twitter.com/" target="_blank" className="me-2"><i className="fa-brands fa-twitter"></i></a>
@@ -71,16 +75,17 @@ export default function Footer() {
                         </div>
                     </section>
                 </div>
-            </div>
-            <div className="text-center mt-4 mb-4">
-                <button 
-                    className="btn btn-primary scroll-top-btn" 
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                >
-                    ↑ Back to Top
-                </button>
-            </div>
 
+                {/* Scroll to Top Button */}
+                <div className="d-flex justify-content-end p-3">
+                    <button
+                        className="btn btn-primary scroll-top-btn"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    >
+                        <i className="fa-solid fa-arrow-up me-2"></i>Top
+                    </button>
+                </div>
+            </div>
         </footer>
     );
 }
