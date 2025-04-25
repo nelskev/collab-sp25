@@ -47,6 +47,9 @@ function PrintAppointments({ appointments = [], selectedDate }) {
                 <tr>
                   <th>Time</th>
                   <th>Name</th>
+                  th>Email</th>
+                  <th>Phone</th>
+                  <th>Details</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,6 +57,9 @@ function PrintAppointments({ appointments = [], selectedDate }) {
                   <tr>
                     <td>${appt.time}</td>
                     <td>${appt.name}</td>
+                    <td>${appt.phone}</td>
+                    <td>${appt.email}</td>
+                    <td>${appt.details}</td>
                   </tr>
                 `).join('')}
               </tbody>
