@@ -431,17 +431,10 @@ function AdminAppointmentsPage() {
             dailyTimeSlots={dailyTimeSlots}
             handleDeleteAppointment={handleDeleteAppointment}
             selectedDate={selectedDate}
-          />
-      )}
-        
-
-
-
-  </div> {/* end container */}
-  </>
-  );
-
-
+          />)}
+         {/* end container */}
+          </>
+);
 }
 
 export default AdminAppointmentsPage
