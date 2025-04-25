@@ -1,4 +1,5 @@
 import React from 'react';
+import formatTimeAmPm from '../../../helpers/timeConversion';
 
 //Receives props from AdminAppointmentPage when the button is clicked and opens print window
 function PrintAppointments({ appointments = [], selectedDate }) {
@@ -6,6 +7,13 @@ function PrintAppointments({ appointments = [], selectedDate }) {
     const printWindow = window.open('', '_blank');
     if (!printWindow) 
         return;
+
+    //Sorts by time
+    const sortedAppointments = [...appointments].sort((a, b) => {
+        const [hA, mA] = a.time.split(':').map(Number);
+        const [hB, mB] = b.time.split(':').map(Number);
+        return hA - hB || mA - mB;
+      });
     
     //Sets up the table, formatting needs to be applied here from what I can figure out   
     const htmlContent = `
@@ -47,37 +55,39 @@ function PrintAppointments({ appointments = [], selectedDate }) {
                 <tr>
                   <th>Time</th>
                   <th>Name</th>
-                  th>Email</th>
                   <th>Phone</th>
+                  <th>Email</th>
                   <th>Details</th>
                 </tr>
               </thead>
               <tbody>
-                ${appointments.map(appt => `
-                  <tr>
-                    <td>${appt.time}</td>
-                    <td>${appt.name}</td>
-                    <td>${appt.phone}</td>
-                    <td>${appt.email}</td>
-                    <td>${appt.details}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
+            ${sortedAppointments.map(appt => {
+                const formattedTime = formatTimeAmPm(appt.time);
+                return `
+            <tr>
+                <td>${formattedTime}</td>
+                <td>${appt.name}</td>
+                <td>${appt.phone}</td>
+                <td>${appt.email}</td>
+                <td>${appt.details}</td>
+                </tr>
+            `;
+            }).join('')}
+            </tbody>
             </table>
-        ` : ''}
-        </body>
-      </html>
-    `;
+            `: ''}
+            </body>
+        </html>
+        `;
 
     printWindow.document.open();
-    Document.write(htmlContent);
+    printWindow.document.write(htmlContent);
     printWindow.document.close();
     
     // Sets Timeout 200 is probably excessive but old stuff is out there
     printWindow.onload = () => {
       setTimeout(() => {
         printWindow.print();
-        printWindow.close();
       }, 200);
     };
   };
@@ -87,7 +97,7 @@ function PrintAppointments({ appointments = [], selectedDate }) {
 
   return (
     <button
-        className="btn btn-secondary"
+        className="btn btn-primary"
         onClick={handlePrint}
         disabled={!ValidDate}
     >
