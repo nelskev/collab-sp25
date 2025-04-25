@@ -5,9 +5,9 @@ import Logo from '../assets/Logo2.png';
 
 export default function Footer() {
     return (
-        <footer className="footer">
-            <div className="container-fluid py-4 p-0 bg-primary bg-dark text-white">
-                <div className="row ms-3">
+        <footer className="footer m-0">
+            <div className="container-fluid py-4 p-0 bg-primary bg-dark text-white mx-auto m-0 position-relative">
+                <div className="row m-0 ms-3">
                     {/* Logo and Description */}
                     <section className="col-12 col-md-4 mb-4">
                         <div className="d-flex justify-content-center mb-0">
@@ -75,6 +75,15 @@ export default function Footer() {
                         </div>
                     </section>
                 </div>
+
+     
+                {/* This could be used on large screens to discard the lower div?? The div adds unneeded space at the bottom of the footer. */}
+                {/* <button
+                    className="btn btn-primary scroll-top-btn position-absolute bottom-50 end-0 me-2 d-none d-lg-block"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                    <i className="fa-solid fa-arrow-up me-2"></i>Top
+                </button> */}
 
                 {/* Scroll to Top Button */}
                 <div className="d-flex justify-content-end p-3">
