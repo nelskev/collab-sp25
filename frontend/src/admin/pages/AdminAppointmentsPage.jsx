@@ -366,7 +366,7 @@ function AdminAppointmentsPage() {
         </select> */}
       </div>
       {selectedDate && !isNaN(new Date(selectedDate)) && (
-          <div className="btn btn-secondary">
+          <div>
             <PrintAppointments 
               appointments={filteredAppointments} 
               selectedDate={new Date(selectedDate)} 
