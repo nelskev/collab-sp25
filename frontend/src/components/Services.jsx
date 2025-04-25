@@ -17,10 +17,8 @@ export default function Services() {
               <div class="col-md-8">
                 <div class="card-body">
                   <h3 class="card-title">Collision Repair</h3>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus tempora consectetur. 
-                    Labore aperiam nostrum illo molestias odio perspiciatis, officiis fugiat dolor sequi qui soluta itaque 
-                    quae reprehenderit sunt ullam, ex esse repellendus? Obcaecati inventore earum.</p>
-                    <button type="button" class="btn btn-dark">Read More</button>
+                  <p class="card-text">Our team specializes in collision repair to restore your vehicle's original condition. We guarantee efficient and great customer service, providing a flawless restoration of your car's appearance and functionality.</p>
+                    <Link to='/collision-repair'> <button type="button" class="btn btn-dark">Read More</button> </Link>
                 </div>
               </div>
             </div>
@@ -28,7 +26,7 @@ export default function Services() {
 
         {/* Painting  */}
         <div class="card mb-3" id="painting">
-            <div class="row">
+            <div class="row g-0">
               <div class="services col-md-4">
                 <img src={'./painting.jpg'} class="img-fluid rounded-start" alt="..." />
               </div>
@@ -53,10 +51,8 @@ export default function Services() {
                 <div class="col-md-8 m-0 p-0">
                 <div class="card-body m-0">
                     <h3 class="card-title">Specialty Painting</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus tempora consectetur. 
-                        Labore aperiam nostrum illo molestias odio perspiciatis, officiis fugiat dolor sequi qui soluta itaque 
-                        quae reprehenderit sunt ullam, ex esse repellendus? Obcaecati inventore earum.</p>
-                    <button type="button" class="btn btn-dark">Read More</button>
+                    <p class="card-text">Our team specializes in custom specialty painting to enhance your vehicle's unique style.</p>
+                    <Link to='/CustPaintPage'> <button type="button" class="btn btn-dark">Read More</button> </Link>
                 </div>
                 </div>
             </div>
