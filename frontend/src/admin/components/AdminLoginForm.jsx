@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TextNameContext } from '../../context/TextNameContext';
 
 export default function SigninForm() {
@@ -52,7 +52,8 @@ export default function SigninForm() {
       console.log('_id stored in sessionStorage:', data._id);
       // console.log('_username stored in sessionStorage:', data.username);
       // setTextName("LOGGED IN!!!");
-      navigate('/admin');
+      const redirectUrl = new URLSearchParams(location.search).get('redirect');
+      navigate(redirectUrl || '/admin', { replace: true });
     } else {
       throw new Error('Invalid response from server');
     }

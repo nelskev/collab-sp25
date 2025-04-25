@@ -1,7 +1,7 @@
 import express from "express";
 import Admin from '../models/adminModel.js'
 
-// import bcrypt from "bcrypt"; 
+
 
 const router = express.Router();
 
@@ -68,5 +68,7 @@ router.get('/:username', async (req, res) => {
     res.status(500).json('Internal server error.');
   }
 });
+
+
 
 export default router;
