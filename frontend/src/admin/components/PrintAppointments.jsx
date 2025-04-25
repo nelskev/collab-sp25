@@ -87,7 +87,7 @@ function PrintAppointments({ appointments = [], selectedDate }) {
 
   return (
     <button
-        className="btn btn-outline-primary"
+        className="btn btn-secondary"
         onClick={handlePrint}
         disabled={!ValidDate}
     >
