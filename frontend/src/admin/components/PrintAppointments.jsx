@@ -86,9 +86,10 @@ function PrintAppointments({ appointments = [], selectedDate }) {
   const ValidDate = selectedDate instanceof Date && !isNaN(selectedDate);
 
   return (
-    <button 
-      onClick={handlePrint}
-      disabled={!ValidDate}
+    <button
+        className="btn btn-outline-primary"
+        onClick={handlePrint}
+        disabled={!ValidDate}
     >
       Print {ValidDate ? selectedDate.toDateString() : ''}
     </button>
