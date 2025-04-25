@@ -5,7 +5,7 @@ import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
 
-import SearchAppointment from '../components/SearchAppointment'
+// import SearchAppointment from '../components/SearchAppointment'
 import TodaysAppointments from '../components/TodaysAppointments'
 import SpecificDateAppointments from '../components/SpecificDateAppointments'
 
@@ -386,7 +386,7 @@ function AdminAppointmentsPage() {
           </div>
         )}
 
-      </div>
+      {/* </div> */}
 
     </div>
 

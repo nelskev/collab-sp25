@@ -58,7 +58,7 @@ export default function Navbar() {
           {/* When logged out */}
          {!sessionStorage.getItem("_id") &&   (
           <>
-          <h5 className="m-0 text-center fw-bold fs-4">555-123-3498</h5> {/* Phone number will be invisible when admin logged in */}
+          <h5 className="m-0 text-center fw-bold fs-4">208-562-3174</h5> {/* Phone number will be invisible when admin logged in */}
           <Link to="/adminlogin" className="m-0 text-end">
 
               <img src={"./admin-icon.png"} alt="" width="30" />

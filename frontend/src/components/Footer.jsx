@@ -72,12 +72,12 @@ export default function Footer() {
                         <img src={'/owner_scott.png'} className="img-fluid rounded mb-2" width={100} alt="Scott's Picture" />
                         <p className="mb-2">Scott Didriksen</p>
                         <p className="m-2">
-                            <a href="tel:+2087414097" className="text-decoration-none">
+                            <a href="tel:+2085623174" className="text-decoration-none">
                                 <i className="fa-solid fa-phone me-2"></i>208-562-3174
                             </a>
                         </p>
                         <p className="m-2">
-                            <a href="mailto:vladkolmorgan@my.cwi.edu" className="text-decoration-none">
+                            <a href="mailto:scottdidriksen@cwi.edu" className="text-decoration-none">
                                 <i className="fa-solid fa-envelope me-2"></i>scottdidriksen@cwi.edu
                             </a>
                         </p>
