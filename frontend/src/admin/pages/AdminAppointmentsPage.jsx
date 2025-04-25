@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import formatDate from '/helpers/dateConversion'
-import formatTimeAmPm from '/helpers/timeConversion'
 import formatTimezone from '/helpers/convertTimezoneDate'
 // import formatString from '/helpers/stringConversion'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
+
+import SearchAppointment from '../components/SearchAppointment'
+import TodaysAppointments from '../components/TodaysAppointments'
+import SpecificDateAppointments from '../components/SpecificDateAppointments'
+
 
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
@@ -26,6 +29,9 @@ function AdminAppointmentsPage() {
   // state for each component (CreateAppt/EditAppt) to keep it's own date/time separate
   const [createDateTime, setCreateDateTime] = useState(null)
   const [editDateTime, setEditDateTime] = useState(null)
+  // DOMContentLoaded React similar
+  const [showPageLoadAppointments, setShowPageLoadAppointments] = useState(false)
+  const [todaysAppointments, setTodaysAppointments] = useState([]); 
   // for sorting
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchEmail, setSearchEmail] = useState('');
@@ -52,6 +58,10 @@ function AdminAppointmentsPage() {
 
   const dailyTimeSlots = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"] 
 
+  // DOMContentLoaded similar: to show todays appointments list - only onload and disappear after user search
+  const showTodays = showPageLoadAppointments && !selectedDate && searchEmail === ''
+
+
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
     try {
@@ -62,6 +72,19 @@ function AdminAppointmentsPage() {
       const data = await response.json()
       setAppointments(data)
       console.log('Server response:', data)
+
+      //Set showPageLoadAppointments to true!
+      setShowPageLoadAppointments(true)
+
+      const today = new Date().toISOString().split("T")[0]
+
+      const result = data.filter(appt => {
+        const apptDate = new Date(appt.date).toISOString().split("T")[0]
+        return apptDate === today;
+      })
+  
+      setTodaysAppointments(result)
+
     } catch (error) {
       console.error('Error:', error)
     }
@@ -207,18 +230,7 @@ function AdminAppointmentsPage() {
       console.error('Error:', error)
     }
   }
-
-  // Returns MILITARY TIME to match 'dailyTimeSlots' array
-  function formatTime(timeStr) {
-    if (!timeStr) return 'Invalid Time';
   
-    const [hours, minutes] = timeStr.split(':');
-
-    const paddedHours = hours.padStart(2, '0'); // Add leading zero if needed
-
-    console.log(`Time is ----------> ${paddedHours}:${minutes}`);
-    return `${paddedHours}:${minutes}`;
-  }
 
   // SORT APPOINTMENTS BY DATE - CALENDAR LOGIC
   let filteredAppointments;
@@ -376,11 +388,25 @@ function AdminAppointmentsPage() {
 
       </div>
 
+    </div>
 
 
+      {/* ONLY RENDER UPON PAGE LOAD FOR CURRENT DATE */}
+      {showTodays && (
+          <TodaysAppointments
+            todaysAppointments={todaysAppointments} 
+            dailyTimeSlots={dailyTimeSlots}
+            setUpdateName={setUpdateName}
+            setUpdateEmail={setUpdateEmail}
+            setUpdatePhone={setUpdatePhone}
+            setUpdateDetails={setUpdateDetails}
+            setSelectedAppointment={setSelectedAppointment}
+            handleDeleteAppointment={handleDeleteAppointment}
+          />
+      )}
 
-      {/* SEARCH RESULTS APPOINTMENTS */}
-      {isSortActive ? (
+      {/* ONLY RENDER UPON EMAIL SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
+      {isSortActive && (
           <SearchAppointment
             appointments={handleSearchedAppointments} // use 'handleSearchedAppointments' filter above and pass results to child
             setUpdateName={setUpdateName}
@@ -390,68 +416,31 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
            />
-      ) : (
+      )}
 
-      <>
-       {dailyTimeSlots.map((timeSlot, index) => {
+      {/* ONLY RENDER UPON DATE SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
+      {selectedDate && handleSearchedAppointments.length > 0 && (
+          <SpecificDateAppointments
+            setUpdateName={setUpdateName}
+            setUpdateEmail={setUpdateEmail}
+            setUpdatePhone={setUpdatePhone}
+            setUpdateDetails={setUpdateDetails}
+            todaysAppointments={handleSearchedAppointments}
+            setSelectedAppointment={setSelectedAppointment}
+            dailyTimeSlots={dailyTimeSlots}
+            handleDeleteAppointment={handleDeleteAppointment}
+            selectedDate={selectedDate}
+          />
+      )}
+        
 
-          const appointment = handleSearchedAppointments.find((appt) => {
-            const formattedApptTime = formatTime(appt.time);
-            return formattedApptTime === timeSlot;
-          })
-          
-          if (appointment) {
-            const formattedApptTime = formatTime(appointment.time);
-            return (
-            <div className="cards-wrapper" key={index}>
-              <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 m-0">
-                <div className="col-12 col-lg-3">{formatDate(appointment.date)}</div>
-                <div className="col-12 col-lg-3">{formatTimeAmPm(formattedApptTime)}</div>
-                <div className="col-12 col-lg-3">{appointment.name}</div>
 
-                <div className="card-button-container col-12 col-lg-3 d-flex justify-content-around gap-2 gap-lg-0">
-                  <a
-                    type="button"
-                    className="btn btn-outline-primary col-5 col-lg-auto p-1"
-                    href="#details-pane-wrapper"
-                    onClick={() => {
-                      setSelectedAppointment(appointment);
-                      setUpdateName(appointment.name);
-                      setUpdateEmail(appointment.email);
-                      setUpdatePhone(appointment.phone);
-                      setUpdateDetails(appointment.details);
-                    }}
-                  >
-                    Details
-                  </a>
-                  <a type="button" className="btn btn-outline-danger col-5 col-lg-auto p-1" onClick={() => handleDeleteAppointment(appointment._id)} >
-                    Delete
-                  </a>
-                </div>
-
-              </div>
-            </div>
-          );
-        } else {
-            return (
-              <div className="cards-wrapper" key={index}>
-                <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 py-lg-2 m-0">
-                  <div className="col-12 col-lg-3">{formatDate(selectedDate)}</div>
-                  <div className="col-12 col-lg-3">{formatTimeAmPm(timeSlot)}</div>
-                  <div className="col-12 col-lg-6 text-success fw-semibold">
-                    Appointment available
-                  </div>
-                </div>
-              </div>
-            );
-        }
-      })}
-      </>
-    )} 
 
   </div> {/* end container */}
   </>
   );
+
+
 }
 
 export default AdminAppointmentsPage
