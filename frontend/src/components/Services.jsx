@@ -20,7 +20,7 @@ export default function Services() {
                   <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus tempora consectetur. 
                     Labore aperiam nostrum illo molestias odio perspiciatis, officiis fugiat dolor sequi qui soluta itaque 
                     quae reprehenderit sunt ullam, ex esse repellendus? Obcaecati inventore earum.</p>
-                    <button type="button" class="btn btn-dark">Read More</button>
+                    <Link to='/collision-repair'><button type="button" class="btn btn-dark">Read More</button></Link>
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@ export default function Services() {
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus tempora consectetur. 
                         Labore aperiam nostrum illo molestias odio perspiciatis, officiis fugiat dolor sequi qui soluta itaque 
                         quae reprehenderit sunt ullam, ex esse repellendus? Obcaecati inventore earum.</p>
-                    <button type="button" class="btn btn-dark">Read More</button>
+                        <Link to='/CustPaintPage'><button type="button" class="btn btn-dark">Read More</button></Link>
                 </div>
                 </div>
             </div>
