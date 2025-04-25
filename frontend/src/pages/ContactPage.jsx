@@ -79,8 +79,8 @@ function ContactPage() {
             <img src={'/owner_scott.png'} class="img-fluid rounded-start mx-auto" alt="Scott's Picture" width="250" height="auto" />
             <div>
               <p>Scott Didriksen</p>
-              <p><a href="tel:+2087414097"><i class="fa-solid fa-phone me-2"></i>208-562-3174</a></p>
-              <p><a href="mailto:vladkolmorgan@my.cwi.edu"><i class="fa-solid fa-envelope me-2"></i>scottdidriksen@cwi.edu</a></p>
+              <p><a href="tel:+2085623174"><i class="fa-solid fa-phone me-2"></i>208-562-3174</a></p>
+              <p><a href="mailto:scottdidriksen@cwi.edu"><i class="fa-solid fa-envelope me-2"></i>scottdidriksen@cwi.edu</a></p>
             </div>
           </div>
           

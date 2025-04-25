@@ -5,7 +5,7 @@ import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
 
-import SearchAppointment from '../components/SearchAppointment'
+// import SearchAppointment from '../components/SearchAppointment'
 import TodaysAppointments from '../components/TodaysAppointments'
 import SpecificDateAppointments from '../components/SpecificDateAppointments'
 
@@ -387,7 +387,18 @@ function AdminAppointmentsPage() {
           <option value="name">Sort by Name</option>
         </select> */}
       </div>
-      </div>
+
+      {selectedDate && !isNaN(new Date(selectedDate)) && (
+          <div className="btn btn-secondary">
+            <PrintAppointments 
+              appointments={filteredAppointments} 
+              selectedDate={new Date(selectedDate)} 
+            />
+          </div>
+        )}
+
+      {/* </div> */}
+
 
     </div>
 
