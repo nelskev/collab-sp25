@@ -264,6 +264,16 @@ function AdminAppointmentsPage() {
     <div className="container d-flex flex-column bg-light border border-1 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h1 className="text-center fs-3 m-0 mt-1 section-header-blue">Appointment page</h1>
 
+      {/* Print Button */}
+      {selectedDate && !isNaN(new Date(selectedDate)) && (
+          <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
+            <PrintAppointments 
+              appointments={filteredAppointments} 
+              selectedDate={new Date(selectedDate)} 
+            />
+          </div>
+        )}
+
       {/* Modal */}
       {showModal && (
         <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
@@ -377,15 +387,6 @@ function AdminAppointmentsPage() {
           <option value="name">Sort by Name</option>
         </select> */}
       </div>
-      {selectedDate && !isNaN(new Date(selectedDate)) && (
-          <div className="btn btn-secondary">
-            <PrintAppointments 
-              appointments={filteredAppointments} 
-              selectedDate={new Date(selectedDate)} 
-            />
-          </div>
-        )}
-
       </div>
 
     </div>
@@ -430,17 +431,10 @@ function AdminAppointmentsPage() {
             dailyTimeSlots={dailyTimeSlots}
             handleDeleteAppointment={handleDeleteAppointment}
             selectedDate={selectedDate}
-          />
-      )}
-        
-
-
-
-  </div> {/* end container */}
-  </>
-  );
-
-
+          />)}
+         {/* end container */}
+          </>
+);
 }
 
 export default AdminAppointmentsPage
