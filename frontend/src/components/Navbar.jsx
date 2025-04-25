@@ -133,27 +133,13 @@ export default function Navbar() {
                
                   
                   
-                  <li>
+                  <li><Link className="dropdown-item" to="/PaintDetailsPage">Paint Details</Link></li>
                     {/*/ ******* React Router Link PAINTDETAILS ******* /*/}
-                    <Link to="/PaintDetailsPage">
-                      <a className="dropdown-item">Painting</a>
-                    </Link>
-                  </li>
+                  
 
                   {/* <li><a className="dropdown-item" href="#CustPaintPage">Specialty Painting</a></li> */}
-                  <li>
-                    <a className="dropdown-item" href="#specialty-painting">
-                      {
-                        <Link
-                          to="/CustPaintPage"
-                          className="m-0 text-end"
-                          style={{ textDecoration: "none" }}
-                        >
-                          Specialty Painting
-                        </Link>
-                      }
-                    </a>
-                  </li>
+                  <li><Link className="dropdown-item" to="/CustPaintPage">Specialty Painting</Link></li>
+                  
                 </ul>
               </li>
 

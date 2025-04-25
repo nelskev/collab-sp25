@@ -13,29 +13,6 @@ const CustPaintPage = () => {
     { before: BeforeImage1, after: AfterImage1 },
   ];
 
-  const faqs = [
-    {
-      question: 'How Does the Custom Paint Process Work?',
-      answer: 'The car is carefully cleaned. Any areas not to be painted are taped. A paint coating is sprayed on. The car is placed in an oven and baked to cure the coating. Two or three additional paint coats are applied, and the car baked each time. Afterwards, clear coats are applied.'
-    },
-    {
-      question: 'How Durable Is Custom Paint?',
-      answer: 'Yes, car paint is designed to be durable, providing protection against environmental factors and physical damage.'
-    },
-    {
-      question: 'What About Color Matching?',
-      answer: 'Our lastest paint technology allows for easy color matching on all vehicles.'
-    },
-    {
-      question: 'How Much Does it Cost?',
-      answer: 'The total cost depends on factors including vehicle size, condition, paint quality, prep work and the color you choose.'
-    },
-    {
-      question: 'How Long Does it Take?',
-      answer: 'In general, you can expect a body shop to spend between 40 and 80 hours to complete a full paint job for your vehicle.'
-    },
-  ];
-
   return (
     <div className='container py-3'>
       <div className='cards-wrapper'>
@@ -121,32 +98,123 @@ const CustPaintPage = () => {
           </p>
         
         {/* FAQ */}
-          <div className='accordion accordion-flush' id='accordionFlush'>
-            {faqs.map((faq, index) => (
-              <div className='accordion-item' key={index}>
-                <h2 className='accordion-header' id={`flush-heading${index}`}>
-                  <button 
-                    className='accordion-button collapsed'
-                    type='button'
-                    data-bs-toggle='collapse' 
-                    data-bs-target={`#flush-collapse${index}`} 
-                    aria-expanded='false' 
-                    aria-controls={`flush-collapse${index}`}>
-                    {faq.question}
-                  </button>
-                </h2>
-                <div 
-                  id={`flush-collapse${index}`} 
-                  className='accordion-collapse collapse' 
-                  aria-labelledby={`flush-heading${index}`} 
-                  data-bs-parent='#accordionFlush'>
-                  <div className='accordion-body p-2 bg-light'>
-                    {faq.answer}
-                  </div>
-                </div>
-              </div>
-            ))}
+        <div className='accordion accordion-flush' id='accordionFlush'>
+            <div className='accordion-item'>
+              <h2 className='accordion-header' id='flush-heading0'>
+                <button 
+                  className='accordion-button collapsed'
+                  type='button'
+                  data-bs-toggle='collapse'
+                  data-bs-target='#flush-collapse0'
+                  aria-expanded='false' 
+                  aria-controls='flush-collapse0'>
+                How Does the Custom Paint Process Work?
+                </button>
+              </h2>
+            <div 
+              id='flush-collapse0'
+              className='accordion-collapse collapse' 
+              aria-labelledby='flush-heading0' 
+              data-bs-parent='#accordionFlush'>
+            <div className='accordion-body p-2 bg-light'>
+            The car is carefully cleaned. Any areas not to be painted are taped. A paint coating is sprayed on. The car is placed in an oven and baked to cure the coating. Two or three additional paint coats are applied, and the car baked each time. Afterwards, clear coats are applied.
+            </div>
           </div>
+
+          <div className='accordion-item'>
+            <h2 className='accordion-header' id='flush-heading1'>
+              <button 
+                className='accordion-button collapsed'
+                type='button'
+                data-bs-toggle='collapse' 
+                data-bs-target='#flush-collapse1' 
+                aria-expanded='false' 
+                aria-controls='flush-collapse1'>
+                How Durable Is Custom Paint?
+              </button>
+            </h2>
+            <div 
+              id='flush-collapse1' 
+              className='accordion-collapse collapse' 
+              aria-labelledby='flush-heading1' 
+              data-bs-parent='#accordionFlush'>
+              <div className='accordion-body p-2 bg-light'>
+              Yes, car paint is designed to be durable, providing protection against environmental factors and physical damage.
+              </div>
+            </div>
+          </div>
+
+        <div className='accordion-item'>
+          <h2 className='accordion-header' id='flush-heading2'>
+            <button 
+              className='accordion-button collapsed'
+              type='button'
+              data-bs-toggle='collapse' 
+              data-bs-target='#flush-collapse2' 
+              aria-expanded='false' 
+              aria-controls='flush-collapse2'>
+              What About Color Matching?
+            </button>
+          </h2>
+          <div 
+            id='flush-collapse2' 
+            className='accordion-collapse collapse' 
+            aria-labelledby='flush-heading2' 
+            data-bs-parent='#accordionFlush'>
+            <div className='accordion-body p-2 bg-light'>
+            Our lastest paint technology allows for easy color matching on all vehicles.
+            </div>
+          </div>
+        </div>
+
+        <div className='accordion-item'>
+          <h2 className='accordion-header' id='flush-heading3'>
+            <button 
+              className='accordion-button collapsed'
+              type='button'
+              data-bs-toggle='collapse' 
+              data-bs-target='#flush-collapse3' 
+              aria-expanded='false' 
+              aria-controls='flush-collapse3'>
+              How Much Does it Cost?
+            </button>
+          </h2>
+          <div 
+            id='flush-collapse3' 
+            className='accordion-collapse collapse' 
+            aria-labelledby='flush-heading3' 
+            data-bs-parent='#accordionFlush'>
+            <div className='accordion-body p-2 bg-light'>
+            The total cost depends on factors including vehicle size, condition, paint quality, prep work and the color you choose.
+            </div>
+          </div>
+        </div>
+
+        <div className='accordion-item'>
+          <h2 className='accordion-header' id='flush-heading4'>
+            <button 
+              className='accordion-button collapsed'
+              type='button'
+              data-bs-toggle='collapse' 
+              data-bs-target='#flush-collapse4' 
+              aria-expanded='false' 
+              aria-controls='flush-collapse4'>
+              How Long Does it Take?
+            </button>
+          </h2>
+          <div 
+            id='flush-collapse4' 
+            className='accordion-collapse collapse' 
+            aria-labelledby='flush-heading4' 
+            data-bs-parent='#accordionFlush'>
+            <div className='accordion-body p-2 bg-light'>
+            In general, you can expect a body shop to spend between 40 and 80 hours to complete a full paint job for your vehicle.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
         </div>
 
         {/* Make Appointment button */}
@@ -156,6 +224,7 @@ const CustPaintPage = () => {
               Make Appointment
             </button>
           </Link>
+        </div>
         </div>
 
       </div>

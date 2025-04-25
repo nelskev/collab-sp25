@@ -18,7 +18,7 @@ export default function Footer() {
                     <section className="col-12 col-md-4 mb-4">
                         <div className="d-flex justify-content-center mb-0">
                             <Link to="/">
-                                <img src={Logo} alt="logo" style={{ width: '150px', height: '150px' }} loading="lazy" />
+                                <img src={Logo} alt="logo" style={{ width: '200px', height: '200px' }} loading="lazy" />
                             </Link>
                         </div>
                         <p className="text-start p-2 mt-0">
