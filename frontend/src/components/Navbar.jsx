@@ -149,14 +149,7 @@ export default function Navbar() {
                   Reviews
                 </Link>
               </li>
-
-              <li className="nav-item">
-                {/*/ ******* React Router Link Contact ******* /*/}
-                <Link to="/contact" className="nav-link">
-                  Contact
-                </Link>
-              </li>
-
+              
               {sessionStorage.getItem("_id") && (
                 <li className='nav-item d-md-none'>
                 <Link to="/" className="text-decoration-none nav-link text-danger">

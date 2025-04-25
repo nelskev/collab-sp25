@@ -19,6 +19,7 @@ export default function Services() {
                   <h3 class="card-title">Collision Repair</h3>
                   <p class="card-text">Our team specializes in collision repair to restore your vehicle's original condition. We guarantee efficient and great customer service, providing a flawless restoration of your car's appearance and functionality.</p>
                     <Link to='/collision-repair'> <button type="button" class="btn btn-dark">Read More</button> </Link>
+
                 </div>
               </div>
             </div>
@@ -51,8 +52,10 @@ export default function Services() {
                 <div class="col-md-8 m-0 p-0">
                 <div class="card-body m-0">
                     <h3 class="card-title">Specialty Painting</h3>
+
                     <p class="card-text">Our team specializes in custom specialty painting to enhance your vehicle's unique style.</p>
                     <Link to='/CustPaintPage'> <button type="button" class="btn btn-dark">Read More</button> </Link>
+
                 </div>
                 </div>
             </div>
