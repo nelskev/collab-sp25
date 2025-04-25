@@ -1,11 +1,15 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = sessionStorage.getItem('_id');
-  
-  // if (!isAuthenticated) {
+  const location = useLocation();
+
   if (sessionStorage.getItem('_id') === null) {
-    return <Navigate to="/adminlogin" replace />;
+    if (location.pathname === '/admin') {
+      return <Navigate to={`/adminlogin`} replace />;
+    }
+    else {
+    return <Navigate to={`/adminlogin?redirect=${location.pathname}`} replace />;
+    }
   }
 
   return children;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 
 
 const adminSchema = new mongoose.Schema({
@@ -7,6 +7,26 @@ const adminSchema = new mongoose.Schema({
     password: { type: String, required: true },
     });
 
+
+ adminSchema.pre('save', async function(next) {
+  const admin = this;
+   
+  // console.log(this);
+
+  if (!admin.isModified('password')) {
+    next();
+  };
+
+  try {
+    const saltRounds = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(admin.password, saltRounds);
+    admin.password = hashedPassword;
+  } catch (error) {
+    console.error('Error hashing password:', error);
+  }
+
+})
+  
 
 /* 
 adminSchema.pre("save", async function (next) {
@@ -23,18 +43,31 @@ adminSchema.pre("save", async function (next) {
     return await bcrypt.compare(password, this.password);
   };*/
 
+  // adminSchema.methods.isPasswordValid = async function (password) {
+  //   try {
+  //     // console.log('Comparing password in model method'); // Debugging Console Messages
+  //     // const isValid = await bcrypt.compare(password, this.password);
+  //     const isValid = this.password === password;
+  //     // console.log('Password comparison result:', isValid); // Debugging Console Messages
+  //     return isValid;
+  //   } catch (error) {
+  //     console.error('Error in password validation:', error);
+  //     return false;
+  //   }
+  // };
+
+
   adminSchema.methods.isPasswordValid = async function (password) {
     try {
-      // console.log('Comparing password in model method'); // Debugging Console Messages
-      // const isValid = await bcrypt.compare(password, this.password);
-      const isValid = this.password === password;
-      // console.log('Password comparison result:', isValid); // Debugging Console Messages
+      const isValid = await bcrypt.compare(password, this.password);
+      // const isValid = this.password === password;
       return isValid;
     } catch (error) {
       console.error('Error in password validation:', error);
       return false;
     }
   };
+  
 
 /*
 adminSchema.pre("save", function(next) {
