@@ -9,7 +9,7 @@ import EditAppointmentForm from '../components/EditAppointmentForm'
 import SearchAppointment from '../components/SearchAppointment'
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
-
+import PrintAppointments from '../components/PrintAppointments'
 
 /* This page in a nutshell:
    The button click hits handleSubmit(), then the POST tries and if successful it's 'response.ok' which 
@@ -429,6 +429,16 @@ function AdminAppointmentsPage() {
           value={selectedDate || ''}
         />
       </div>
+      
+      {/* PRINT BUTTON hidden until date selected */}
+        {selectedDate && !isNaN(new Date(selectedDate)) && (
+          <div className="p-0 d-flex align-items-center">
+            <PrintAppointments 
+              appointments={filteredAppointments}
+              selectedDate={new Date(selectedDate)}
+            />
+          </div>
+      )}
 
       <div className='sort-appointments-dropdown m-0 p-0 d-flex'>
         {/* <input type="text" placeholder="search email" className="py-1 ps-2" value={searchEmail} onChange={(e) => setSearchEmail(e.target.value)}/> */}
