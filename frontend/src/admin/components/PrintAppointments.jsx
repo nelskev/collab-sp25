@@ -1,10 +1,12 @@
 import React from 'react';
+
 //Receives props from AdminAppointmentPage when the button is clicked and opens print window
 function PrintAppointments({ appointments = [], selectedDate }) {
   const handlePrint = () => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) 
         return;
+    
     //Sets up the table, formatting needs to be applied here from what I can figure out   
     const htmlContent = `
       <html>
@@ -65,12 +67,12 @@ function PrintAppointments({ appointments = [], selectedDate }) {
     Document.write(htmlContent);
     printWindow.document.close();
     
-    // Wait for data, print then close window
+    // Sets Timeout 200 is probably excessive but old stuff is out there
     printWindow.onload = () => {
       setTimeout(() => {
         printWindow.print();
         printWindow.close();
-      }, 100);
+      }, 200);
     };
   };
 
