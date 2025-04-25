@@ -6,10 +6,13 @@ import formatTimezone from '/helpers/convertTimezoneDate'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
-import SearchAppointment from '../components/SearchAppointment'
+
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
+import SearchAppointment from '../components/SearchAppointment'
+
 import PrintAppointments from '../components/PrintAppointments'
+
 
 /* This page in a nutshell:
    The button click hits handleSubmit(), then the POST tries and if successful it's 'response.ok' which 
@@ -20,37 +23,32 @@ import PrintAppointments from '../components/PrintAppointments'
 
 function AdminAppointmentsPage() {
 
-  // state for each component (CreeateAppt/EditAppt) to keep it's own date/time separate
+  // state for each component (CreateAppt/EditAppt) to keep it's own date/time separate
   const [createDateTime, setCreateDateTime] = useState(null)
   const [editDateTime, setEditDateTime] = useState(null)
   // for sorting
   const [selectedDate, setSelectedDate] = useState(null);
   const [searchEmail, setSearchEmail] = useState('');
   const [isSortActive, setIsSortActive] = useState(false)
-  // for Update modal
+
+  // for modal
   const [showModal, setShowModal] = useState(false);   
-  // for Delete modal
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [nameToDelete, setNameToDelete] = useState('')  
-  const [idToDelete, setIdToDelete] = useState(null)
+
 
   const [name, setName] = useState('')
+  const [nameError, setNameError] = useState(null);        // joi
   const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState(null);        // joi
   const [phone, setPhone] = useState('')
+  const [phoneError, setPhoneError] = useState(null);        // joi
   const [details, setDetails] = useState('')
+  const [detailsError, setDetailsError] = useState(null);        // joi
   const [appointments, setAppointments] = useState([]) 
   const [selectedAppointment, setSelectedAppointment] = useState(null) // for modal
   const [updateName, setUpdateName] = useState('')
   const [updateEmail, setUpdateEmail] = useState('')
   const [updatePhone, setUpdatePhone] = useState('')
   const [updateDetails, setUpdateDetails] = useState('')
-  // JOI
-  const [nameError, setNameError] = useState(null);   
-  const [emailError, setEmailError] = useState(null);
-  const [phoneError, setPhoneError] = useState(null);
-  const [detailsError, setDetailsError] = useState(null);
-  const [allErrors, setAllErrors] = useState([]);
-
 
   const dailyTimeSlots = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"] 
 
@@ -83,44 +81,6 @@ function AdminAppointmentsPage() {
     if (!createDateTime) {
       console.error('Please select a date and time.')
       return
-    }
-    
-    // Clear Joi
-    setNameError('')
-    setEmailError('')
-    setPhoneError('')
-    setDetailsError('')
-    setAllErrors([])
-    
-  // Use Joi to validate the data
-  const validationResult = userFrontendSchema.validate({ name: name, email: email, phone: phone, details: details },
-    { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
-
-    if (validationResult.error) {
-        const errors = validationResult.error.details
-        errors.forEach(error=>{
-          switch(error.context.key){
-              case 'name':
-                  setNameError(error.message)
-                  break;
-              case 'email':
-                  setEmailError(error.message)
-                  break;
-              case 'phone':
-                  setPhoneError(error.message)
-                  break;
-              case 'details':
-                  setDetailsError(error.message)
-                  break;
-              default:
-                  break;
-          }
-      })
-      
-        const messages = errors.map(error => error.message);
-        setAllErrors(messages);
-
-        return;
     }
     
     const { date, time } = formatTimezone(createDateTime)
@@ -163,50 +123,41 @@ function AdminAppointmentsPage() {
     }
   }
 
-  // UPDATE USER
   const handleUpdateAppointment = async (e) => {
     e.preventDefault()
     console.log("Update user button clicked", selectedAppointment)
 
-    // Clear Joi  
-    // (Yes, I am not writing DRY code and am repeating this JOI functionality, but only since a helper function would be not so clear for us newbies)
+    // Clear Joi
     setNameError('')
     setEmailError('')
     setPhoneError('')
     setDetailsError('')
-    setAllErrors([])
     
-  // Use Joi to validate the data
-  const validationResult = userFrontendSchema.validate({ name: updateName, email: updateEmail, phone: updatePhone, details: updateDetails },
-    { abortEarly: false })  // need 'abortEarly' to see all error messages at the same time
+    // Use Joi to validate the data
+    const validationResult = userFrontendSchema.validate({ name: updateName, email: updateEmail, phone: updatePhone, details: updateDetails });
 
     if (validationResult.error) {
         const errors = validationResult.error.details
         errors.forEach(error=>{
-          switch(error.context.key){
-              case 'name':
-                  setNameError(error.message)
-                  break;
-              case 'email':
-                  setEmailError(error.message)
-                  break;
-              case 'phone':
-                  setPhoneError(error.message)
-                  break;
-              case 'details':
-                  setDetailsError(error.message)
-                  break;
-              default:
-                  break;
-          }
-      })
-      
-        // const messages = errors.map(error => error.message);
-        // setAllErrors(messages);
-
+            switch(error.context.key){
+                case 'name':
+                    setNameError(error.message)
+                    break;
+                case 'email':
+                    setEmailError(error.message)
+                    break;
+                case 'phone':
+                    setPhoneError(error.message)
+                    break;
+                case 'details':
+                    setDetailsError(error.message)
+                    break;
+                default:
+                    break;
+            }
+        })
         return;
     }
-
     setShowModal(true)  // modal  
   }
 
@@ -240,25 +191,15 @@ function AdminAppointmentsPage() {
     }
   }
 
-  // DELETE USER
-   const handleDeleteAppointment = async (id, name) => {
-    setShowDeleteModal(true)  // modal  
-    setNameToDelete(name)
-    setIdToDelete(id)
-    console.log(id, name)
-  }
-
-  const confirmDeleteUser  = async (idToDelete) => {
-    console.log(idToDelete)
+   const handleDeleteAppointment = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/appointments/${idToDelete}`, {
+      const response = await fetch(`http://localhost:8000/appointments/${id}`, {
         method: 'DELETE',
       })
   
       if (response.ok) {
         console.log('Appointment deleted successfully')
         fetchData() // refresh the list
-        setShowDeleteModal(false)  // delete modal
       } else {
         console.error('Failed to delete appointment')
       }
@@ -272,7 +213,9 @@ function AdminAppointmentsPage() {
     if (!timeStr) return 'Invalid Time';
   
     const [hours, minutes] = timeStr.split(':');
+
     const paddedHours = hours.padStart(2, '0'); // Add leading zero if needed
+
     console.log(`Time is ----------> ${paddedHours}:${minutes}`);
     return `${paddedHours}:${minutes}`;
   }
@@ -288,6 +231,7 @@ function AdminAppointmentsPage() {
   } else {
     filteredAppointments = appointments;
   }
+
 
   // SEARCH APPOINTMENTS BY EMAIL
   const handleSearchedAppointments = filteredAppointments.filter((appt) =>
@@ -308,7 +252,7 @@ function AdminAppointmentsPage() {
     <div className="container d-flex flex-column bg-light border border-1 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h1 className="text-center fs-3 m-0 mt-1 section-header-blue">Appointment page</h1>
 
-      {/* UPDATE APPOINTMENT Confirmation Modal */}
+      {/* Modal */}
       {showModal && (
         <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
           <div className="modal-dialog">
@@ -330,29 +274,7 @@ function AdminAppointmentsPage() {
       )}
 
 
-      {/* DELETE APPOINTMENT Confirmation Modal */}
-      {showDeleteModal && (
-        <div className="modal fade show" id="delete-Modal" tabIndex="-1" aria-labelledby="delete-ModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id="delete-ModalLabel">Confirm Delete</h1>
-                <button type="button" className="btn-close" onClick={() => setShowDeleteModal(false)} aria-label="Close"></button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to delete {nameToDelete}?
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShowDeleteModal(false)}>Cancel</button>
-                <button type="button" className="btn btn-primary" onClick={() => confirmDeleteUser(idToDelete)}>Confirm</button> 
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-
-      <div className='side-by-side-desktop d-flex flex-column align-items-xl-start justify-content-lg-center mx-auto gap-3'>
+      <div className='side-by-side-desktop d-flex flex-column flex-xl-row align-items-xl-start justify-content-lg-center mx-auto gap-3'>
 
       {/* AppointmentForm gets called and uses our empty state variables we already initilized, and fills them with values */}
       <CreateAppointmentForm
@@ -369,13 +291,6 @@ function AdminAppointmentsPage() {
         setPhone={setPhone}
         details={details}
         setDetails={setDetails}
-
-        allErrors={allErrors}             // JOI all errors
-        nameError={nameError}
-        emailError={emailError}
-        phoneError={phoneError}
-        detailsError={detailsError}       // JOI
-
         handleSubmit={handleSubmit}
       />
 
@@ -395,19 +310,16 @@ function AdminAppointmentsPage() {
             appointments={appointments}  // grey out taken appointment
             updateName={updateName}
             setUpdateName={setUpdateName}
+            nameError={nameError}             // joi
             updateEmail={updateEmail}
             setUpdateEmail={setUpdateEmail}
+            emailError={emailError}            // joi
             updatePhone={updatePhone}
             setUpdatePhone={setUpdatePhone}
+            phoneError={phoneError}           // joi
             updateDetails={updateDetails}
             setUpdateDetails={setUpdateDetails}
-
-            allErrors={allErrors}             // JOI all errors
-            nameError={nameError}
-            emailError={emailError}
-            phoneError={phoneError}
-            detailsError={detailsError}       // JOI
-
+            detailsError={detailsError}       // joi
             handleUpdateAppointment={handleUpdateAppointment}
             selectedAppointment={selectedAppointment} 
             />
@@ -430,16 +342,6 @@ function AdminAppointmentsPage() {
         />
       </div>
       
-      {/* PRINT BUTTON hidden until date selected */}
-        {selectedDate && !isNaN(new Date(selectedDate)) && (
-          <div className="p-0 d-flex align-items-center">
-            <PrintAppointments 
-              appointments={filteredAppointments}
-              selectedDate={new Date(selectedDate)}
-            />
-          </div>
-      )}
-
       <div className='sort-appointments-dropdown m-0 p-0 d-flex'>
         {/* <input type="text" placeholder="search email" className="py-1 ps-2" value={searchEmail} onChange={(e) => setSearchEmail(e.target.value)}/> */}
         <input 
@@ -463,6 +365,14 @@ function AdminAppointmentsPage() {
           <option value="name">Sort by Name</option>
         </select> */}
       </div>
+      {selectedDate && !isNaN(new Date(selectedDate)) && (
+          <div className="btn btn-secondary">
+            <PrintAppointments 
+              appointments={filteredAppointments} 
+              selectedDate={new Date(selectedDate)} 
+            />
+          </div>
+        )}
 
       </div>
 
@@ -514,7 +424,7 @@ function AdminAppointmentsPage() {
                   >
                     Details
                   </a>
-                  <a type="button" className="btn btn-outline-danger col-5 col-lg-auto p-1" onClick={() => handleDeleteAppointment(appointment._id, appointment.name)} >
+                  <a type="button" className="btn btn-outline-danger col-5 col-lg-auto p-1" onClick={() => handleDeleteAppointment(appointment._id)} >
                     Delete
                   </a>
                 </div>
