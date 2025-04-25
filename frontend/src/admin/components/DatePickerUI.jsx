@@ -41,7 +41,7 @@ function DatePickerUI({ selectedDateTime, setSelectedDateTime, appointments }) {
             selected={selectedDateTime}
             onChange={(date) => setSelectedDateTime(date)}
             showTimeSelect
-            dateFormat="yyyy-MM-dd HH:mm"
+            dateFormat="MMMM d, yyyy h:mm aa" //added format by MR https://reactdatepicker.com/#example-filter-times
             //timeFormat="HH:mm"
             timeIntervals={60}
             minTime={new Date(0, 0, 0, 8)}  // 8 AM
