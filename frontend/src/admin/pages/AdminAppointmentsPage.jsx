@@ -5,7 +5,7 @@ import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
 import EditAppointmentForm from '../components/EditAppointmentForm'
 
-import SearchAppointment from '../components/SearchAppointment'
+// import SearchAppointment from '../components/SearchAppointment'
 import TodaysAppointments from '../components/TodaysAppointments'
 import SpecificDateAppointments from '../components/SpecificDateAppointments'
 
@@ -420,14 +420,17 @@ function AdminAppointmentsPage() {
           <option value="name">Sort by Name</option>
         </select> */}
       </div>
+
+       </div> 
+
+
       </div>
 
-    </div>
 
 
-      {/* ONLY RENDER UPON PAGE LOAD FOR CURRENT DATE */}
-      <div className='my-5'>
-      {showTodays && (
+        {/* ONLY RENDER UPON PAGE LOAD FOR CURRENT DATE */}
+        {showTodays && (
+          <div className='my-5'>
           <TodaysAppointments
             todaysAppointments={todaysAppointments} 
             dailyTimeSlots={dailyTimeSlots}
@@ -438,12 +441,13 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
           />
+         </div>
       )}
-      </div>
+     
 
       {/* ONLY RENDER UPON EMAIL SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
-      <div className='my-5'>
       {isSortActive && (
+        <div className='my-5'>
           <SearchAppointment
             appointments={handleSearchedAppointments} // use 'handleSearchedAppointments' filter above and pass results to child
             setUpdateName={setUpdateName}
@@ -453,12 +457,13 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
            />
+        </div>
       )}
-      </div>
+     
 
-      {/* ONLY RENDER UPON DATE SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
-      <div className='my-5'>
-      {selectedDate && handleSearchedAppointments.length > 0 && (
+        {/* ONLY RENDER UPON DATE SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
+        {selectedDate && handleSearchedAppointments.length > 0 && (
+         <div className='my-5'>
           <SpecificDateAppointments
             setUpdateName={setUpdateName}
             setUpdateEmail={setUpdateEmail}
@@ -469,12 +474,14 @@ function AdminAppointmentsPage() {
             dailyTimeSlots={dailyTimeSlots}
             handleDeleteAppointment={handleDeleteAppointment}
             selectedDate={selectedDate}
-          />)}
-      </div>
+          />
+         </div>
+        )}
+    
 
          {/* end container */}
-          </>
-);
-}
+    </>
+  )
+};
 
 export default AdminAppointmentsPage

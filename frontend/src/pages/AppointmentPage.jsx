@@ -142,13 +142,17 @@ const AppointmentPage = () => {
     
     <div className="container d-flex flex-column bg-light border border-1 rounded-4 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h2 className="text-center fs-3 m-0 mt-1">Book Your Appointment</h2>
+      
 
       {errorMessage && (
         <div className="alert alert-danger text-center" role="alert">
           {errorMessage}
         </div>
       )}
-     
+            
+      {!selectedDateTime && (
+        <p className="text-center" style={{marginBottom: '-32px' /* Keeps form from bouncing up when date is selected */ }}>Please note that appointments marked in <a className="text-danger text-decoration-none">red</a> are unavailable times!</p>
+      )}
 
       {/*  Form to submit details */}
       <AppointmentForm

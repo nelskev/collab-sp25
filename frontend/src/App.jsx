@@ -108,7 +108,7 @@ function App() {
         }/>
 
           
-        <Route path='/appointments' element={
+        <Route path='/appointment' element={
           <>
         <Navbar /> 
           <AppointmentsPage />
