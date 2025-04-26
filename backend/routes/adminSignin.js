@@ -1,5 +1,6 @@
 import express from "express";
 import Admin from '../models/adminModel.js'
+import jwt from 'jsonwebtoken';
 
 
 
@@ -36,12 +37,43 @@ router.post('/', async (req, res) => {
       return res.status(401).json({ message: 'Invalid username or password.' });
     }
 
-    res.status(200).json({ _id: admin._id }); 
+    const token = await admin.generateToken();
+    return res.status(200).json({ 
+      _id: admin._id, 
+      username: admin.username,
+      token: token 
+    }); 
+
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Internal server error.' });
   }
 });
+
+
+
+const verifyToken = async (req, res, next) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.admin = decoded;
+    next();
+  } catch (ex) {
+    return res.status(400).json({ message: 'Invalid token.' });
+  }
+};
+
+
+router.get('/protected', verifyToken, async (req, res) => {
+  // Only accessible if the token is valid
+  res.status(200).json({ message: 'Hello, ' + req.admin.adminId });
+  
+});
+
 
 
 

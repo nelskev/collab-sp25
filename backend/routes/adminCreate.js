@@ -22,7 +22,14 @@ router.post("/", async (req, res) => {
 
     const newAdmin = new Admin({ username, password });
     await newAdmin.save();
-    res.status(201).json(newAdmin);
+    // res.status(201).json(newAdmin);
+    res
+    .status(201)
+    .json({msg: newAdmin,
+      token: await newAdmin.generateToken(),
+      adminId: newAdmin._id.toString(),
+
+    });
   } catch (err) {
     console.log(`Router.POST --->  ${err.message}`);
     res.status(500).json({ code: 500, status: "Error saving Admin" });

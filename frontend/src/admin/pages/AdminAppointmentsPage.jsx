@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { authenticatedFetch } from '../authentication/authenticatedFetch'
 import formatTimezone from '/helpers/convertTimezoneDate'
 // import formatString from '/helpers/stringConversion'
 import AdminNavbar from '../components/AdminNavbar'
@@ -13,6 +14,8 @@ import SpecificDateAppointments from '../components/SpecificDateAppointments'
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
 import PrintAppointments from '../components/PrintAppointments'
+
+
 
 
 /* This page in a nutshell:
