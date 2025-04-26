@@ -33,10 +33,10 @@ function TodaysAppointments({
       return 'Invalid Date';
     }
   
-    const month = String(date.getMonth() + 1).padStart(2, '0');  
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
-    // const [year, month, day] = date.toISOString().split('T')[0].split('-');
+    // const month = String(date.getMonth() + 1).padStart(2, '0');  
+    // const day = String(date.getDate()).padStart(2, '0');
+    // const year = date.getFullYear();
+    const [year, month, day] = date.toISOString().split('T')[0].split('-');
     return `${month}/${day}/${year}`;
   }
   

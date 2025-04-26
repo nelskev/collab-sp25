@@ -12,8 +12,6 @@ import SpecificDateAppointments from '../components/SpecificDateAppointments'
 
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
-import SearchAppointment from '../components/SearchAppointment'
-
 import PrintAppointments from '../components/PrintAppointments'
 
 
@@ -37,9 +35,12 @@ function AdminAppointmentsPage() {
   const [searchEmail, setSearchEmail] = useState('');
   const [isSortActive, setIsSortActive] = useState(false)
 
-  // for modal
+  // for Update modal
   const [showModal, setShowModal] = useState(false);   
-
+  // for Delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [nameToDelete, setNameToDelete] = useState('')  
+  const [idToDelete, setIdToDelete] = useState(null)
 
   const [name, setName] = useState('')
   const [nameError, setNameError] = useState(null);        // joi
@@ -214,15 +215,25 @@ function AdminAppointmentsPage() {
     }
   }
 
-   const handleDeleteAppointment = async (id) => {
+  // DELETE USER
+  const handleDeleteAppointment = async (id, name) => {
+    setShowDeleteModal(true)  // modal  
+    setNameToDelete(name)
+    setIdToDelete(id)
+    console.log(id, name)
+  }
+
+  const confirmDeleteUser  = async (idToDelete) => {
+    console.log(idToDelete)
     try {
-      const response = await fetch(`http://localhost:8000/appointments/${id}`, {
+      const response = await fetch(`http://localhost:8000/appointments/${idToDelete}`, {
         method: 'DELETE',
       })
   
       if (response.ok) {
         console.log('Appointment deleted successfully')
         fetchData() // refresh the list
+        setShowDeleteModal(false)  // delete modal
       } else {
         console.error('Failed to delete appointment')
       }
@@ -261,7 +272,7 @@ function AdminAppointmentsPage() {
     <>
     <AdminNavbar />
     
-    <div className="container d-flex flex-column bg-light border border-1 gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
+    <div className="container d-flex flex-column gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h1 className="text-center fs-3 m-0 mt-1 section-header-blue">Appointment page</h1>
 
       {/* Print Button */}
@@ -274,7 +285,7 @@ function AdminAppointmentsPage() {
           </div>
         )}
 
-      {/* Modal */}
+      {/* UPDATE APPOINTMENT Confirmation Modal */}
       {showModal && (
         <div className="modal fade show" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
           <div className="modal-dialog">
@@ -296,7 +307,29 @@ function AdminAppointmentsPage() {
       )}
 
 
-      <div className='side-by-side-desktop d-flex flex-column flex-xl-row align-items-xl-start justify-content-lg-center mx-auto gap-3'>
+      {/* DELETE APPOINTMENT Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="modal fade show" id="delete-Modal" tabIndex="-1" aria-labelledby="delete-ModalLabel" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} aria-modal="true" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="delete-ModalLabel">Confirm Delete</h1>
+                <button type="button" className="btn-close" onClick={() => setShowDeleteModal(false)} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                Are you sure you want to delete {nameToDelete}?
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                <button type="button" className="btn btn-primary" onClick={() => confirmDeleteUser(idToDelete)}>Confirm</button> 
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      <div className='side-by-side-desktop d-flex flex-column align-items-xl-start justify-content-lg-center mx-auto gap-3'>
 
       {/* AppointmentForm gets called and uses our empty state variables we already initilized, and fills them with values */}
       <CreateAppointmentForm
@@ -394,8 +427,10 @@ function AdminAppointmentsPage() {
       </div>
 
 
+
         {/* ONLY RENDER UPON PAGE LOAD FOR CURRENT DATE */}
         {showTodays && (
+          <div className='my-5'>
           <TodaysAppointments
             todaysAppointments={todaysAppointments} 
             dailyTimeSlots={dailyTimeSlots}
@@ -406,10 +441,13 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
           />
-          )}
+         </div>
+      )}
+     
 
-        {/* ONLY RENDER UPON EMAIL SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
-        {isSortActive && (
+      {/* ONLY RENDER UPON EMAIL SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
+      {isSortActive && (
+        <div className='my-5'>
           <SearchAppointment
             appointments={handleSearchedAppointments} // use 'handleSearchedAppointments' filter above and pass results to child
             setUpdateName={setUpdateName}
@@ -419,10 +457,13 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
            />
-        )}
+        </div>
+      )}
+     
 
         {/* ONLY RENDER UPON DATE SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
         {selectedDate && handleSearchedAppointments.length > 0 && (
+         <div className='my-5'>
           <SpecificDateAppointments
             setUpdateName={setUpdateName}
             setUpdateEmail={setUpdateEmail}
@@ -433,7 +474,11 @@ function AdminAppointmentsPage() {
             dailyTimeSlots={dailyTimeSlots}
             handleDeleteAppointment={handleDeleteAppointment}
             selectedDate={selectedDate}
-          />)}
+          />
+         </div>
+        )}
+    
+
          {/* end container */}
     </>
   )
