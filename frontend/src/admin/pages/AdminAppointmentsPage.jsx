@@ -388,23 +388,14 @@ function AdminAppointmentsPage() {
         </select> */}
       </div>
 
-      {selectedDate && !isNaN(new Date(selectedDate)) && (
-          <div className="btn btn-secondary">
-            <PrintAppointments 
-              appointments={filteredAppointments} 
-              selectedDate={new Date(selectedDate)} 
-            />
-          </div>
-        )}
-
-      {/* </div> */}
+       </div> 
 
 
-    </div>
+      </div>
 
 
-      {/* ONLY RENDER UPON PAGE LOAD FOR CURRENT DATE */}
-      {showTodays && (
+        {/* ONLY RENDER UPON PAGE LOAD FOR CURRENT DATE */}
+        {showTodays && (
           <TodaysAppointments
             todaysAppointments={todaysAppointments} 
             dailyTimeSlots={dailyTimeSlots}
@@ -415,10 +406,10 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
           />
-      )}
+          )}
 
-      {/* ONLY RENDER UPON EMAIL SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
-      {isSortActive && (
+        {/* ONLY RENDER UPON EMAIL SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
+        {isSortActive && (
           <SearchAppointment
             appointments={handleSearchedAppointments} // use 'handleSearchedAppointments' filter above and pass results to child
             setUpdateName={setUpdateName}
@@ -428,10 +419,10 @@ function AdminAppointmentsPage() {
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
            />
-      )}
+        )}
 
-      {/* ONLY RENDER UPON DATE SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
-      {selectedDate && handleSearchedAppointments.length > 0 && (
+        {/* ONLY RENDER UPON DATE SEARCH RESULTS - CREATES APPOINTMENTS CARDS */}
+        {selectedDate && handleSearchedAppointments.length > 0 && (
           <SpecificDateAppointments
             setUpdateName={setUpdateName}
             setUpdateEmail={setUpdateEmail}
@@ -444,8 +435,8 @@ function AdminAppointmentsPage() {
             selectedDate={selectedDate}
           />)}
          {/* end container */}
-          </>
-);
-}
+    </>
+  )
+};
 
 export default AdminAppointmentsPage
