@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import ContactForm from '../components/ContactForm'
-import { useEffect, useState } from 'react'
 import ConfirmationModal from "../components/ConfirmationModal";
+import userFrontendSchema from "../admin/validation/contactValidaton";
 
-function ContactPage() {
+const ContactPage = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [details, setDetails] = useState('')
     const [contacts, setContacts] = useState([])
     const [showModal, setShowModal] = useState(false)
+
+    //JOI
+    const [errorMessage, setErrorMessage] = useState('')
+    const [nameError, setNameError] = useState(null)
+    const [emailError, setEmailError] = useState(null)
+    const [phoneError, setPhoneError] = useState(null)
+    const [detailsError, setDetailsError] = useState(null)
+    const [allErrors, setAllErrors] = useState([])
 
     const fetchData = async () => {
         try {
@@ -33,9 +41,47 @@ function ContactPage() {
         fetchData()
     }
 
+    //Submit Form
     const handleSubmit = async (e) => {
         e.preventDefault()
-    
+        //JOI Errors
+        setErrorMessage('') 
+        // Clear Joi
+        setNameError('')
+        setEmailError('')
+        setPhoneError('')
+        setDetailsError('')
+        setAllErrors([])
+        // Use Joi to validate the data
+        const validationResult = userFrontendSchema.validate({ name: name, email: email, phone: phone, details: details },
+          { abortEarly: false })
+
+        if (validationResult.error) {
+          const errors = validationResult.error.details
+          errors.forEach(error=>{
+            switch(error.context.key){
+                case 'name':
+                    setNameError(error.message)
+                    break;
+                case 'email':
+                    setEmailError(error.message)
+                    break;
+                case 'phone':
+                    setPhoneError(error.message)
+                    break;
+                case 'details':
+                    setDetailsError(error.message)
+                    break;
+                default:
+                    break;
+            }
+        })
+        const messages = errors.map(error => error.message)
+        setAllErrors(messages)
+
+        return
+        }
+        //Post Data
         try {
           const response = await fetch('http://localhost:8000/contacts', {
             method: 'POST',
@@ -94,6 +140,12 @@ function ContactPage() {
             setPhone={setPhone}
             details={details}
             setDetails={setDetails}
+
+            allErrors={allErrors}             // JOI all errors
+            nameError={nameError}
+            emailError={emailError}
+            phoneError={phoneError}
+            detailsError={detailsError}       // JOI
             handleSubmit={handleSubmit}
           />
           {/*  Modal confirmation */}

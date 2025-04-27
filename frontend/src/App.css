@@ -1,16 +1,23 @@
 .form-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 40px;
     font-family: Arial, sans-serif;
   }
   
   .form-box {
     border: 3px solid black;
-    width: 400px;
+    width: 600px;
     margin-bottom: 20px;
   }
+  @media (max-width: 768px) {
+    .form-box {
+        width: 90%; /* Adjust width to fit smaller screens */
+        margin: 0 auto 20px; /* Center the box and maintain bottom margin */
+        padding: 10px; /* Add padding for better spacing */
+    }
+}
   
   .form-header {
     border-bottom: 3px solid black;
@@ -26,7 +33,6 @@
   .download-button {
     margin-top: 10px;
     padding: 10px 20px;
-    border: 3px solid black;
     border-radius: 10px;
     background-color: white;
     font-weight: bold;
