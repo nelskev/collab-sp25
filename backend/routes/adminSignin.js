@@ -77,6 +77,23 @@ router.get('/protected', verifyToken, async (req, res) => {
 
 
 
+
+
+router.get('/verify-token', (req, res) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
+  const secretKey = process.env.JWT_SECRET;
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).send('Invalid token');
+    }
+
+    return res.send('Token is valid');
+  });
+});
+
+
+
 // TEMP METHOD TO RETURN ADMIN INFO
 router.get('/:username', async (req, res) => {
   const { username } = req.params;

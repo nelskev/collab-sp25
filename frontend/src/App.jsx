@@ -132,7 +132,7 @@ function App() {
        
 
 
-        <Route path='/adminlogin' element={
+        <Route path='/login' element={
           
           <>
           <Navbar />

@@ -59,7 +59,8 @@ function AdminReviewsPage() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/reviews')
+      // const response = await fetch('http://localhost:8000/reviews')
+      const response = await authenticatedFetch('http://localhost:8000/reviews')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
