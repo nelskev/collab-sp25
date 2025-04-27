@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import handleLogout from "../admin/components/HandleLogout";
 import { useNavigate } from "react-router-dom"; //For handleLogout function
@@ -6,6 +6,10 @@ import AdminLogoutButton from "../admin/components/AdminLogoutButton"; //For han
 import Logo from '../assets/Logo2.png';
 
 export default function Navbar() {
+  const handleRefresh = () => {
+    window.location.reload();
+  }; // Refresh page to remove admin logout buttons
+
   return (
     <div className="navbar-wrapper">
       {/* Top Bar  */}
@@ -19,6 +23,7 @@ export default function Navbar() {
             href="index.html"
           >
              <img src={Logo}  alt="logo" style={{width: '300px', height: '300px'}}/>
+   
           </Link>
 
           <div className="right d-flex flex-column justify-content-center gap-3">
@@ -32,15 +37,42 @@ export default function Navbar() {
               </button>
             )} */}
 
-{sessionStorage.getItem("_id") && (<AdminLogoutButton />)}
+
+          {/* When Logged In */}
+        {sessionStorage.getItem("_id") && (
+          <>
 
 
-            <h5 className="m-0 text-center fw-bold fs-4">555-123-3498</h5>
+          <AdminLogoutButton className="m-0 btn btn-outline-danger" onClick={handleRefresh}/>
+          <Link to="/admin" className="m-0 text-end d-flex align-items-center text-decoration-none">  
+          {sessionStorage.getItem("_id") && <h5 className="text-warning me-2">{sessionStorage.getItem('_username')}</h5>}
+          <img src={"./admin-icon.png"} alt="" width="30" />
+          </Link>
 
-            {/*/ ******* React Router Link ADMIN ******* /*/}
-            <Link to="/adminlogin" className="m-0 text-end">
+
+          
+          </>
+          )}
+       
+
+          {/* When logged out */}
+         {!sessionStorage.getItem("_id") &&   (
+          <>
+          <h5 className="m-0 text-center fw-bold fs-4">208-562-3174</h5> {/* Phone number will be invisible when admin logged in */}
+          <Link to="/adminlogin" className="m-0 text-end">
+
               <img src={"./admin-icon.png"} alt="" width="30" />
             </Link>
+          </>
+          )}
+
+         
+
+            {/*/ ******* React Router Link ADMIN ******* /*/}
+            {/* <Link to="/adminlogin" className="m-0 text-end">
+              {sessionStorage.getItem("_id") && <h5 className="text-warning">   Hello {sessionStorage.getItem('_username')}</h5>}
+              <img src={"./admin-icon.png"} alt="" width="30" />
+            </Link> */}
           </div>
         </div>
       </div>
@@ -60,8 +92,9 @@ export default function Navbar() {
           </a>
 
           {/*/ ******* React Router Link ADMIN ******* /*/}
-          <Link to="/admin" className="m-0 text-end d-md-none">
+          <Link to="/admin" className="m-0 text-end d-md-none d-flex align-items-center text-decoration-none">
             <img src={"./admin-icon.png"} alt="" width="30" />
+            {sessionStorage.getItem("_id") && <h5 className="ms-2">{sessionStorage.getItem('_username')}</h5>}
           </Link>
 
           <button
@@ -81,7 +114,7 @@ export default function Navbar() {
                 <a className="nav-link active" aria-current="page" href="#">Home</a>
               </li> */}
               <li className="nav-item">
-                <Link className="nav-link" to="/appointments">
+                <Link className="nav-link" to="/appointment">
                   Appointments
                 </Link>
               </li>
@@ -100,27 +133,13 @@ export default function Navbar() {
                
                   
                   
-                  <li>
+                  <li><Link className="dropdown-item" to="/PaintDetailsPage">Paint Details</Link></li>
                     {/*/ ******* React Router Link PAINTDETAILS ******* /*/}
-                    <Link to="/PaintDetailsPage">
-                      <a className="dropdown-item">Painting</a>
-                    </Link>
-                  </li>
+                  
 
                   {/* <li><a className="dropdown-item" href="#CustPaintPage">Specialty Painting</a></li> */}
-                  <li>
-                    <a className="dropdown-item" href="#specialty-painting">
-                      {
-                        <Link
-                          to="/CustPaintPage"
-                          className="m-0 text-end"
-                          style={{ textDecoration: "none" }}
-                        >
-                          Specialty Painting
-                        </Link>
-                      }
-                    </a>
-                  </li>
+                  <li><Link className="dropdown-item" to="/CustPaintPage">Specialty Painting</Link></li>
+                  
                 </ul>
               </li>
 
@@ -130,13 +149,16 @@ export default function Navbar() {
                   Reviews
                 </Link>
               </li>
-
-              <li className="nav-item">
-                {/*/ ******* React Router Link Contact ******* /*/}
-                <Link to="/contact" className="nav-link">
-                  Contact
+              
+              {sessionStorage.getItem("_id") && (
+                <li className='nav-item d-md-none'>
+                <Link to="/" className="text-decoration-none nav-link text-danger">
+                  {/* Logout Admin {sessionStorage.getItem('_username')} */}
+                <AdminLogoutButton className="" onClick={handleRefresh}/>
                 </Link>
-              </li>
+                </li>
+                )}
+
             </ul>
           </div>
         </div>

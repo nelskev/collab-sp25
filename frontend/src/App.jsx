@@ -108,7 +108,7 @@ function App() {
         }/>
 
           
-        <Route path='/appointments' element={
+        <Route path='/appointment' element={
           <>
         <Navbar /> 
           <AppointmentsPage />
@@ -142,16 +142,19 @@ function App() {
         <Route path="/admin" element={
           <ProtectedRoute>
           <AdminHomePage />
+          <Footer/>
           </ProtectedRoute>
           } />
         <Route path='/adminreviews' element={
           
           <ProtectedRoute>
           <AdminReviewsPage /> 
+          <Footer/>
           </ProtectedRoute> } />
         <Route path="/adminappointments" element={
           <ProtectedRoute>
           <AdminAppointmentsPage />
+          <Footer/>
           </ProtectedRoute>
           } />
         <Route path='*' element={<FourZeroFourPage />} />
