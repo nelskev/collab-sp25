@@ -338,7 +338,15 @@ function AdminAppointmentsPage() {
     setIsSortActive(!isSortActive)
   };
 
-
+   //FORMATS DATE & TIME SLOT FOR APPOINTMENT FORM
+  const handleCreateDateTime = (date, timeSlot) => {
+    const dateString = date || new Date().toISOString().split('T')[0];
+    const [hours, minutes] = timeSlot.split(':');
+    const dateTime = new Date(dateString);
+    dateTime.setHours(hours);
+    dateTime.setMinutes(minutes);
+    setCreateDateTime(dateTime);
+  };
   return (
 
     <>
@@ -423,6 +431,7 @@ function AdminAppointmentsPage() {
       <div className='side-by-side-desktop d-flex flex-column align-items-xl-start justify-content-lg-center mx-auto gap-3'>
 
       {/* AppointmentForm gets called and uses our empty state variables we already initilized, and fills them with values */}
+      
       <CreateAppointmentForm
         selectedDateTime={createDateTime}
         setSelectedDateTime={setCreateDateTime}
@@ -533,6 +542,8 @@ function AdminAppointmentsPage() {
             setUpdateDetails={setUpdateDetails}
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
+            setCreateDateTime={setCreateDateTime}
+            handleCreateDateTime={handleCreateDateTime}
             handleBookAppointment={handleBookAppointment}
           />
        </div>
