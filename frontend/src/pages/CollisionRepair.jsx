@@ -46,7 +46,15 @@ const CollisionRepair = () => {
   <div className='cards-wrapper'>
 
 
-  <h1>Collision Repair Services</h1>
+        <h2
+          className='section-header-blue text-center mb-3'
+          style={{
+            paddingLeft: '0',
+            paddingTop: '1rem',
+            paddingBottom: '1rem'
+          }}>
+          Collision Repair Services
+        </h2>
      
         {/* Before and after images */}
         <div className='details-pane mb-3'
