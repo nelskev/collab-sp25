@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import AfterImage from '../assets/collision_before.png';
 import BeforeImage from '../assets/collision_after.png';
@@ -8,6 +8,10 @@ import Carousel from 'react-bootstrap/Carousel';
 
 
 const CollisionRepair = () => {
+
+      useEffect(() => {
+          document.title = 'Collision Repair'
+      }, []);
 
  const imageSets = [
     { before: BeforeImage, after: AfterImage },
@@ -42,7 +46,15 @@ const CollisionRepair = () => {
   <div className='cards-wrapper'>
 
 
-  <h1>Collision Repair Services</h1>
+        <h2
+          className='section-header-blue text-center mb-3'
+          style={{
+            paddingLeft: '0',
+            paddingTop: '1rem',
+            paddingBottom: '1rem'
+          }}>
+          Collision Repair Services
+        </h2>
      
         {/* Before and after images */}
         <div className='details-pane mb-3'

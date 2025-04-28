@@ -82,10 +82,15 @@ const ReviewCard = ({ review, formatDate }) => {
       return (
         <div className="review-card">
           <h2>{review.name}</h2>
+          <Rating initialValue={review.rating} readonly style={{ 
+            transformOrigin: 'left', 
+            transform: 'scale(0.5,0.5)', 
+            textAlign: 'left', 
+            marginTop: '-10px' 
+          }} />
           {/* Display the formatted date */}
           <p>{formatDate}</p> 
           <p>{review.comment}</p>
-          <Rating initialValue={review.rating} readonly />
           {review.response && (
             <div>
               <h3>Owner Response:</h3>

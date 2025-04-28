@@ -62,7 +62,7 @@ export default function Footer() {
                         <p className="text-center text-md-start">Holidays: Closed</p>
                         <div className="d-flex flex-column gap-2 align-items-center align-items-md-start">
                             <Link className="btn btn-primary" to="/contact">Contact us</Link>
-                            <Link className="btn btn-primary" to="/appointments">Appointment</Link>
+                            <Link className="btn btn-primary" to="/appointment">Appointments</Link>
                         </div>
                     </section>
 

@@ -94,6 +94,7 @@ function AdminAppointmentsPage() {
   }
 
   useEffect(() => {
+    document.title = 'Admin Appointments'
     fetchData()
   }, [])            // useEffect only handles the initial data load (runs once), which is our state array
   

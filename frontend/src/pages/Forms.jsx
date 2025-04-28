@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const FormDetails = () => {
+        useEffect(() => {
+            document.title = 'Forms'
+        }, []);
   return (
     <div className="form-container">
       <div className="form-box">
@@ -41,7 +44,7 @@ const FormDetails = () => {
 
       <div className="email-section">
         <p>
-          <a href="mailto:vladkolmorgan@my.cwi.edu">
+          <a href="mailto:scottdidriksen@cwi.edu">
             <i className="fa-solid fa-envelope me-2"></i> Email Forms
           </a>
         </p>
