@@ -116,7 +116,7 @@ export default function ListReviewsPage() {
 
           {/* Link to ReviewsPage */}
           <Link to="/leave_review">
-            <div><button className="btn btn-secondary">Leave A Review</button></div>
+            <div><button className="btn btn-primary rounded">Leave A Review</button></div>
           </Link>
         </div>
 
