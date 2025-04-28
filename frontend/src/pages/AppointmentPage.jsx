@@ -42,7 +42,7 @@ const AppointmentPage = () => {
   }, [])
 
   useEffect(() => {
-    document.title = 'Appointment'
+    document.title = 'Appointments'
   }, [])
 
   const handleAppointmentCreated = () => {
