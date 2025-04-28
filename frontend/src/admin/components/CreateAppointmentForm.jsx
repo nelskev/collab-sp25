@@ -20,9 +20,9 @@ function CreateAppointmentForm({
 
   return (
     
-  <div className="accordion-wrapper mx-auto">
+  <div id='add-appointment-form' className="accordion-wrapper mx-auto">
 
-    <div className={`accordion p-0 accordion-flush my-4 ${styles['accordion']}`} id="add-appointment-accordion">
+    <div id="add-appointment-accordion" className={`accordion p-0 accordion-flush my-4 ${styles['accordion']}`}>
     
     <div className="accordion-item">
       <h2 className="accordion-header">
