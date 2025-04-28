@@ -562,6 +562,7 @@ function AdminAppointmentsPage() {
             setUpdateDetails={setUpdateDetails}
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
+            handleCreateDateTime={handleCreateDateTime}
            />
         </div>
       )}
@@ -581,6 +582,7 @@ function AdminAppointmentsPage() {
             handleDeleteAppointment={handleDeleteAppointment}
             handleBookAppointment={handleBookAppointment}  
             selectedDate={selectedDate}
+            handleCreateDateTime={handleCreateDateTime}
           />
         </div>
       )}
