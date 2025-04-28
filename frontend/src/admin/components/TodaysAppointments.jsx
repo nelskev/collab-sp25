@@ -34,10 +34,10 @@ function TodaysAppointments({
       return 'Invalid Date';
     }
   
-    const month = String(date.getMonth() + 1).padStart(2, '0');  
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
-    // const [year, month, day] = date.toISOString().split('T')[0].split('-');
+    // const month = String(date.getMonth() + 1).padStart(2, '0');  
+    // const day = String(date.getDate()).padStart(2, '0');
+    // const year = date.getFullYear();
+    const [year, month, day] = date.toISOString().split('T')[0].split('-');
     return `${month}/${day}/${year}`;
   }
   
@@ -95,7 +95,7 @@ function TodaysAppointments({
               <a
                 type="button"
                 className="btn btn-outline-success p-1"
-                href="#create-appointment-form"
+                href="#add-appointment-form"
                 onClick={() => {
                 document.querySelector('#add-appointment-accordion .accordion-button')?.click();
                 handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
