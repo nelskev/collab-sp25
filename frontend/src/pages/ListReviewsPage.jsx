@@ -20,6 +20,7 @@ export default function ListReviewsPage() {
   };
 
   useEffect(() => {
+    document.title = 'List Reviews'
     // Fetch reviews from server
     fetch('http://localhost:8000/reviews')
       .then(response => response.json())

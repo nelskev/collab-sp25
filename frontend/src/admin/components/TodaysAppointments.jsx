@@ -9,7 +9,8 @@ function TodaysAppointments({
     todaysAppointments,
     setSelectedAppointment,
     dailyTimeSlots,
-    handleDeleteAppointment
+    handleDeleteAppointment,
+    handleCreateDateTime
 }) {
     
   // Returns MILITARY TIME to match 'dailyTimeSlots' array
@@ -90,10 +91,16 @@ function TodaysAppointments({
             <div className="col-12 col-lg-3">{formatDate(new Date())}</div>
             <div className="col-12 col-lg-3">{formatTimeAmPm(timeSlot)}</div>
             <div className="col-12 col-lg-6 text-end pe-1">
+              {/* Book - Available Button */}
               <a
                 type="button"
                 className="btn btn-outline-success p-1"
-               // onClick={() => handleBookAppointment(appointment._id, appointment.name)}
+                href="#add-appointment-form"
+                onClick={() => {
+                document.querySelector('#add-appointment-accordion .accordion-button')?.click();
+                handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
+              }}
+              // onClick={() => handleBookAppointment(appointment._id, appointment.name)}
               >
                 Book - Available
               </a>

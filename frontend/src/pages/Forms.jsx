@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const FormDetails = () => {
+        useEffect(() => {
+            document.title = 'Forms'
+        }, []);
   return (
     <div className="form-container">
       <div className="form-box">

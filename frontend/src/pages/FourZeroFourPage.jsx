@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 
 export default function FourZeroFourPage() {
+        useEffect(() => {
+            document.title = '404 - Not Found'
+        }, []);
   return (
     <>
         <div className="not-found-container">

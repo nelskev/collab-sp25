@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import AdminNavbar from '../components/AdminNavbar';
 import { authenticatedFetch } from '../authentication/authenticatedFetch'
 
 // This page WILL NEED TO change browser tab title to 'ADMIN : Scotts Collision Repair'
 
 export default function AdminHomePage() {
+        useEffect(() => {
+            document.title = 'Admin Home'
+        }, []);
   return (
     <>
       <AdminNavbar />

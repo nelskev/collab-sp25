@@ -10,6 +10,7 @@ export default function ReviewsPage() {
   const [newReview, setNewReview] = useState({ name: '', rating: 0, comment: '',  reviewDate: new Date().toISOString()});
 
   useEffect(() => {
+    document.title = 'Reviews'
     const fetchReviews = async () => {
       try {
         // Fetch reviews from the server
