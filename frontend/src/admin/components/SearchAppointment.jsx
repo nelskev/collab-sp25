@@ -13,11 +13,13 @@ function SearchAppointment({
     // detailsError,                      // joi
     appointments,
     setSelectedAppointment,
-    handleDeleteAppointment
+    handleDeleteAppointment,
+    handleCreateDateTime
 }) {
     
     const userList = appointments.map((appointment) => {
         {/* CARDS WRAPPER */}
+        if(appointment) {
         return(
             <div className="cards-wrapper bg-warning" >
               <div className="card rounded-0 d-flex my-0 mb-lg-2 flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 m-0">
@@ -47,7 +49,31 @@ function SearchAppointment({
 
               </div>
             </div>
-        )
+        )} else {
+          return (
+                  <div className="cards-wrapper" key={index}>
+                    <div className="card rounded-0 d-flex flex-column gap-3 gap-lg-0 flex-lg-row justify-content-lg-around align-items-lg-center p-3 p-lg-1 py-lg-2 m-0">
+                      <div className="col-12 col-lg-3">{formatDate(new Date())}</div>
+                      <div className="col-12 col-lg-3">{formatTimeAmPm(timeSlot)}</div>
+                      <div className="col-12 col-lg-6 text-end pe-1">
+                        {/* Book - Available Button */}
+                        <a
+                          type="button"
+                          className="btn btn-outline-success p-1"
+                          href="#create-appointment-form"
+                          onClick={() => {
+                          document.querySelector('#add-appointment-accordion .accordion-button')?.click();
+                          handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
+                        }}
+                        // onClick={() => handleBookAppointment(appointment._id, appointment.name)}
+                        >
+                          Book - Available
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );          
+        }
     })
 
      return (
