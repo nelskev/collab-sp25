@@ -2,7 +2,7 @@ import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLogoutButton from './AdminLogoutButton';
-import Logo from '../assets/Logo2.png';
+import Logo from '../../assets/Logo2.png';
 export default function AdminNavbar() {
 
   
