@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import SigninForm from "../components/AdminLoginForm";
 import { TextNameProvider } from "../../context/TextNameContext";
 
 function AdminLoginPage() {
+        useEffect(() => {
+            document.title = 'Admin Login'
+        }, []);
 
 
 

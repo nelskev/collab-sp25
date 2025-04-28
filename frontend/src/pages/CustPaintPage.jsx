@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import BeforeImage from '../assets/CustPaintBefore1.jpg';
 import AfterImage from '../assets/CustPaintAfter1.jpg';
@@ -8,6 +8,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CustPaintPage = () => {
+        useEffect(() => {
+            document.title = 'Specialty Painting'
+        }, []);
   const imageSets = [
     { before: BeforeImage, after: AfterImage },
     { before: BeforeImage1, after: AfterImage1 },
