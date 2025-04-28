@@ -2,7 +2,7 @@ import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLogoutButton from './AdminLogoutButton';
-// import Logo  from '../../assets/Logo2.png';
+import Logo from '../assets/Logo2.png';
 export default function AdminNavbar() {
 
   
@@ -16,14 +16,14 @@ export default function AdminNavbar() {
   
              {/*/ ******* React Router Link HOME ******* /*/}
              {/* large Logo  */}
-             <Link to="/"  className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0">
-                <h2 className="custom-blue m-0 fs-1">Scott's</h2>
-                <h5 className="m-0">Collision Repair</h5>
-
-
-        
-
-             </Link>
+          <Link
+            to="/"
+            className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
+            href="index.html"
+          >
+             <img src={Logo}  alt="logo" style={{width: '300px', height: '300px'}}/>
+   
+          </Link>
    {/* {sessionStorage.getItem('_id') && (<Link to="/" className=" d-flex justify-content-end">
         <AdminLogoutButton /></Link>
         )} */}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import AfterImage from '../assets/collision_before.png';
 import BeforeImage from '../assets/collision_after.png';
@@ -8,6 +8,10 @@ import Carousel from 'react-bootstrap/Carousel';
 
 
 const CollisionRepair = () => {
+
+      useEffect(() => {
+          document.title = 'Collision Repair'
+      }, []);
 
  const imageSets = [
     { before: BeforeImage, after: AfterImage },
