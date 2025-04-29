@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Routes,  Route} from 'react-router-dom';
 import ProtectedRoute from './admin/components/ProtectedRoute.jsx';
 
@@ -33,6 +33,11 @@ import ListReviewsPage from './pages/ListReviewsPage.jsx';
 
 
 function App() {
+
+        useEffect(() => {
+            document.title = "Scott's Auto Body"
+        }, []);
+
   return (
     <>
       <Routes>

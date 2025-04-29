@@ -89,7 +89,7 @@ export default function Navbar() {
             className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
             href="index.html"
           >
-             <img src={Logo1}  alt="logo" className="img-fluid"/>
+             <img src={Logo1} alt="logo" style={{ width: '200px', height: '200px' }} loading="lazy"/>
    
           </Link>
             {/* <div className="left d-xs-none d-lg-flex flex-column logo-small">
