@@ -33,11 +33,11 @@ function SpecificDateAppointments({
     } else {
       return 'Invalid Date';
     }
-  
+    
     const [year, month, day] = date.toISOString().split('T')[0].split('-');
     return `${month}/${day}/${year}`;
   }
-  
+  console.log(`Specific date appointments conmpont: ${selectedDate}`)
 
   return (
     <>
@@ -94,7 +94,8 @@ function SpecificDateAppointments({
                 href="#add-appointment-form"
                 onClick={() => {
                 document.querySelector('#add-appointment-accordion .accordion-button')?.click();
-                handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
+                // handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
+                handleCreateDateTime(formatDate(selectedDate), timeSlot);
               }}
               // onClick={() => handleBookAppointment(appointment._id, appointment.name)}
               >
