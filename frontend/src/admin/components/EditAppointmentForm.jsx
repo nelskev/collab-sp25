@@ -73,7 +73,7 @@ function EditAppointmentForm({
       {detailsError && <span className="text-danger">{detailsError}</span>}      {/* joi  */}   
     </div>
 
-    <button className="btn btn-outline-primary w-100 fs-5 mt-3 mb-0">Save</button>
+    <button className="btn btn-primary w-100 fs-5 mt-3 mb-0">Save</button>
 
     </div>
 

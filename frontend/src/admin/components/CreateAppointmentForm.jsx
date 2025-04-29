@@ -68,7 +68,7 @@ function CreateAppointmentForm({
           {detailsError && <div className="text-danger">{detailsError}</div>} 
         </div>
   
-        <button type="submit" className="btn btn-outline-primary w-100 fs-5 mt-3 mb-2">
+        <button type="submit" className="btn btn-primary w-100 fs-5 mt-3 mb-2">
           Schedule appointment
         </button>
       </form>

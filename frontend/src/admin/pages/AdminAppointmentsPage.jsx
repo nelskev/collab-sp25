@@ -320,12 +320,21 @@ function AdminAppointmentsPage() {
   let filteredAppointments;
 
   if (selectedDate) {
-    filteredAppointments = appointments.filter((appt) => {
-      const apptDate = new Date(appt.date).toISOString().split('T')[0];
-      return apptDate === selectedDate;
-    });
+      filteredAppointments = appointments.filter((appt) => {
+        const apptDate = new Date(appt.date).toISOString().split('T')[0]
+        console.log(`if statement: ${apptDate}, ${appt.date}`)
+        return apptDate === selectedDate
+      })
+      // If no appoinments fill 10 empty slots
+      if (filteredAppointments.length === 0) {
+        filteredAppointments = Array.from({ length: 10 }, (_, i) => ({
+          date: selectedDate,
+          timeSlot: `Slot ${i + 1}`
+        }));
+        console.log('No appointments for this date');
+      }
   } else {
-    filteredAppointments = appointments;
+    filteredAppointments = appointments
   }
 
   // SEARCH APPOINTMENTS BY EMAIL
@@ -562,7 +571,7 @@ function AdminAppointmentsPage() {
             setUpdateDetails={setUpdateDetails}
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
-            handleCreateDateTime={handleCreateDateTime}
+            // handleCreateDateTime={handleCreateDateTime}   SearchAppointment doesn't use 'Book Appointment' button as it's already an appointment
            />
         </div>
       )}
