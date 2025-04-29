@@ -116,7 +116,7 @@ export default function ListReviewsPage() {
 
           {/* Link to ReviewsPage */}
           <Link to="/leave_review">
-            <div><button className="btn btn-secondary">Leave A Review</button></div>
+            <div><button className="btn btn-primary rounded">Leave A Review</button></div>
           </Link>
         </div>
 
@@ -130,6 +130,14 @@ export default function ListReviewsPage() {
             >
               {/* Access review card component, kudos to Kevin for building and sharing that component */}
               <ReviewCard review={review} formatDate={formatDate(review.reviewDate)} />
+              {review.ownerResponse && (
+                <div className="border-top mt-2">
+                  <h5 className='mt-3'>Owner's Response</h5>
+                  {review.ownerResponseDate &&( <p>on {formatDate(review.ownerResponseDate)}</p>)}
+                  <p>{review.ownerResponse }</p>
+                </div>
+              )}
+              <div className='border-bottom'></div>
             </div>
           ))}
         </div>
