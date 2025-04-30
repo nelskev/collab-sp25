@@ -17,7 +17,7 @@ const PaintDetailsPage = () => {
   ];
 
   return (
-    <div className='container py-3'>
+    <div className='container py-5'>
       <div className='cards-wrapper'>
 
         <h2 
@@ -31,7 +31,7 @@ const PaintDetailsPage = () => {
         </h2>
 
         {/* Carousel */}
-        <div className='details-pane mb-3'
+        <div className='mb-3'
           style={{
           display: 'flex', 
           justifyContent: 'center'
@@ -95,7 +95,7 @@ const PaintDetailsPage = () => {
         </div>
 
         {/* Service description */}
-        <div className='details-pane text-center mb-3'>
+        <div className='text-center mb-3'>
           <p className='mb-3'>
             We specialize in paint repair that blends seamlessly with your car’s original finish. 
             Our experts provide perfect color matching and a smooth, factory-finish shine.
@@ -223,7 +223,7 @@ const PaintDetailsPage = () => {
         </div>
 
         {/* Make Appointment button */}
-        <div className='details-pane text-center mb-4'>
+        <div className='text-center mb-5'>
           <Link to='/appointments'>
             <button className='btn btn-primary w-100 fs-5'>
               Make Appointment
