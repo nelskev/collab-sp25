@@ -100,11 +100,11 @@ export default function ReviewsPage() {
               />
             </div>
             {/* Submit */}
-            <button type="submit" className="btn btn-primary">Submit Review</button>
+            <button type="submit" className="btn btn-primary rounded">Submit Review</button>
             {/* Link to ListReviewsPage */}
             <div>
               <br />
-              <Link to="/list_reviews"><button className="btn btn-secondary">
+              <Link to="/list_reviews"><button className="btn btn-primary rounded">
                 See All Reviews
               </button></Link>
             </div>
