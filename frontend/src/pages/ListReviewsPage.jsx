@@ -98,7 +98,7 @@ export default function ListReviewsPage() {
 
   return (
     <>
-      <div className="container section-3">
+      <div className="container section-3 my-5 pb-5">
         <h1 className="mb-4">Customer Reviews</h1>
 
         {/* Sorting controls */}

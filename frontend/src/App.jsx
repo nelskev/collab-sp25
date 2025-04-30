@@ -46,8 +46,10 @@ function App() {
           <>
            <Navbar />
             <MissionStatement />
-            <Appointments />
-            <Services />
+            <div className='pt-0 pb-5'>
+              <Appointments />
+              <Services />
+            </div>
             <Footer />
           </>
         }/>
