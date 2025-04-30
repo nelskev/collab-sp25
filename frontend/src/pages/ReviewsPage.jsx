@@ -1,65 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { Rating } from 'react-simple-star-rating';
-import { Link } from 'react-router-dom';
 import formatDate from '../../helpers/dateConversion';
-import ConfirmationModal from "../components/ConfirmationModal";
+import ReviewForm from '../components/ReviewForm';
+import ConfirmationModal from '../components/ConfirmationModal';
 
-export default function ReviewsPage() {
-  const [showModal, setShowModal] = useState(false)
-  // Store reviews from the server
+// Separated out states instead of all being collected in newReviews
+function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
-  // Store new reviews (name, rating, comment and date)
-  const [newReview, setNewReview] = useState({ name: '', rating: 0, comment: '',  reviewDate: new Date().toISOString()});
+  const [name, setName] = useState('');
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    document.title = 'Reviews'
+    document.title = 'Reviews';
     const fetchReviews = async () => {
       try {
-        // Fetch reviews from the server
         const response = await fetch('http://localhost:8000/reviews');
         const data = await response.json();
-    
-        // Sort the reviews by rating and date
+
         const sortedReviews = data
-          .sort((a, b) => b.rating - a.rating)  // Sort by rating
-          .sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate))  // Then sort by date
-          .slice(0, 5); // Get 5
-    
+          .sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate)) // Sort by newest first
+          .sort((a, b) => b.rating - a.rating) // Prioritize higher ratings
+          .slice(0, 5); // Limit to top 5
+
         setReviews(sortedReviews);
       } catch (err) {
-        // Log error if fetching fails
         console.error('Could not load reviews:', err);
       }
     };
-    fetchReviews(); 
-  }, []); // Empty dependency array so it only runs once
 
-  // Handles rating change
-  const handleRating = (rate) => {
-    setNewReview({ ...newReview, rating: rate }); // Update rating
-  };
+    fetchReviews();
+  }, []);
 
-  // Submits for new reviews
   const handleSubmit = async (e) => {
-    e.preventDefault(); //prevents page reload
-    // Validates all fields are filled
-    if (newReview.name && newReview.rating && newReview.comment) {
+    e.preventDefault();
+    if (name && rating && comment) {
+      const newReview = {
+        name,
+        rating,
+        comment,
+        reviewDate: new Date().toISOString(),
+      };
+
       try {
-        // Send the new review to the server
         const response = await fetch('http://localhost:8000/reviews', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newReview),
         });
+
         const data = await response.json();
         if (data) {
-          setShowModal(true)  // Show confirmation modal
-          // Adds new review to the reviews list and resets form
           setReviews([data, ...reviews]);
-          setNewReview({ name: '', rating: 0, comment: '',  reviewDate: new Date().toISOString() });
+          setName('');
+          setRating(0);
+          setComment('');
+          setShowModal(true);
         }
       } catch (error) {
-        // Log any errors during submission
         console.error('Could not submit review:', error);
       }
     }
@@ -70,70 +69,43 @@ export default function ReviewsPage() {
       <h1 className="custom-blue mb-4">Leave a Review</h1>
 
       <div className="row">
-        {/* Submit Form Section */}
+        {/* Created A Review Form Component */}
         <div className="col-md-6 mb-4">
-          <form onSubmit={handleSubmit}>
-            {/* Rating*/}
-            <div className="mb-3">
-              <Rating onClick={handleRating} ratingValue={newReview.rating} size={25} />
-            </div>
-            {/* Name */}
-            <div className="mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Your Name"
-                value={newReview.name}
-                onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                required
-              />
-            </div>
-            {/* Comment */}
-            <div className="mb-3">
-              <textarea
-                className="form-control"
-                placeholder="Your Review"
-                value={newReview.comment}
-                onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                required
-                rows="4"
-              />
-            </div>
-            {/* Submit */}
-            <button type="submit" className="btn btn-primary">Submit Review</button>
-            {/* Link to ListReviewsPage */}
-            <div>
-              <br />
-              <Link to="/list_reviews"><button className="btn btn-secondary">
-                See All Reviews
-              </button></Link>
-            </div>
-          </form>
+          <ReviewForm
+            name={name}
+            setName={setName}
+            rating={rating}
+            setRating={setRating}
+            comment={comment}
+            setComment={setComment}
+            handleSubmit={handleSubmit}
+          />
         </div>
 
         {/* Display Reviews */}
         <div className="col-md-6">
           <h4>What Our Customers Are Saying</h4>
-          {/* Map through amd and displays reviews */}
-          {reviews.map((review, index) => (
-            <div
-              key={index}
-              className="p-3 mb-3">
-              <p className="mb-1"><strong>{review.name}</strong></p>
-              <Rating initialValue={review.rating} readonly size={20} />
-              <p className="mb-1">{review.comment}</p>
-              {review.ownerResponse && (
-                <div>
-                  <p className="mb-0">Response from owner:</p>
-                  <p>{review.ownerResponse}</p>
-                  <p>{formatDate(review.ownerResponseDate)}</p>
-                </div>
-              )}
-            </div>
-          ))}
+          <div className="border p-3 overflow-auto" style={{ maxHeight: '500px' }}>
+            {reviews.map((review, index) => (
+              <div key={index} className="p-3 mb-3 border rounded">
+                <p className="mb-1"><strong>{review.name}</strong></p>
+                <Rating initialValue={review.rating} readonly size={20} />
+                <p className="mb-1">{review.comment}</p>
+                <small className="text-muted">{formatDate(review.reviewDate)}</small>
+                {review.ownerResponse && (
+                  <div className="mt-2 p-2 bg-light rounded">
+                    <p className="mb-0"><strong>Response from owner:</strong></p>
+                    <p className="mb-0">{review.ownerResponse}</p>
+                    <small className="text-muted">{formatDate(review.ownerResponseDate)}</small>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      {/*  Modal confirmation */}
+
+      {/* Confirmation Modal */}
       <ConfirmationModal
         show={showModal}
         onClose={() => setShowModal(false)}
@@ -142,3 +114,5 @@ export default function ReviewsPage() {
     </div>
   );
 }
+
+export default ReviewsPage;
