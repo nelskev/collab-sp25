@@ -94,6 +94,7 @@ function AdminAppointmentsPage() {
   }
 
   useEffect(() => {
+    document.title = 'Admin Appointments'
     fetchData()
   }, [])            // useEffect only handles the initial data load (runs once), which is our state array
   
@@ -319,12 +320,21 @@ function AdminAppointmentsPage() {
   let filteredAppointments;
 
   if (selectedDate) {
-    filteredAppointments = appointments.filter((appt) => {
-      const apptDate = new Date(appt.date).toISOString().split('T')[0];
-      return apptDate === selectedDate;
-    });
+      filteredAppointments = appointments.filter((appt) => {
+        const apptDate = new Date(appt.date).toISOString().split('T')[0]
+        console.log(`if statement: ${apptDate}, ${appt.date}`)
+        return apptDate === selectedDate
+      })
+      // If no appoinments fill 10 empty slots
+      if (filteredAppointments.length === 0) {
+        filteredAppointments = Array.from({ length: 10 }, (_, i) => ({
+          date: selectedDate,
+          timeSlot: `Slot ${i + 1}`
+        }));
+        console.log('No appointments for this date');
+      }
   } else {
-    filteredAppointments = appointments;
+    filteredAppointments = appointments
   }
 
   // SEARCH APPOINTMENTS BY EMAIL
@@ -337,7 +347,15 @@ function AdminAppointmentsPage() {
     setIsSortActive(!isSortActive)
   };
 
-
+   //FORMATS DATE & TIME SLOT FOR APPOINTMENT FORM
+  const handleCreateDateTime = (date, timeSlot) => {
+    const dateString = date || new Date().toISOString().split('T')[0];
+    const [hours, minutes] = timeSlot.split(':');
+    const dateTime = new Date(dateString);
+    dateTime.setHours(hours);
+    dateTime.setMinutes(minutes);
+    setCreateDateTime(dateTime);
+  };
   return (
 
     <>
@@ -355,7 +373,6 @@ function AdminAppointmentsPage() {
             />
           </div>
         )}
-
 
       {showApptCreationBanner && (
         <div className="alert alert-success col-11 col-md-9 col-lg-6 col-xl-5 mx-auto mt-3 text-center" role="alert">
@@ -422,6 +439,7 @@ function AdminAppointmentsPage() {
       <div className='side-by-side-desktop d-flex flex-column align-items-xl-start justify-content-lg-center mx-auto gap-3'>
 
       {/* AppointmentForm gets called and uses our empty state variables we already initilized, and fills them with values */}
+      
       <CreateAppointmentForm
         selectedDateTime={createDateTime}
         setSelectedDateTime={setCreateDateTime}
@@ -532,6 +550,8 @@ function AdminAppointmentsPage() {
             setUpdateDetails={setUpdateDetails}
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
+            setCreateDateTime={setCreateDateTime}
+            handleCreateDateTime={handleCreateDateTime}
             handleBookAppointment={handleBookAppointment}
           />
        </div>
@@ -550,6 +570,7 @@ function AdminAppointmentsPage() {
             setUpdateDetails={setUpdateDetails}
             setSelectedAppointment={setSelectedAppointment}
             handleDeleteAppointment={handleDeleteAppointment}
+            // handleCreateDateTime={handleCreateDateTime}   SearchAppointment doesn't use 'Book Appointment' button as it's already an appointment
            />
         </div>
       )}
@@ -569,6 +590,7 @@ function AdminAppointmentsPage() {
             handleDeleteAppointment={handleDeleteAppointment}
             handleBookAppointment={handleBookAppointment}  
             selectedDate={selectedDate}
+            handleCreateDateTime={handleCreateDateTime}
           />
         </div>
       )}

@@ -343,7 +343,7 @@ style={{ height: '500px' }}
   
     <button
   type="button"
-  className="btn btn-secondary mx-2"
+  className="btn btn-primary mx-2"
   // disabled={!selectedReview} 
   style= {{display: selectedReview ? '': 'none' }}
   onClick={() => handleResponseSubmit(selectedReview._id) }
@@ -359,7 +359,7 @@ style={{ height: '500px' }}
 
 <button
   type="button"
-  className="btn btn-secondary mx-2"
+  className="btn btn-danger mx-2"
   // disabled={!selectedReview}
   style= {{display: selectedReview ? '': 'none' }}
   onClick={() => handleDeleteReview(selectedReview)}

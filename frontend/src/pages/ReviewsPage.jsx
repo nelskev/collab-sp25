@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { Link } from 'react-router-dom';
 import formatDate from '../../helpers/dateConversion';
+import ConfirmationModal from "../components/ConfirmationModal";
 
 export default function ReviewsPage() {
+  const [showModal, setShowModal] = useState(false)
   // Store reviews from the server
   const [reviews, setReviews] = useState([]);
   // Store new reviews (name, rating, comment and date)
   const [newReview, setNewReview] = useState({ name: '', rating: 0, comment: '',  reviewDate: new Date().toISOString()});
 
   useEffect(() => {
+    document.title = 'Reviews'
     const fetchReviews = async () => {
       try {
         // Fetch reviews from the server
@@ -50,6 +53,7 @@ export default function ReviewsPage() {
         });
         const data = await response.json();
         if (data) {
+          setShowModal(true)  // Show confirmation modal
           // Adds new review to the reviews list and resets form
           setReviews([data, ...reviews]);
           setNewReview({ name: '', rating: 0, comment: '',  reviewDate: new Date().toISOString() });
@@ -129,6 +133,12 @@ export default function ReviewsPage() {
           ))}
         </div>
       </div>
+      {/*  Modal confirmation */}
+      <ConfirmationModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        message="Your review has been sent successfully!"
+      />
     </div>
   );
 }

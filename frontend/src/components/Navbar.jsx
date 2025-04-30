@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; //For handleLogout function
 import AdminLogoutButton from "../admin/components/AdminLogoutButton"; //For handleLogout function
 import Logo from '../assets/Logo2.png';
+import Logo1 from '../assets/Logo3.png';
 
 export default function Navbar() {
   const handleRefresh = () => {
@@ -83,12 +84,19 @@ export default function Navbar() {
           {/* Small Logo  */}
           {/*/ ******* Internal Link (scroll down) can be Anchor ******* /*/}
           <a className="navbar-brand d-md-none" href="index.html">
-            <div className="left d-xs-none d-lg-flex flex-column logo-small">
-              
-              {/* <img src={Logo}  alt="logo" style={{width: '200px', height: '200px'}}/> */}
+          <Link
+            to="/"
+            className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
+            href="index.html"
+          >
+             <img src={Logo1} alt="logo" style={{ width: '200px', height: '200px' }} loading="lazy"/>
+   
+          </Link>
+            {/* <div className="left d-xs-none d-lg-flex flex-column logo-small">
+
               <h2 className="custom-blue m-0 fs-1">Scott's</h2>
               <h5 className="m-0">Collision Repair</h5>
-            </div>
+            </div> */}
           </a>
 
           {/*/ ******* React Router Link ADMIN ******* /*/}

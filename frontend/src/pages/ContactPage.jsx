@@ -34,6 +34,7 @@ const ContactPage = () => {
     }
 
     useEffect(() => {
+        document.title = 'Contact'
         fetchData()
     }, [])
 

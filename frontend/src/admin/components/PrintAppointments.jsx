@@ -2,7 +2,29 @@ import React from 'react';
 import formatTimeAmPm from '../../../helpers/timeConversion';
 
 //Receives props from AdminAppointmentPage when the button is clicked and opens print window
-function PrintAppointments({ appointments = [], selectedDate }) {
+function PrintAppointments({ 
+    appointments = [], 
+    selectedDate
+  }) {
+  // console.log(selectedDate)
+  // const result = new Date(selectedDate + 'T00:00:00');
+  // console.log(result.toDateString());
+
+  
+  // Format date to sync with user timezone to get the correct date 
+  let displayDate = selectedDate;
+
+  if (typeof selectedDate === 'string') {
+    const [year, month, day] = selectedDate.split('-').map(Number);
+    displayDate = new Date(Date.UTC(year, month - 1, day));
+  } else if (selectedDate instanceof Date) {
+    displayDate = new Date(
+      selectedDate.getUTCFullYear(),
+      selectedDate.getUTCMonth(),
+      selectedDate.getUTCDate()
+    );
+  }
+
   const handlePrint = () => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) 
@@ -19,7 +41,7 @@ function PrintAppointments({ appointments = [], selectedDate }) {
     const htmlContent = `
       <html>
         <head>
-          <title>Appointments for ${selectedDate.toDateString()}</title>
+          <title>Appointments for ${displayDate.toDateString()}</title>
           <style>
             body {
               font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -48,7 +70,7 @@ function PrintAppointments({ appointments = [], selectedDate }) {
           </style>
         </head>
         <body>
-          <h1>Scheduled Appointments for: ${selectedDate.toDateString()}</h1>
+          <h1>Scheduled Appointments for: ${displayDate.toDateString()}</h1>
           ${appointments.length > 0 ? `
             <table>
               <thead>
@@ -101,7 +123,7 @@ function PrintAppointments({ appointments = [], selectedDate }) {
         onClick={handlePrint}
         disabled={!ValidDate}
     >
-      Print {ValidDate ? selectedDate.toDateString() : ''}
+      Print {ValidDate ? displayDate.toDateString() : ''}
     </button>
   );
 }
