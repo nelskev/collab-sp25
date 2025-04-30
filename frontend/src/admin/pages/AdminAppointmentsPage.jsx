@@ -13,7 +13,6 @@ import PrintAppointments from '../components/PrintAppointments'
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
 
-import PrintAppointments from '../components/PrintAppointments'
 
 
 
