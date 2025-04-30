@@ -374,7 +374,6 @@ function AdminAppointmentsPage() {
           </div>
         )}
 
-
       {showApptCreationBanner && (
         <div className="alert alert-success col-11 col-md-9 col-lg-6 col-xl-5 mx-auto mt-3 text-center" role="alert">
           Appointment created!
