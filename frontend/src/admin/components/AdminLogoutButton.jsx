@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 function LogoutButton({ className, onClick }) {
 // function LogoutButton({ className }) {
-  const navigate = useNavigate();
 
   const [isButtonVisible, setButtonVisible] = useState(true);
 
@@ -14,8 +13,7 @@ function LogoutButton({ className, onClick }) {
   function handleLogout() {
      if (window.confirm(`Are you sure you want to log out?`)) {
     // Clear the session storage
-    sessionStorage.removeItem('_id');
-    sessionStorage.removeItem('_username');
+    sessionStorage.clear();
     // Removes button visibility removing need for refresh
     setButtonVisible(false);
     // Navigate to home page

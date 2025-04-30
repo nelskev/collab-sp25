@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import handleLogout from "../admin/components/HandleLogout";
 import { useNavigate } from "react-router-dom"; //For handleLogout function
@@ -10,6 +10,41 @@ export default function Navbar() {
   const handleRefresh = () => {
     window.location.reload();
   }; // Refresh page to remove admin logout buttons
+
+
+  const [isTokenValid, setIsTokenValid] = useState(null);
+
+useEffect(() => {
+  const verifyToken = async () => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      setIsTokenValid(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/admin/signin/verify-token', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Token verification failed');
+      }
+
+      const data = await response.text();
+      setIsTokenValid(data === 'Token is valid');
+    } catch (error) {
+      console.error('Token verification error:', error);
+      setIsTokenValid(false);
+      sessionStorage.clear(); 
+    }
+  };
+
+  verifyToken();
+}, []);
 
   return (
     <div className="navbar-wrapper">
@@ -39,33 +74,29 @@ export default function Navbar() {
             )} */}
 
 
-          {/* When Logged In */}
-        {sessionStorage.getItem("_id") && (
-          <>
+         {/* When Logged In */}
+{sessionStorage.getItem("_id") && (
+  isTokenValid && (
+  <>
+    <AdminLogoutButton className="m-0 btn btn-outline-danger" onClick={handleRefresh}/>
+    <Link to="/admin" className="m-0 text-end d-flex align-items-center text-decoration-none">  
+      {sessionStorage.getItem("_id") && <h5 className="text-warning me-2">{sessionStorage.getItem('_username')}</h5>}
+      <img src={"./admin-icon.png"} alt="" width="30" />
+    </Link>
+  </>
+  )
+)}
 
+{/* When logged out */}
+{!(sessionStorage.getItem("_id")) && (
+  <>
+    <h5 className="m-0 text-center fw-bold fs-4">208-562-3174</h5> 
+    <Link to="/login" className="m-0 text-end">
+      <img src={"./admin-icon.png"} alt="" width="30" />
+    </Link>
+  </>
+)}
 
-          <AdminLogoutButton className="m-0 btn btn-outline-danger" onClick={handleRefresh}/>
-          <Link to="/admin" className="m-0 text-end d-flex align-items-center text-decoration-none">  
-          {sessionStorage.getItem("_id") && <h5 className="text-warning me-2">{sessionStorage.getItem('_username')}</h5>}
-          <img src={"./admin-icon.png"} alt="" width="30" />
-          </Link>
-
-
-          
-          </>
-          )}
-       
-
-          {/* When logged out */}
-         {!sessionStorage.getItem("_id") &&   (
-          <>
-          <h5 className="m-0 text-center fw-bold fs-4">208-562-3174</h5> {/* Phone number will be invisible when admin logged in */}
-          <Link to="/adminlogin" className="m-0 text-end">
-
-              <img src={"./admin-icon.png"} alt="" width="30" />
-            </Link>
-          </>
-          )}
 
          
 

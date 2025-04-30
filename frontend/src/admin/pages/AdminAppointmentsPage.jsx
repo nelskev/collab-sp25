@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { authenticatedFetch } from '../authentication/authenticatedFetch'
 import formatTimezone from '/helpers/convertTimezoneDate'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
@@ -12,6 +13,16 @@ import PrintAppointments from '../components/PrintAppointments'
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
 
+
+
+
+
+/* This page in a nutshell:
+   The button click hits handleSubmit(), then the POST tries and if successful it's 'response.ok' which 
+   allows for the call to handleAppointmentCreated(), then fetchData GET's the new array */
+
+/* The new appointment is not directly added to the appointments state in the handleSubmit or handleAppointmentCreated methods. 
+   The appointments state is refreshed with the entire list of appointments on the GET fetch from the backend API */
 
 function AdminAppointmentsPage() {
 
@@ -68,7 +79,8 @@ function AdminAppointmentsPage() {
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/appointments')
+      // const response = await fetch('http://localhost:8000/appointments')
+      const response = await authenticatedFetch('http://localhost:8000/appointments')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
