@@ -22,6 +22,19 @@ body {
 .container{
   background-color: white;
 }
+
+/* Admin Home Page */
+
+.admin-home-container{
+  height: 40px !important;
+}
+.alert-absolute-center{
+   transform: translateX(-50%);
+   top: 180px;
+   left: 50%;
+}
+
+
 footer{
   width: 100% !important;
   position: absolute !important;
