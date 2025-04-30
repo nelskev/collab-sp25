@@ -31,6 +31,22 @@ image{
   margin: 0 auto;
 }
 
+.book-appointment-button{
+  width: 100% !important;
+}
+
+.btn-success{
+  color: white !important;
+  background-image: url('./assets/carbonfiber-background.png') !important;
+  background-position: left;
+  /* text-shadow: 1px 2px green !important; */
+  border: 3px solid green !important;
+  padding: 3px 0 !important
+}
+.btn-success:hover{
+  border: 3px solid rgb(1, 182, 1) !important;
+}
+
 
 /****** TOP INFO BAR ******/
 .top-info-bar{
@@ -386,6 +402,9 @@ image{
 }
 
 @media only screen and (min-width: 992px) {
+  .book-appointment-button{
+    width: 135px !important;
+  }
   .section-1{
       min-height: 500px;
       background-image: url('./assets/car-background-large.png');

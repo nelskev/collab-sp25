@@ -99,7 +99,7 @@ export default function ListReviewsPage() {
   return (
     <>
       <div className="container section-3">
-        <h1 className="custom-blue mb-4">Customer Reviews</h1>
+        <h1 className="mb-4">Customer Reviews</h1>
 
         {/* Sorting controls */}
         <div className="mb-3 d-flex gap-3 align-items-center">
@@ -116,7 +116,7 @@ export default function ListReviewsPage() {
 
           {/* Link to ReviewsPage */}
           <Link to="/leave_review">
-            <div><button className="btn btn-secondary">Leave A Review</button></div>
+            <div><button className="btn btn-primary rounded">Leave A Review</button></div>
           </Link>
         </div>
 
