@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
 import AdminNavbar from '../components/AdminNavbar';
-import { authenticatedFetch } from '../authentication/authenticatedFetch'
 
 // This page WILL NEED TO change browser tab title to 'ADMIN : Scotts Collision Repair'
 
