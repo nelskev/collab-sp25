@@ -9,13 +9,18 @@ export default function ReviewForm({
   setRating,
   comment,
   setComment,
-  handleSubmit
+  handleSubmit,
+  // allErrors,
+  nameError,
+  ratingError,
+  commentError
 }) {
   return (
     <form onSubmit={handleSubmit}>
       {/* Rating */}
       <div className="mb-3">
         <Rating onClick={setRating} ratingValue={rating} size={25} />
+        {ratingError && <span className="text-danger">{ratingError}</span>} 
       </div>
 
       {/* Name */}
@@ -26,8 +31,9 @@ export default function ReviewForm({
           placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
+          
         />
+        {nameError && <span className="text-danger">{nameError}</span>} 
       </div>
 
       {/* Comment */}
@@ -37,9 +43,10 @@ export default function ReviewForm({
           placeholder="Your Review"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          required
+          
           rows="4"
         />
+        {commentError && <span className="text-danger">{commentError}</span>} 
       </div>
 
       {/* Submit */}
