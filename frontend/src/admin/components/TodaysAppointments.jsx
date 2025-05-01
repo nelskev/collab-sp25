@@ -97,14 +97,26 @@ function TodaysAppointments({
                 type="button"
                 className="btn btn-success col-12 col-lg-auto book-appointment-button"
                 href="#add-appointment-form"
-                onClick={() => {
-                document.querySelector('#add-appointment-accordion .accordion-button')?.click();
-                handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
-              }}
-              // onClick={() => handleBookAppointment(appointment._id, appointment.name)}
-              >
-                Book - Available
-              </a>
+                onClick={(e) => {
+                  e.preventDefault();
+                  const accordionCollapse = document.querySelector('#flush-collapseOne');
+                  const isCollapsed = accordionCollapse.classList.contains('collapse');
+                  if (isCollapsed) {
+                    const accordionButton = document.querySelector('#add-appointment-accordion .accordion-button');
+                    const bsCollapse = new bootstrap.Collapse(accordionCollapse, {
+                    toggle: false
+                    });
+                    bsCollapse.show();
+                  }
+                  const dateToUse = appointment?.date || new Date().toISOString();
+                  handleCreateDateTime(formatDate(dateToUse), timeSlot);
+                  setTimeout(() => {
+                    document.getElementById('add-appointment-form')?.scrollIntoView({behavior: 'smooth',block: 'start'});
+                  }, 100);
+                  }}
+                  >
+                  Book - Available
+                </a>
             </div>
           </div>
         </div>

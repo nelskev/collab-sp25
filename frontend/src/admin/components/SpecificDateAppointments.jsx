@@ -89,18 +89,27 @@ function SpecificDateAppointments({
             <div className="col-12 col-lg-3">{formatTimeAmPm(timeSlot)}</div>
             <div className="col-12 col-lg-6 text-end pe-0">
             <a
-                type="button"
-                className="btn btn-success col-12 col-lg-auto book-appointment-button"
-                href="#add-appointment-form"
-                onClick={() => {
-                document.querySelector('#add-appointment-accordion .accordion-button')?.click();
-                // handleCreateDateTime(formatDate(new Date().toISOString()), timeSlot);
-                handleCreateDateTime(formatDate(selectedDate), timeSlot);
-              }}
-              // onClick={() => handleBookAppointment(appointment._id, appointment.name)}
-              >
+              type="button"
+              className="btn btn-success col-12 col-lg-auto book-appointment-button"
+              href="#add-appointment-form"
+              onClick={(e) => {
+                e.preventDefault();
+                const accordionCollapse = document.querySelector('#flush-collapseOne');
+                const isCollapsed = accordionCollapse.classList.contains('collapse');
+                if (isCollapsed) {
+                  const accordionButton = document.querySelector('#add-appointment-accordion .accordion-button');
+                  const bsCollapse = new bootstrap.Collapse(accordionCollapse, {
+                  toggle: false
+                  });
+                bsCollapse.show();
+                }
+                handleCreateDateTime(formatDate(selectedDate ? selectedDate : new Date().toISOString()),timeSlot);
+                setTimeout(() => {
+                  document.getElementById('add-appointment-form')?.scrollIntoView({behavior: 'smooth',block: 'start'});
+                }, 100);  }}
+                > 
                 Book - Available
-              </a>
+                </a>
             </div>
           </div>
         </div>
