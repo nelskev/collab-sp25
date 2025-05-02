@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // import handleLogout from "../admin/components/HandleLogout";
 import { useNavigate } from "react-router-dom"; //For handleLogout function
 import AdminLogoutButton from "../admin/components/AdminLogoutButton"; //For handleLogout function
-import Logo from '../assets/Logo2.png';
+import Logo from '../assets/Logo.png';
 import Logo1 from '../assets/Logo3.png';
 
 export default function Navbar() {
@@ -23,7 +23,7 @@ export default function Navbar() {
             className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
             href="index.html"
           >
-             <img src={Logo}  alt="logo" style={{width: '300px', height: '300px'}}/>
+             <img src={Logo}  alt="logo" style={{width: '200px', height: '80px'}}/>
    
           </Link>
 
@@ -89,7 +89,7 @@ export default function Navbar() {
             className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
             href="index.html"
           >
-             <img src={Logo1} alt="logo" style={{ width: '200px', height: '200px' }} loading="lazy"/>
+             <img src={Logo1} alt="logo" style={{ width: '200px', height: '80px' }} loading="lazy"/>
    
           </Link>
             {/* <div className="left d-xs-none d-lg-flex flex-column logo-small">

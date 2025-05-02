@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Routes,  Route} from 'react-router-dom';
 import ProtectedRoute from './admin/components/ProtectedRoute.jsx';
 
@@ -30,13 +30,15 @@ import ReviewsPage from './pages/ReviewsPage.jsx';
 import ListReviewsPage from './pages/ListReviewsPage.jsx';
 
 
-
+import { useLocation } from 'react-router-dom'
 
 function App() {
 
-        useEffect(() => {
-            document.title = "Scott's Auto Body"
-        }, []);
+  const loc = useLocation();
+
+  useEffect(() => {
+    document.title = "Scott's Auto Body"
+  }, [loc]);
 
   return (
     <>
