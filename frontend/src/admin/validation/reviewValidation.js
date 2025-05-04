@@ -3,32 +3,32 @@ import Joi from 'joi';
 const reviewValidationSchema = Joi.object({
     name: Joi.string()
         .trim()
-        .min(1)
-        .max(20)
+        .min(2)
+        .max(50)
         .required()
         .messages({
         'string.empty': 'Name is required',
-        'string.min': 'Name must be at least 1 character long',
-        'string.max': 'Name must be at most 20 characters long',
+        'string.min': 'Name must be at least 2 characters',
+        'string.max': 'Name must be less than 50 characters',
         }),
     rating: Joi.number()
         .min(1)
         .max(5)
         .required()
         .messages({
-        'number.base': 'Rating must be a number',
+        'number.base': 'Rating is required',
         'number.min': 'Rating must be at least 1',
         'number.max': 'Rating must be at most 5',
         }),
     comment: Joi.string()
         .trim()
-        .min(4)
-        .max(250)
+        .min(10)
+        .max(400)
         .required()
         .messages({
-        'string.empty': 'Comment is required',
-        'string.min': 'Comment must be at least 4 characters long',
-        'string.max': 'Comment must can be maximum 250 characters long',
+        'string.empty': 'Details are required',
+        'string.min': 'Details must be at least 10 characters',
+        'string.max': 'Details must be less than 400 characters',
         }),
     reviewDate: Joi.date()
         .required()

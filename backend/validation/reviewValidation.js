@@ -3,8 +3,8 @@ import Joi from 'joi';
 const reviewValidationSchema = Joi.object({
     name: Joi.string()
         .trim()
-        .min(1)
-        .max(20)
+        .min(2)
+        .max(50)
         .required(),
     rating: Joi.number()
         .min(1)
@@ -12,8 +12,8 @@ const reviewValidationSchema = Joi.object({
         .required(),
     comment: Joi.string()
         .trim()
-        .min(4)
-        .max(250)
+        .min(10)
+        .max(400)
         .required(),
     reviewDate: Joi.date(),
   /*  ownerResponse: Joi.string()
