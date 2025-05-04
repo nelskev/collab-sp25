@@ -117,7 +117,7 @@ const ReviewsPage = () => {
 
   return (
     <div className="container section-3">
-      <h1 className="custom-blue mb-4">Leave a Review</h1>
+      <h1 className="mb-4">Leave a Review</h1>
 
       <div className="row">
         {/* Created A Review Form Component */}
