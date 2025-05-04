@@ -361,7 +361,8 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
 
 {sortCriteria === 'date' && sortOrder === 'custom' && (
 
-<div className='sort-appointments-wrapper d-flex gap-0 m-0 mb-5 mb-lg-0 mx-auto pb-0 mt-1'>
+<div className='sort-appointments-wrapper d-flex gap-0 m-0 mb-5 mb-lg-0 mx-auto pb-0 mt-1'> 
+  {/* Thank you to Jeff for majority of styling on this section! */}
 
 
 
