@@ -21,7 +21,7 @@ function AdminLoginPage() {
 <div className="col-md-8">
   <TextNameProvider>
 
-        <h2 className="text-center">Login</h2>
+        <h2 className="text-center">Administrator Login</h2>
         <br />
         {/* <LoginForm /> */}
         <SigninForm />

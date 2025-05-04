@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 
 const adminSchema = new mongoose.Schema({
@@ -26,6 +28,22 @@ const adminSchema = new mongoose.Schema({
   }
 
 })
+
+adminSchema.methods.generateToken = async function () {
+  try{
+    return jwt.sign({
+      adminId: this._id.toString(),
+    }
+    , process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    }
+  );
+  } catch (error) {
+    console.error('Error generating token:', error);
+  }
+
+
+};
   
 
 /* 

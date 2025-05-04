@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { authenticatedFetch } from '../authentication/authenticatedFetch'
 import formatTimezone from '/helpers/convertTimezoneDate'
 import AdminNavbar from '../components/AdminNavbar'
 import CreateAppointmentForm from '../components/CreateAppointmentForm'
@@ -12,6 +13,16 @@ import PrintAppointments from '../components/PrintAppointments'
 import userFrontendSchema from '../validation/appointmentFormValidation'
 
 
+
+
+
+
+/* This page in a nutshell:
+   The button click hits handleSubmit(), then the POST tries and if successful it's 'response.ok' which 
+   allows for the call to handleAppointmentCreated(), then fetchData GET's the new array */
+
+/* The new appointment is not directly added to the appointments state in the handleSubmit or handleAppointmentCreated methods. 
+   The appointments state is refreshed with the entire list of appointments on the GET fetch from the backend API */
 
 function AdminAppointmentsPage() {
 
@@ -68,7 +79,8 @@ function AdminAppointmentsPage() {
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/appointments')
+      // const response = await fetch('http://localhost:8000/appointments')
+      const response = await authenticatedFetch('http://localhost:8000/appointments')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -364,15 +376,21 @@ function AdminAppointmentsPage() {
     <div className="container d-flex flex-column gap-0 gap-lg-2 py-2 p-lg-3 my-2 my-lg-4">
       <h1 className="text-center fs-3 m-0 mt-1 section-header-blue">Appointment page</h1>
 
-        {/* Print Button */}
-        {selectedDate && !isNaN(new Date(selectedDate)) && (
-          <div style={{display: 'flex', justifyContent: 'center', marginTop: '1rem'}}>
+        {/* Print Button */}       
+          <div style={{
+            display: 'flex', 
+            justifyContent: 'center', 
+            marginTop: '1rem'
+          }}>
             <PrintAppointments 
-              appointments={filteredAppointments} 
-              selectedDate={new Date(selectedDate)} 
+            appointments={
+              searchEmail ? handleSearchedAppointments : 
+              selectedDate ? filteredAppointments : 
+              todaysAppointments
+            } 
+            selectedDate={new Date(selectedDate || new Date())} 
             />
           </div>
-        )}
 
       {showApptCreationBanner && (
         <div className="alert alert-success col-11 col-md-9 col-lg-6 col-xl-5 mx-auto mt-3 text-center" role="alert">

@@ -42,7 +42,7 @@ const CollisionRepair = () => {
   ];
   
     return (
-      <div className='container py-3'>
+      <div className='container py-5'>
   <div className='cards-wrapper'>
 
 
@@ -55,7 +55,7 @@ const CollisionRepair = () => {
           }}>Collision Repair Services</h2>
      
         {/* Before and after images */}
-        <div className='details-pane mb-3'
+        <div className='mb-3'
           style={{
           display: 'flex', 
           justifyContent: 'center'
@@ -156,7 +156,7 @@ const CollisionRepair = () => {
               </div>
             ))}
           </div>
-          <div className='details-pane text-center mb-4'>
+          <div className='text-center mb-5'>
                     <Link to='/appointments'>
                       <button className='btn btn-primary w-100 fs-5'>
                         Make Appointment

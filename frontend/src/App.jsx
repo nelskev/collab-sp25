@@ -46,8 +46,10 @@ function App() {
           <>
            <Navbar />
             <MissionStatement />
-            <Appointments />
-            <Services />
+            <div className='pt-0 pb-5'>
+              <Appointments />
+              <Services />
+            </div>
             <Footer />
           </>
         }/>
@@ -137,7 +139,7 @@ function App() {
        
 
 
-        <Route path='/adminlogin' element={
+        <Route path='/login' element={
           
           <>
           <Navbar />

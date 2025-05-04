@@ -18,7 +18,7 @@ export default function SigninForm() {
 }, [navigate]);
 
 
- const handleSubmit = async (e) => {
+ /* const handleSubmit = async (e) => {
   e.preventDefault();
 
   const formData = { username, password };
@@ -62,10 +62,53 @@ export default function SigninForm() {
     alert(error.message);
     setPassword('');
   }
+}; */
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = { username, password };
+
+  try {
+    // First, authenticate with username/password
+    const response = await fetch('http://localhost:8000/admin/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Login failed');
+    }
+
+    const data = await response.json();
+    
+    if (data.token && data._id) {
+      // Store the auth data
+      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('_id', data._id);
+      sessionStorage.setItem('_username', data.username);
+
+      // Navigate to admin page or redirect URL
+      const redirectUrl = new URLSearchParams(window.location.search).get('redirect');
+      navigate(redirectUrl || '/admin', { replace: true });
+    } else {
+      throw new Error('Invalid response from server');
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
+    alert(error.message);
+    setPassword('');
+  }
 };
+
 
   return (
 
+    
     <div className="main">
      <div className="container">
 

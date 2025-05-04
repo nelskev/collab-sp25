@@ -17,7 +17,7 @@ const CustPaintPage = () => {
   ];
 
   return (
-    <div className='container py-3'>
+    <div className='container py-5'>
       <div className='cards-wrapper'>
 
         <h2 
@@ -31,7 +31,7 @@ const CustPaintPage = () => {
         </h2>
 
         {/* Carousel */}
-        <div className='details-pane mb-3'
+        <div className='mb-3'
           style={{
           display: 'flex', 
           justifyContent: 'center'
@@ -95,7 +95,7 @@ const CustPaintPage = () => {
         </div>
 
         {/* Service description */}
-        <div className='details-pane text-center mb-3'>
+        <div className='text-center mb-3'>
           <p className='mb-3'>
           Our custom car paint services refers to any paint job that goes beyond standard factory colors and finishes, allowing for unique designs and effects. This can include custom color matching, intricate designs, and the application of special effects like pearls, flaking, or airbrushing. The goal of custom paint is to create a one-of-a-kind appearance that reflects the owner's personality and style.
           </p>
@@ -221,7 +221,7 @@ const CustPaintPage = () => {
         </div>
 
         {/* Make Appointment button */}
-        <div className='details-pane text-center mb-4'>
+        <div className='text-center mb-5'>
           <Link to='/appointments'>
             <button className='btn btn-primary w-100 fs-5'>
               Make Appointment
