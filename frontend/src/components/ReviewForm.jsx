@@ -50,12 +50,12 @@ export default function ReviewForm({
       </div>
 
       {/* Submit */}
-      <button type="submit" className="btn btn-primary">Submit Review</button>
+      <button type="submit" className="btn btn-primary rounded">Submit Review</button>
 
       {/* To List Reviews page */}
       <div className="mt-3">
         <Link to="/list_reviews">
-          <button type="button" className="btn btn-secondary">
+          <button type="button" className="btn btn-primary rounded">
             See All Reviews
           </button>
         </Link>
