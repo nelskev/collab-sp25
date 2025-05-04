@@ -69,7 +69,7 @@ function AdminReviewsPage() {
       }
       const data = await response.json()
       setReviews(data)
-      console.log('Server response:', data)
+      // console.log('Server response:', data)
     } catch (error) {
       console.error('Error:', error)
     }
@@ -132,13 +132,13 @@ function AdminReviewsPage() {
 
 function getStartDate(date) {
   const startDate = new Date(date + 'T00:00:00');
-  console.log('getStartDate:', startDate.toLocaleString());
+  // console.log('getStartDate:', startDate.toLocaleString());
   return startDate;
 }
 
 function getEndDate(date) {
   const endDate = new Date(date + 'T23:59:59.999');
-  console.log('getEndDate:', endDate.toLocaleString());
+  // console.log('getEndDate:', endDate.toLocaleString());
   return endDate;
 }
 
@@ -370,10 +370,10 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
   type="date" 
   onChange={(e) => {
     const date = new Date(e.target.value);
-    console.log('Selected start date:', date.toISOString());
+    // console.log('Selected start date:', date.toISOString());
     setStartDate(e.target.value);
     if (endDate === null || date > new Date(endDate)) {
-      console.log('Setting end date to:', date.toISOString());
+      // console.log('Setting end date to:', date.toISOString());
       setEndDate(getEndDate(e.target.value));
     }
   }}
@@ -382,15 +382,15 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
   disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
 />
 
-{startDate && (
+
   <input 
     className='m-0 sort-dates-input'
     type="date" 
     onChange={(e) => {
       const date = new Date(e.target.value);
-      console.log('Selected end date:', date.toISOString());
+      // console.log('Selected end date:', date.toISOString());
       if (startDate === null || date < new Date(startDate)) {
-        console.log('Setting start date to:', date.toISOString());
+        // console.log('Setting start date to:', date.toISOString());
         setStartDate(e.target.value);
       }
       setEndDate(e.target.value);
@@ -399,7 +399,7 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
     placeholder="Select end date"
     disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
   />
-)}
+
 
 
 
