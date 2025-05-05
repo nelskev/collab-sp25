@@ -84,7 +84,7 @@ const ContactPage = () => {
         }
         //Post Data
         try {
-          const response = await fetch('http://localhost:8000/contacts', {
+          const response = await fetch('/contacts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

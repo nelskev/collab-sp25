@@ -204,7 +204,7 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
   const handleDeleteReview = (review) => {
     if (window.confirm('Are you sure you want to delete this review?')) {
       if (review._id) {
-        fetch(`http://localhost:8000/reviews/${review._id}`, {
+        fetch(`/reviews/${review._id}`, {
           method: 'DELETE',
         })
         .then(() => {
@@ -243,7 +243,7 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
     } else {
       if (window.confirm(`Confirm response message: ${response} `)) {
         if (reviewId) {
-          fetch(`http://localhost:8000/reviews/${reviewId}`, {
+          fetch(`/reviews/${reviewId}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',

@@ -164,7 +164,7 @@ function AdminAppointmentsPage() {
     const { date, time } = formatTimezone(createDateTime)
     console.log(date, time, name)
     try {
-      const response = await fetch('http://localhost:8000/appointments', {
+      const response = await fetch('/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -260,7 +260,7 @@ function AdminAppointmentsPage() {
     const { date, time } = formatTimezone(editDateTime)
 
     try {
-      const response = await fetch(`http://localhost:8000/appointments/${selectedAppointment._id}`, {
+      const response = await fetch(`/appointments/${selectedAppointment._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', },
           body: JSON.stringify({ 
@@ -296,7 +296,7 @@ function AdminAppointmentsPage() {
   const confirmDeleteUser  = async (idToDelete) => {
     console.log(idToDelete)
     try {
-      const response = await fetch(`http://localhost:8000/appointments/${idToDelete}`, {
+      const response = await fetch(`/appointments/${idToDelete}`, {
         method: 'DELETE',
       })
   

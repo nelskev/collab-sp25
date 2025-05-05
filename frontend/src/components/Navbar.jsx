@@ -23,7 +23,7 @@ useEffect(() => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/admin/signin/verify-token', {
+      const response = await fetch('/admin/signin/verify-token', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -91,7 +91,7 @@ const ReviewsPage = () => {
       console.log("Attempting to send review data:", newReview);//debug
 
       try {
-        const response = await fetch('http://localhost:8000/reviews', {
+        const response = await fetch('/reviews', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newReview),
