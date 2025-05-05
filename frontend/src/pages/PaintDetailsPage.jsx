@@ -224,7 +224,7 @@ const PaintDetailsPage = () => {
 
         {/* Make Appointment button */}
         <div className='text-center mb-5'>
-          <Link to='/appointments'>
+          <Link to='/appointment'>
             <button className='btn btn-primary w-100 fs-5'>
               Make Appointment
             </button>
