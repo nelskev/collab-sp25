@@ -9,13 +9,18 @@ export default function ReviewForm({
   setRating,
   comment,
   setComment,
-  handleSubmit
+  handleSubmit,
+  // allErrors,
+  nameError,
+  ratingError,
+  commentError
 }) {
   return (
     <form onSubmit={handleSubmit}>
       {/* Rating */}
       <div className="mb-3">
         <Rating onClick={setRating} ratingValue={rating} size={25} />
+        {ratingError && <span className="text-danger">{ratingError}</span>} 
       </div>
 
       {/* Name */}
@@ -26,8 +31,9 @@ export default function ReviewForm({
           placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
+          
         />
+        {nameError && <span className="text-danger">{nameError}</span>} 
       </div>
 
       {/* Comment */}
@@ -37,18 +43,19 @@ export default function ReviewForm({
           placeholder="Your Review"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          required
+          
           rows="4"
         />
+        {commentError && <span className="text-danger">{commentError}</span>} 
       </div>
 
       {/* Submit */}
-      <button type="submit" className="btn btn-primary">Submit Review</button>
+      <button type="submit" className="btn btn-primary rounded">Submit Review</button>
 
       {/* To List Reviews page */}
       <div className="mt-3">
         <Link to="/list_reviews">
-          <button type="button" className="btn btn-secondary">
+          <button type="button" className="btn btn-primary rounded">
             See All Reviews
           </button>
         </Link>

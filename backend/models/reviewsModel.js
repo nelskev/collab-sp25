@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 const reviewSchema = new mongoose.Schema({
   name: { 
     type: String,
-    maxlength: 20,
-    minlength: 1,
+    maxlength: 50,
+    minlength: 2,
     required: true 
   },
   rating: {
@@ -17,8 +17,8 @@ const reviewSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    maxlength: 250,
-    minlength: 4,
+    maxlength: 400,
+    minlength: 10,
     required: true 
   },
   reviewDate: {

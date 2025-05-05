@@ -6,6 +6,7 @@ import { authenticatedFetch } from '../authentication/authenticatedFetch'
 
 
 
+
 import ReviewCard from '../components/ReviewCard';
 import AdminNavbar from '../components/AdminNavbar';
 
@@ -52,6 +53,8 @@ function AdminReviewsPage() {
   const [endDate, setEndDate] = useState(null);
   
 
+  const [responseBanner, setResponseBanner] = useState(false);
+  const [deleteBanner, setDeleteBanner] = useState(false);
 
 
 
@@ -66,7 +69,7 @@ function AdminReviewsPage() {
       }
       const data = await response.json()
       setReviews(data)
-      console.log('Server response:', data)
+      // console.log('Server response:', data)
     } catch (error) {
       console.error('Error:', error)
     }
@@ -83,20 +86,34 @@ function AdminReviewsPage() {
   }, [startDate, endDate]);   // useEffect only handles the initial data load (runs once), which is our state array
   
 
-
+  useEffect(() => {
+    if (sortCriteria === 'date' && sortOrder === 'custom') {
+      const currentDate = new Date().toISOString().slice(0, 10);
+      setStartDate(currentDate);
+      setEndDate(currentDate);
+    } else {
+      setStartDate(null);
+      setEndDate(null);
+    }
+  }, [sortCriteria, sortOrder]);
 
 
   const handleSortChange = (e) => {
     const newSortCriteria = e.target.value;
     setSortCriteria(newSortCriteria);
     if (newSortCriteria !== 'date' || sortOrder !== 'custom') {
-      setStartDate(null); // Reset the date filter
-      setEndDate(null); // Reset the date filter
+      setStartDate(null); 
+      setEndDate(null); 
     }
     if (newSortCriteria !== 'date' && sortOrder === 'custom') {
-      setSortOrder('desc'); // Reset sort order to 'descending' when criteria changes
+      setSortOrder('desc'); 
     }
-    fetchData(); // Fetch the reviews again
+    if (newSortCriteria === 'date' && sortOrder === 'custom') {
+      const currentDate = new Date().toISOString().slice(0, 10);
+      setStartDate(currentDate);
+      setEndDate(currentDate);
+    }
+    fetchData(); 
   }
   
   const handleSortOrderChange = (e) => {
@@ -113,19 +130,31 @@ function AdminReviewsPage() {
 
 
 
+function getStartDate(date) {
+  const startDate = new Date(date + 'T00:00:00');
+  // console.log('getStartDate:', startDate.toLocaleString());
+  return startDate;
+}
 
+function getEndDate(date) {
+  const endDate = new Date(date + 'T23:59:59.999');
+  // console.log('getEndDate:', endDate.toLocaleString());
+  return endDate;
+}
 
 
 const filteredReviews = startDate && endDate
   ? reviews.filter(review => {
       const reviewDate = new Date(review.reviewDate);
-      const startDateMidnight = new Date(startDate);
-      startDateMidnight.setHours(0, 0, 0, 0);
-      const endDateMidnight = new Date(endDate);
-      endDateMidnight.setHours(23, 59, 59, 0);
-      return reviewDate >= startDateMidnight && reviewDate <= endDateMidnight;
-    }) // startDateMidnight and endDateMidnight are used so if the user selects one day the filter will select it regardless of time.
+      const startDateMidnight = getStartDate(startDate);
+      const endDateLastMillisecond = getEndDate(endDate);
+      
+      
+      return reviewDate >= startDateMidnight && reviewDate <= endDateLastMillisecond;
+    })
   : reviews;
+
+
 
 
 
@@ -181,6 +210,10 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
         .then(() => {
           setReviews(reviews.filter((r) => r._id !== review._id));
           setSelectedReview(null);
+          setDeleteBanner(true);
+          setTimeout(() => {
+            setDeleteBanner(false);
+          }, 3000); // Hide the banner after 3 seconds
         })
         .catch((error) => {
           console.error('Error:', error)
@@ -230,6 +263,10 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
             setReviews(updatedReviews);
             setResponse('');
             setSelectedReview(null);
+            setResponseBanner(true);
+            setTimeout(() => {
+              setResponseBanner(false);
+            }, 3000); 
           })
           .catch((error) => {
             console.error('Error:', error)
@@ -258,18 +295,25 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
       <div className="row">
         <div className="col-md-8 offset-md-2">
             <div className="sticky-top bg-white p-2 border-bottom">
-              <h2 className="mb-0"><b>My Reviews</b></h2>
+            <h1 class="text-center fs-3 m-0 mt-1 section-header-blue">My Reviews</h1>
             </div>
-            <select value={sortCriteria} onChange={handleSortChange}>
+
+          <div className="text-center mt-2 mb-2">
+            <select className="btn  btn-primary dropdown-toggle me-1" value={sortCriteria} onChange={handleSortChange}>
               <option value="date">Date</option>
               <option value="rating">Rating</option>
               <option value="name">Name</option>
             </select>
-            <select value={sortOrder} onChange={handleSortOrderChange}>
+
+
+            <select className="btn  btn-primary dropdown-toggle" value={sortOrder} onChange={handleSortOrderChange}>
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
               <option value="custom" disabled={ sortCriteria === `date` ? `` : true}>Select Date</option>
             </select>
+          </div>      
+
+
  
 
 <div style={{
@@ -278,6 +322,7 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
 }}>
 
 
+{/* 
 <DatePicker
   selected={startDate}
   onChange={(date) => {
@@ -288,6 +333,8 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
   placeholderText="Select a date"
   disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
 />
+
+{startDate && (
 <DatePicker
   selected={endDate}
   onChange={(date) => {
@@ -298,9 +345,70 @@ const sortedReviews = [...filteredReviews].sort((a, b) => {
   placeholderText="Select end date"
   disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
 />
+)}
+*/}
+{responseBanner && (
+        <div className="alert alert-success col-11 col-md-9 col-lg-6 col-xl-5 mx-auto mt-3 text-center" role="alert">
+          Response given
+        </div>
+      )}
+
+{deleteBanner && (
+        <div className="alert alert-danger col-11 col-md-9 col-lg-6 col-xl-5 mx-auto mt-3 text-center" role="alert">
+          Review deleted
+        </div>
+      )}
+
+{sortCriteria === 'date' && sortOrder === 'custom' && (
+
+<div className='sort-appointments-wrapper d-flex gap-0 m-0 mb-5 mb-lg-0 mx-auto pb-0 mt-1'> 
+  {/* Thank you to Jeff for majority of styling on this section! */}
+
+
+
+<input 
+  className='m-0 sort-dates-input'
+  type="date" 
+  onChange={(e) => {
+    const date = new Date(e.target.value);
+    // console.log('Selected start date:', date.toISOString());
+    setStartDate(e.target.value);
+    if (endDate === null || date > new Date(endDate)) {
+      // console.log('Setting end date to:', date.toISOString());
+      setEndDate(getEndDate(e.target.value));
+    }
+  }}
+  value={startDate || ''}
+  placeholder="Select start date"
+  disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
+/>
+
+
+  <input 
+    className='m-0 sort-dates-input'
+    type="date" 
+    onChange={(e) => {
+      const date = new Date(e.target.value);
+      // console.log('Selected end date:', date.toISOString());
+      if (startDate === null || date < new Date(startDate)) {
+        // console.log('Setting start date to:', date.toISOString());
+        setStartDate(e.target.value);
+      }
+      setEndDate(e.target.value);
+    }} 
+    value={endDate || ''}
+    placeholder="Select end date"
+    disabled={sortCriteria !== 'date' || sortOrder !== 'custom'}
+  />
+
+
+
+
+</div>
+)}
 </div>
               
-      
+
 
 <div className="border p-3 overflow-auto" 
 style={{ height: '500px' }} 
