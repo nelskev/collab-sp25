@@ -2,7 +2,8 @@ import React from 'react'
 // eslint-disable-next-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLogoutButton from './AdminLogoutButton';
-import Logo from '../../assets/Logo2.png';
+import Logo from '../../assets/Logo.png';
+import Logo1 from '../../assets/Logo3.png';
 export default function AdminNavbar() {
 
   
@@ -21,7 +22,7 @@ export default function AdminNavbar() {
             className="left d-xs-none d-lg-flex flex-column logo-large link-underline link-underline-opacity-0"
             href="index.html"
           >
-             <img src={Logo}  alt="logo" style={{width: '300px', height: '300px'}}/>
+             <img src={Logo}  alt="logo" style={{width: '200px', height: '80px'}}/>
    
           </Link>
    {/* {sessionStorage.getItem('_id') && (<Link to="/" className=" d-flex justify-content-end">
@@ -63,9 +64,9 @@ export default function AdminNavbar() {
           {/* Small Logo  */}
           {/*/ ******* Back to index.html ******* /*/}
           <Link to="/" className="navbar-brand d-md-none">
-            <div className="left d-xs-none d-lg-flex flex-column logo-small">
-                <h2 className="custom-blue m-0 fs-1">Scott's</h2>
-                <h5 className="m-0">Collision Repair</h5>
+            <div className="left d-xs-none d-lg-flex flex-column logo-small"
+            href="index.html">
+                <img src={Logo1} alt="logo" style={{ width: '200px', height: '80px' }} loading="lazy"/>
             </div>
           </Link>
 
