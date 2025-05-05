@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import connectToDatabase from "./database.js"; // Import database connection
+//  import connectToDatabase from "./database.js"; // Import database connection
+
+import connectToDatabase from "../backend/database.js";
+import path from "path";
 
 // ROUTES
 import reviewsRoutes from "./routes/reviews.js"
@@ -30,6 +33,16 @@ app.use("/contacts", contactsRoutes); // added by MarcoRamos 4/04/2025
 app.use("/admin/create", adminCreate); // added by Kevin 4/19/2025
 app.use("/admin/signin", adminSignin); // added by Kevin 4/19/2025
 
+
+const __dirname = path.resolve();
+
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+    });
+};
 
 // Connect to MongoDB (using the import above)
 connectToDatabase();
