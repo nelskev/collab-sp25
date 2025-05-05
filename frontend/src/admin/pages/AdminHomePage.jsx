@@ -12,7 +12,7 @@ export default function AdminHomePage() {
   // gets the initial list of appointments, but also runs a second time after the POST request if it's successful
   const fetchData = async () => {
     try {
-      const response = await authenticatedFetch('http://localhost:8000/appointments')
+      const response = await authenticatedFetch('/appointments')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }

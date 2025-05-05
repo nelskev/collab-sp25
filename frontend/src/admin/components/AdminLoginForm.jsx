@@ -71,7 +71,7 @@ const handleSubmit = async (e) => {
 
   try {
     // First, authenticate with username/password
-    const response = await fetch('http://localhost:8000/admin/signin', {
+    const response = await fetch('/admin/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

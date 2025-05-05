@@ -21,7 +21,7 @@ const ReviewsPage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/reviews');
+      const response = await fetch('/reviews');
       const data = await response.json();
 
       const sortedReviews = data

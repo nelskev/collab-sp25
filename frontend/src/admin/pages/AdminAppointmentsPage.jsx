@@ -80,7 +80,7 @@ function AdminAppointmentsPage() {
   const fetchData = async () => {
     try {
       // const response = await fetch('http://localhost:8000/appointments')
-      const response = await authenticatedFetch('http://localhost:8000/appointments')
+      const response = await authenticatedFetch('/appointments')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
