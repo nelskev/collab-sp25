@@ -7,8 +7,9 @@
     "scripts": {
     "dev": "NODE_ENV=development nodemon backend/server.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "NODE_ENV=production node backend/server.js"
+    "build-site": "npm run build --prefix frontend",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node backend/server.js"
     },
     "type": "module",
     "keywords": [],

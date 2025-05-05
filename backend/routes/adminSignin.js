@@ -93,7 +93,7 @@ router.get('/verify-token', (req, res) => {
 });
 
 
-
+/* Removed for security reasons 
 // TEMP METHOD TO RETURN ADMIN INFO
 router.get('/:username', async (req, res) => {
   const { username } = req.params;
@@ -117,7 +117,7 @@ router.get('/:username', async (req, res) => {
     res.status(500).json('Internal server error.');
   }
 });
-
+*/
 
 
 export default router;

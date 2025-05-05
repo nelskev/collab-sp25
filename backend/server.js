@@ -45,10 +45,11 @@ if(process.env.NODE_ENV === "production") {
 };
 
 // Connect to MongoDB (using the import above)
-connectToDatabase();
+// connectToDatabase();
 
 
 // Start server
 app.listen(PORT, () => {
+    connectToDatabase();
     console.log(`Server is running at http://localhost:${PORT}`);
 }); 
